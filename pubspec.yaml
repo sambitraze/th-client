@@ -24,8 +24,10 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.0
+  double_back_to_close_app: ^1.2.0
   firebase_auth: ^0.18.3
   firebase_core: ^0.5.2
+  google_nav_bar: ^3.1.0
   http: ^0.12.2
   shared_preferences: ^0.5.12+4
 

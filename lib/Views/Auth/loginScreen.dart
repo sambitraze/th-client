@@ -1,5 +1,5 @@
 import 'package:client/Services/AuthService.dart';
-import 'package:client/Views/HomeScreen/LandingScreen.dart';
+import 'package:client/LandingScreen.dart';
 import 'package:client/Views/components/txtfield.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   Future<void> verifyPhone(phoneNo) async {
+    print(phoneNo);
     final PhoneVerificationCompleted verified = (AuthCredential authResult) {
       AuthService().signIn(authResult, phoneNo);
     };
@@ -69,13 +70,16 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Form(
           key: formkey,
           child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: EdgeInsets.only(top:30),
+                padding: EdgeInsets.only(top: 30),
                 child: Column(
                   children: [
-                    CircleAvatar(backgroundImage: AssetImage("assets/logo.png"),radius: 50,),
+                    CircleAvatar(
+                      backgroundImage: AssetImage("assets/logo.png"),
+                      radius: 50,
+                    ),
                     Center(
                       child: Text(
                         'Tandoor Hut',
@@ -167,6 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                         ),
                         onPressed: () {
+                          print(phoneNo.text);
                           codeSent
                               ? AuthService().signInWithOTP(
                                   smsCode, verificationId, phoneNo.text)

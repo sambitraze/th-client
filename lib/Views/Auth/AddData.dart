@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:client/Services/UserService.dart';
-import 'package:client/Views/HomeScreen/LandingScreen.dart';
+import 'package:client/LandingScreen.dart';
 import 'package:client/Views/components/txtfield.dart';
 import 'package:client/models/User.dart';
 import 'package:client/models/User.dart';
@@ -17,11 +17,17 @@ class _AddDataState extends State<AddData> {
   TextEditingController name = TextEditingController();
   TextEditingController address = TextEditingController();
   TextEditingController email = TextEditingController();
-  double latitude, longitude;
+  double latitude, longitude = 0.0;
   String deviceToken = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          SharedPreferences pref = await SharedPreferences.getInstance();
+          print(pref.setBool("newUser", false));
+        },
+      ),
       body: Container(
         decoration: BoxDecoration(
           color: Colors.black.withOpacity(1),
@@ -97,7 +103,6 @@ class _AddDataState extends State<AddData> {
                   User user = await UserService.createUser(
                     jsonEncode(
                       User(
-                        uid: pref.getString("uid"),
                         phone: pref.getString("phoneNo"),
                         email: email.text,
                         name: name.text,
@@ -108,14 +113,8 @@ class _AddDataState extends State<AddData> {
                       ).toJson(),
                     ),
                   );
-                  if (user.uid != null) {
+                  if (user.id != null) {
                     pref.setBool("newUser", false);
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LandingScreen(),
-                      ),
-                    );
                   } else {
                     print("sdasda");
                   }
