@@ -1,5 +1,4 @@
 import 'package:client/Services/AuthService.dart';
-import 'package:client/LandingScreen.dart';
 import 'package:client/Views/components/txtfield.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
