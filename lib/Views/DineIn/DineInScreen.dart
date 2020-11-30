@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DineInScreen extends StatefulWidget {
   @override
@@ -8,8 +9,28 @@ class DineInScreen extends StatefulWidget {
 class _DineInScreenState extends State<DineInScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Container(
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SvgPicture.asset(
+              'assets/svg/construction.svg',
+              height: 128.0,
+            ),
+            SizedBox(height: 30),
+            Text(
+              'Coming Soon',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

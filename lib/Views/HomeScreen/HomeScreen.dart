@@ -12,7 +12,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     getData();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -32,90 +31,65 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return loading
-          ? Center(child: CircularProgressIndicator())
-          : Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        elevation: 0,
-        brightness: Brightness.dark,
-        actions: [
-          CircleAvatar(
-            backgroundColor: Colors.white,
-            child: InkWell(
-              child: Text(
-                client.name.substring(0, 1),
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 22,
-                ),
-              ),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProfileScreen(),
-                ),
-              ),
-            ),
-          ),
-        ],
-        leading: Icon(
-          Icons.location_on,
-          color: Color.fromRGBO(252, 126, 47, 1),
-          size: 35,
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'Home',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-              ),
-            ),
-            Text(
-              client.address,
-              style: TextStyle(
-                color: Colors.grey[400],
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
-      ),
-      backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[                  
-                  SizedBox(height: 10),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.search),
-                        focusColor: Colors.white,
-                        fillColor: Colors.white,
-                        filled: true,
-                        hintText: 'Crave for it',
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide:
-                              BorderSide(color: Colors.white, width: 1.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide:
-                              BorderSide(color: Colors.white, width: 2.0),
+        ? Center(child: CircularProgressIndicator())
+        : Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.black,
+              elevation: 0,
+              brightness: Brightness.dark,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: InkWell(
+                      child: Text(
+                        client.name.substring(0, 1),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 22,
                         ),
                       ),
-                      // onTap: () => Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => SearchPage(),
-                      //   ),
-                      // ),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProfileScreen(),
+                        ),
+                      ),
                     ),
                   ),
+                ),
+              ],
+              leading: Icon(
+                Icons.location_on,
+                color: Color.fromRGBO(252, 126, 47, 1),
+                size: 35,
+              ),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Home',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                  Text(
+                    client.address,
+                    style: TextStyle(
+                      color: Colors.grey[400],
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            backgroundColor: Colors.black,
+            body: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 10),
                   Container(
                     padding: EdgeInsets.only(top: 10, left: 10),
                     alignment: Alignment.topLeft,
@@ -210,6 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: 24,
                           ),
                         ),
+                        //top 10 items
                         SizedBox(height: 5),
                         Text(
                           'Most ordered in your city',
@@ -219,64 +194,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         SizedBox(height: 20),
-                        // SizedBox(
-                        //   height: 200,
-                        //   child: StreamBuilder(
-                        //       stream: Firestore.instance
-                        //           .collection('homepage8')
-                        //           .document('UNACEBv1ZIbzuAGx7l0k')
-                        //           .snapshots(),
-                        //       builder: (context, snapshot) {
-                        //         print(snapshot.data['name']);
-                        //         return GridView.count(
-                        //           crossAxisCount: 2,
-                        //           crossAxisSpacing: 5,
-                        //           // mainAxisSpacing: 2,
-                        //           scrollDirection: Axis.horizontal,
-                        //           children: List.generate(
-                        //             8,
-                        //             (index) {
-                        //               print(snapshot.data['name']);
-                        //               return Container(
-                        //                 child: Column(
-                        //                   children: <Widget>[
-                        //                     Container(
-                        //                       decoration: BoxDecoration(
-                        //                         borderRadius:
-                        //                             BorderRadius.circular(15),
-                        //                         image: DecorationImage(
-                        //                           image: NetworkImage(
-                        //                               snapshot.data['photourl'],
-                        //                               scale: 1),
-                        //                           fit: BoxFit.cover,
-                        //                         ),
-                        //                       ),
-                        //                       child: InkWell(
-                        //                         child: SizedBox(
-                        //                           height: 76,
-                        //                           width: 80,
-                        //                         ),
-                        //                         onTap: () => print(DateTime.now()),
-                        //                       ),
-                        //                     ),
-                        //                     SizedBox(height: 6),
-                        //                     Text(
-                        //                       snapshot.data['name'],
-                        //                       softWrap: true,
-                        //                       overflow: TextOverflow.ellipsis,
-                        //                       style: TextStyle(
-                        //                         color: Colors.grey[400],
-                        //                         fontSize: 12,
-                        //                       ),
-                        //                     ),
-                        //                   ],
-                        //                 ),
-                        //               );
-                        //             },
-                        //           ),
-                        //         );
-                        //       }),
-                        // ),
                       ],
                     ),
                   ),
@@ -505,6 +422,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-    );
+          );
   }
 }

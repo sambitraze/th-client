@@ -45,7 +45,6 @@ class _MenuScreenState extends State<MenuScreen> {
   List<Item> menulist6 = [];
   @override
   void initState() {
-    // TODO: implement initState
     getItems();
     super.initState();
   }
@@ -57,24 +56,25 @@ class _MenuScreenState extends State<MenuScreen> {
       loading = true;
     });
     items = await ItemService.getItems();
+    print(items.length);
     items.forEach((element) {
-     setState(() {
+      setState(() {
         if (element.category == "Tandoor") {
-        menulist0.add(element);
-      } else if (element.category == "Main Course") {
-        menulist1.add(element);
-      } else if (element.category == "Chinese Main Course") {
-        menulist2.add(element);
-      } else if (element.category == "Rice/Biryani") {
-        menulist3.add(element);
-      } else if (element.category == "Noodles") {
-        menulist4.add(element);
-      } else if (element.category == "Rolls and Momos") {
-        menulist5.add(element);
-      } else if (element.category == "Breads") {
-        menulist6.add(element);
-      }
-     });
+          menulist0.add(element);
+        } else if (element.category == "Main Course") {
+          menulist1.add(element);
+        } else if (element.category == "Chinese Main Course") {
+          menulist2.add(element);
+        } else if (element.category == "Rice/Biryani") {
+          menulist3.add(element);
+        } else if (element.category == "Noodles") {
+          menulist4.add(element);
+        } else if (element.category == "Rolls and Momos") {
+          menulist5.add(element);
+        } else if (element.category == "Breads") {
+          menulist6.add(element);
+        }
+      });
     });
     print(items.length);
     setState(() {
@@ -139,6 +139,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                           image: AssetImage('assets/menu' +
                                               index.toString() +
                                               '.png'),
+                                              colorFilter: ColorFilter.mode(Colors.black45, BlendMode.darken),
                                           fit: BoxFit.cover,
                                         ),
                                       ),

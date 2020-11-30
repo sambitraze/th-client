@@ -1,9 +1,6 @@
 import 'dart:convert';
-
 import 'package:client/models/Item.dart';
-import 'package:client/models/User.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ItemService {
   // ignore: missing_return
@@ -16,10 +13,10 @@ class ItemService {
       var responseMap = json.decode(response.body);
       List<Item> items =
           responseMap.map<Item>((itemMap) => Item.fromJson(itemMap)).toList();
+      print(items.length);
       return items;
     } else {
-      print("Debug create user");
+      print("Debug get item");
     }
   }
-  
 }

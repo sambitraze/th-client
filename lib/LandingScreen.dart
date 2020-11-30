@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:client/Services/PushService.dart';
 import 'package:client/Views/Auth/loginScreen.dart';
 import 'package:client/Views/Cart/CartScreen.dart';
 import 'package:client/Views/DineIn/DineInScreen.dart';
@@ -6,6 +9,8 @@ import 'package:client/Views/Menu/MenuScreen.dart';
 import 'package:client/Views/TakeAway/TakeAwayScreen.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -15,16 +20,56 @@ class LandingScreen extends StatefulWidget {
 }
 
 class _LandingScreenState extends State<LandingScreen> {
-
   int _selectedIndex = 0;
-  PageController 
-    pageController = PageController(
-      initialPage: 0,
-      keepPage: true,
-    );
+  PageController pageController = PageController(
+    initialPage: 0,
+    keepPage: true,
+  );
+
+  final _fcm = FirebaseMessaging();
   @override
   void initState() {
+    PushService.genTokenID();
     super.initState();
+    _fcm.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+        showDialog(
+          context: context,
+          builder: (context) => Platform.isAndroid
+              ? AlertDialog(
+                  title: Text(message['notification']['title']),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                  content: Text(message['notification']['body']),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text('Ok'),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ],
+                )
+              : CupertinoAlertDialog(
+                  title: Text(message['notification']['title']),
+                  content: Text(message['notification']['body']),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text('Ok'),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ],
+                ),
+        );
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+        // TODO optional
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+        // TODO optional
+      },
+    );
   }
 
   @override
@@ -36,12 +81,13 @@ class _LandingScreenState extends State<LandingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-      onPressed: () async {
-        await FirebaseAuth.instance.signOut();
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()));
-      },
-    ),
+        onPressed: () async {
+          // await FirebaseAuth.instance.signOut();
+          // Navigator.pushReplacement(
+          //     context, MaterialPageRoute(builder: (context) => LoginScreen()));
+          await PushService.sendPushToSelf("henlo", "whatsup");
+        },
+      ),
       body: DoubleBackToCloseApp(
         snackBar: const SnackBar(
           content: Text('Tap back again to leave'),
@@ -109,7 +155,6 @@ class _LandingScreenState extends State<LandingScreen> {
             ],
             selectedIndex: _selectedIndex,
             onTabChange: (index) {
-              print(index);
               setState(
                 () {
                   _selectedIndex = index;

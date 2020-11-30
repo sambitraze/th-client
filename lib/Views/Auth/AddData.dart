@@ -1,9 +1,6 @@
 import 'dart:convert';
-
 import 'package:client/Services/UserService.dart';
-import 'package:client/LandingScreen.dart';
 import 'package:client/Views/components/txtfield.dart';
-import 'package:client/models/User.dart';
 import 'package:client/models/User.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
