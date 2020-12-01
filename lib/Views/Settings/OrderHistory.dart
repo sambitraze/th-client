@@ -50,14 +50,14 @@ class _OrderHistoryState extends State<OrderHistory> {
           ),
           onPressed: () => Navigator.pop(context),
         ),
-        title:  Text(
-                            "Order History",
-                            style: TextStyle(
-                              fontSize: 32,
-                              color: Colors.white,
-                            ),
-                          ),
-                          centerTitle: true,
+        title: Text(
+          "Order History",
+          style: TextStyle(
+            fontSize: 32,
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
       ),
       backgroundColor: Colors.black12,
       body: !loading
@@ -84,7 +84,6 @@ class _OrderHistoryState extends State<OrderHistory> {
                   color: Colors.black12,
                   child: Column(
                     children: <Widget>[
-                     
                       SizedBox(
                         height: 20,
                       ),
@@ -115,7 +114,7 @@ class _OrderHistoryState extends State<OrderHistory> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              OrderDetailScreen(),
+                                              OrderDetailScreen(order: orders[index],),
                                         ),
                                       ),
                                       icon: Icon(
@@ -156,8 +155,7 @@ class _OrderHistoryState extends State<OrderHistory> {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            Text(
-                                              // (double.parse(orders[index].amount) + double.parse(orders[index].gst)+double.parse(orders[index].packing)).toString() ,
+                                            Text(                                              
                                               orders[index].status,
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
@@ -176,12 +174,6 @@ class _OrderHistoryState extends State<OrderHistory> {
                                             ),
                                             Text(
                                               '${orders[index].createdAt.day}-${orders[index].createdAt.month}-${orders[index].createdAt.year}',
-                                              // +
-                                              //     formatter.format(DateTime.parse(
-                                              //         snapshot.data
-                                              //             .documents[index]['date']
-                                              //             .toDate()
-                                              //             .toString())),
                                               style: TextStyle(
                                                 fontSize: 12,
                                                 color: Colors.grey[400],

@@ -21,7 +21,6 @@ class PushService {
   static Future<String> sendPushToSelf(String title, String message) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     var deviceToken = pref.getString("deviceToken");
-    print(deviceToken);
     final Map<String, String> headers = {"Content-Type": "application/json"};
     var body = jsonEncode(
       {"title": title, "message": message, "deviceToken": deviceToken},
@@ -31,7 +30,6 @@ class PushService {
         headers: headers,
         body: body);
 
-    print(response.statusCode);
     if (response.statusCode == 200) {
       return response.body;
     } else {

@@ -26,6 +26,8 @@ class _LandingScreenState extends State<LandingScreen> {
     initialPage: 0,
     keepPage: true,
   );
+  List<String> notifications = [];
+  List<String> time = [];
 
   final _fcm = FirebaseMessaging();
   @override
@@ -34,7 +36,15 @@ class _LandingScreenState extends State<LandingScreen> {
     super.initState();
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
-        print("onMessage: $message");
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        notifications = prefs.getStringList("notifications");
+        time = prefs.getStringList("time");
+        setState(() {
+          time.add(DateTime.now().toString());
+          notifications.add(message['notification']['body']);
+        });
+        prefs.setStringList("notifications", notifications);
+        prefs.setStringList("time", time);
         showDialog(
           context: context,
           builder: (context) => Platform.isAndroid
@@ -83,11 +93,10 @@ class _LandingScreenState extends State<LandingScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          // await FirebaseAuth.instance.signOut();
-          // Navigator.pushReplacement(
-          //     context, MaterialPageRoute(builder: (context) => LoginScreen()));
+         
+          await PushService.sendPushToSelf("helo", "dssa");
           SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("phoneNo", "7749923882");
+          prefs.setString("phoneNo", "7749923882");
         },
       ),
       body: DoubleBackToCloseApp(

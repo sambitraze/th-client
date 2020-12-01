@@ -1,12 +1,13 @@
 import 'package:client/Services/UserService.dart';
+import 'package:client/Views/Auth/loginScreen.dart';
 import 'package:client/Views/Settings/DevPage.dart';
 import 'package:client/Views/Settings/EditProfileScreen.dart';
 import 'package:client/Views/Settings/ManageAddress.dart';
 import 'package:client/Views/Settings/OrderHistory.dart';
 import 'package:client/Views/Settings/notfication.dart';
-import 'package:client/Views/Settings/savedFood.dart';
 import 'package:client/Views/Settings/settings.dart';
-import 'package:client/models/User.dart';
+import 'package:client/models/User.dart' as u;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -15,7 +16,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  User user;
+  u.User user;
   @override
   void initState() {
     getUser();
@@ -130,25 +131,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             fontSize: 20,
                           ),
                         ),
-                        FlatButton.icon(
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SavedFoodPage(),
-                            ),
-                          ),
-                          icon: Icon(
-                            Icons.save,
-                            color: Colors.grey,
-                          ),
-                          label: Text(
-                            'Saved Foods',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
+                        // FlatButton.icon(
+                        //   onPressed: () => Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => SavedFoodPage(),
+                        //     ),
+                        //   ),
+                        //   icon: Icon(
+                        //     Icons.save,
+                        //     color: Colors.grey,
+                        //   ),
+                        //   label: Text(
+                        //     'Saved Foods',
+                        //     style: TextStyle(
+                        //       color: Colors.grey,
+                        //       fontSize: 16,
+                        //     ),
+                        //   ),
+                        // ),
                         FlatButton.icon(
                           onPressed: () => Navigator.push(
                             context,
@@ -274,14 +275,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         FlatButton.icon(
-                          onPressed: () {
-                            // AuthService().signOut();
-                            // Navigator.pushReplacement(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => LoginPage(),
-                            //   ),
-                            // );
+                          onPressed: () async{
+                             await FirebaseAuth.instance.signOut();
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => LoginScreen()));
                           },
                           icon: Icon(
                             Icons.exit_to_app,

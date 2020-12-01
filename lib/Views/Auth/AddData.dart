@@ -22,6 +22,7 @@ class _AddDataState extends State<AddData> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           SharedPreferences pref = await SharedPreferences.getInstance();
+          pref.setString("phoneNo", "7749923882");
           print(pref.setBool("newUser", false));
         },
       ),
