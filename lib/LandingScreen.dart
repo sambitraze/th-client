@@ -13,6 +13,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LandingScreen extends StatefulWidget {
   @override
@@ -85,7 +86,8 @@ class _LandingScreenState extends State<LandingScreen> {
           // await FirebaseAuth.instance.signOut();
           // Navigator.pushReplacement(
           //     context, MaterialPageRoute(builder: (context) => LoginScreen()));
-          await PushService.sendPushToSelf("henlo", "whatsup");
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("phoneNo", "7749923882");
         },
       ),
       body: DoubleBackToCloseApp(

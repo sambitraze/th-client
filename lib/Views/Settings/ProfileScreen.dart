@@ -36,35 +36,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () => Navigator.pop(context),
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.settings,
+                color: Colors.orange,
+              ),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Settings(),
+                ),
+              ),
+            ),
+          ]),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: load
             ? CircularProgressIndicator()
             : Column(
-                children: [
-                  SizedBox(height: 20,),
-                  ListTile(
-                    contentPadding: EdgeInsets.all(1),
-                    leading: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                    trailing: IconButton(
-                      icon: Icon(
-                        Icons.settings,
-                        color: Colors.orange,
-                      ),
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Settings(),
-                        ),
-                      ),
-                    ),
-                  ),
+                children: [                 
                   SizedBox(height: 20),
                   Container(
                     child: Column(
@@ -116,7 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Divider(
                     color: Colors.grey.withOpacity(0.48),
                     height: 1,
-                  ), 
+                  ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                     alignment: Alignment.topLeft,

@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  static bool newUser = true;
+  static bool newUser = false;
   static handleAuth() {
     return StreamBuilder(
       stream: FirebaseAuth.instance.authStateChanges(),
