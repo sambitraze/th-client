@@ -1,5 +1,5 @@
 import 'package:client/Services/UserService.dart';
-import 'package:client/Views/Profile/ProfileScreen.dart';
+import 'package:client/Views/Settings/ProfileScreen.dart';
 import 'package:client/models/User.dart';
 import 'package:flutter/material.dart';
 

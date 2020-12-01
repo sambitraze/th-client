@@ -40,11 +40,29 @@ class OrderService {
       return false;
     }
   }
+  //get
 
   static Future getAllOrders() async {
     http.Response response = await http.get(
       "http://tandoorhut.tk/order/",
       headers: {"Content-Type": "application/json"},
+    );
+    if (response.statusCode == 200) {
+      var responsedata = json.decode(response.body);
+      List<Order> orderList = responsedata
+          .map<Order>((itemMap) => Order.fromJson(itemMap))
+          .toList();
+      return orderList;
+    } else {
+      print(response.body);
+      return false;
+    }
+  }
+  static Future getAllOrdersById(id) async {
+    http.Response response = await http.post(
+      "http://tandoorhut.tk/order/id",
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({"id":id})
     );
     if (response.statusCode == 200) {
       var responsedata = json.decode(response.body);
