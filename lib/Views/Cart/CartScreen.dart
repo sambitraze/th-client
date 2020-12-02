@@ -4,6 +4,7 @@ import 'package:client/LandingScreen.dart';
 import 'package:client/Services/PushService.dart';
 import 'package:client/Services/UserService.dart';
 import 'package:client/Services/orderService.dart';
+import 'package:client/Views/Settings/ManageAddress.dart';
 import 'package:client/Views/UPI/UPIScreen.dart';
 import 'package:client/models/User.dart';
 import 'package:client/models/order.dart';
@@ -119,32 +120,43 @@ class _CartScreenState extends State<CartScreen> {
                       SizedBox(
                         height: 12,
                       ),
-                      ListTile(
-                        contentPadding: EdgeInsets.symmetric(horizontal: 12),
-                        leading: Icon(
-                          Icons.location_on,
-                          color: Color.fromRGBO(252, 126, 47, 1),
-                          size: 35,
-                        ),
-                        title: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'Home',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(
+                                  builder: (context) => ManageAddress()))
+                              .then((value) async {
+                            user = await UserService.getUserByPhone();
+                            setState(() {});
+                          });
+                        },
+                        child: ListTile(
+                          contentPadding: EdgeInsets.symmetric(horizontal: 12),
+                          leading: Icon(
+                            Icons.edit,
+                            color: Color.fromRGBO(252, 126, 47, 1),
+                            size: 35,
+                          ),
+                          title: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Home',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
                               ),
-                            ),
-                            Text(
-                              user.address,
-                              style: TextStyle(
-                                color: Colors.grey[400],
-                                fontSize: 14,
+                              Text(
+                                user.address,
+                                style: TextStyle(
+                                  color: Colors.grey[400],
+                                  fontSize: 14,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -589,27 +601,31 @@ class _CartScreenState extends State<CartScreen> {
                                                   Order order;
                                                   setState(() {
                                                     order = Order(
-                                                    items: user.cart,
-                                                    orderId: genOrderNo(),
-                                                    customer: user,
-                                                    custName: user.name,
-                                                    custNumber: user.phone,
-                                                    paymentType: "UPI",
-                                                    orderType: "Delivery",
-                                                    amount: itemsum.toString(),
-                                                    packing: delivery.toString(),
-                                                    gst: gstCharge.toString(),
-                                                    gstRate: gstper.toString(),
-                                                  );
-                                                  });                                                  
+                                                      items: user.cart,
+                                                      orderId: genOrderNo(),
+                                                      customer: user,
+                                                      custName: user.name,
+                                                      custNumber: user.phone,
+                                                      paymentType: "UPI",
+                                                      orderType: "Delivery",
+                                                      amount:
+                                                          itemsum.toString(),
+                                                      packing:
+                                                          delivery.toString(),
+                                                      gst: gstCharge.toString(),
+                                                      gstRate:
+                                                          gstper.toString(),
+                                                    );
+                                                  });
                                                   Navigator.of(context).push(
                                                       MaterialPageRoute(builder:
                                                           (BuildContext
                                                               context) {
                                                     return UPIScreen(
-                                                        order: order,
-                                                        total: grandtot.toString(),
-                                                        );
+                                                      order: order,
+                                                      total:
+                                                          grandtot.toString(),
+                                                    );
                                                   }));
                                                 },
                                               ),
@@ -635,28 +651,32 @@ class _CartScreenState extends State<CartScreen> {
                                                   color: Colors.black,
                                                 ),
                                                 onPressed: () async {
-                                                    Order order;
+                                                  Order order;
                                                   setState(() {
                                                     order = Order(
-                                                    items: user.cart,
-                                                    orderId: genOrderNo(),
-                                                    customer: user,
-                                                    custName: user.name,
-                                                    custNumber: user.phone,
-                                                    paymentType: "COD",
-                                                    status: "placed",
-                                                    orderType: "Delivery",
-                                                    paid: false,
-                                                    amount: itemsum.toString(),
-                                                    packing: delivery.toString(),
-                                                    gst: gstCharge.toString(),
-                                                    gstRate: gstper.toString(),
-                                                    txtId: "COD"
-                                                  );
+                                                        items: user.cart,
+                                                        orderId: genOrderNo(),
+                                                        customer: user,
+                                                        custName: user.name,
+                                                        custNumber: user.phone,
+                                                        paymentType: "COD",
+                                                        status: "placed",
+                                                        orderType: "Delivery",
+                                                        paid: false,
+                                                        amount:
+                                                            itemsum.toString(),
+                                                        packing:
+                                                            delivery.toString(),
+                                                        gst: gstCharge
+                                                            .toString(),
+                                                        gstRate:
+                                                            gstper.toString(),
+                                                        txtId: "COD");
                                                   });
-                                                  await OrderService.createOrder(
-                                                      jsonEncode(order.toJson()));
-                                                      
+                                                  await OrderService
+                                                      .createOrder(jsonEncode(
+                                                          order.toJson()));
+
                                                   // DeliveryBoy boy =
                                                   //     await DeliveryService.getDeliveryBoy(
                                                   //         tempDeliveryBoys[0].id);
@@ -667,7 +687,8 @@ class _CartScreenState extends State<CartScreen> {
                                                   Navigator.pushAndRemoveUntil(
                                                     context,
                                                     MaterialPageRoute(
-                                                        builder: (BuildContext context) =>
+                                                        builder: (BuildContext
+                                                                context) =>
                                                             LandingScreen()),
                                                     ModalRoute.withName('/'),
                                                   );

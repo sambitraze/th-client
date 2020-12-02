@@ -80,7 +80,7 @@ class _OrderHistoryState extends State<OrderHistory> {
                     width: 128,
                   ),
                 ),
-                Container(
+                orders.length > 0 ? Container(
                   color: Colors.black12,
                   child: Column(
                     children: <Widget>[
@@ -211,6 +211,11 @@ class _OrderHistoryState extends State<OrderHistory> {
                       ),
                     ],
                   ),
+                ): Column(
+                  children: [
+                    SizedBox(height: 100,),
+                    Center(child: Text("No Orders ", style: TextStyle(color: Colors.white),)),
+                  ],
                 ),
               ],
             )

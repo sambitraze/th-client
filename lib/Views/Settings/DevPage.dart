@@ -6,10 +6,23 @@ class DevPage extends StatefulWidget {
 }
 
 class _DevPageState extends State<DevPage> {
-  @override
+   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        centerTitle: true,
+        elevation: 0,
+        leading: IconButton(icon: Icon(Icons.arrow_back,color: Colors.white,), onPressed: ()=>Navigator.pop(context),),
+        title: Text('App Developers',style: TextStyle(fontSize: 28,color: Colors.white,),),
+      ),
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: Container(
+          alignment: Alignment.center,
+          child: Image.asset('assets/devbg.PNG'),
+        ),
+      ),
     );
   }
 }

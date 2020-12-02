@@ -1,4 +1,5 @@
 import 'package:client/Services/UserService.dart';
+import 'package:client/Views/Settings/ManageAddress.dart';
 import 'package:client/Views/Settings/ProfileScreen.dart';
 import 'package:client/models/User.dart';
 import 'package:flutter/material.dart';
@@ -65,24 +66,35 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Color.fromRGBO(252, 126, 47, 1),
                 size: 35,
               ),
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Home',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
+              title: InkWell(
+                onTap: (){
+                  Navigator.of(context)
+                              .push(MaterialPageRoute(
+                                  builder: (context) => ManageAddress()))
+                              .then((value) async {
+                            client = await UserService.getUserByPhone();
+                            setState(() {});
+                          });
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Home',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
                     ),
-                  ),
-                  Text(
-                    client.address,
-                    style: TextStyle(
-                      color: Colors.grey[400],
-                      fontSize: 14,
+                    Text(
+                      client.address ,
+                      style: TextStyle(
+                        color: Colors.grey[400],
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             backgroundColor: Colors.black,

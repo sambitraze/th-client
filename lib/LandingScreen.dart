@@ -92,11 +92,10 @@ class _LandingScreenState extends State<LandingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-         
+        onPressed: () async {         
           await PushService.sendPushToSelf("helo", "dssa");
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString("phoneNo", "7749923882");
+          prefs.setString("phoneNo", "7751992236");
         },
       ),
       body: DoubleBackToCloseApp(

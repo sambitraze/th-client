@@ -17,6 +17,7 @@ class _NotificationPageState extends State<NotificationPage> {
   }
 
   bool loading = false;
+  int count = 0;
 
   getNotification() async {
     setState(() {
@@ -25,6 +26,7 @@ class _NotificationPageState extends State<NotificationPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       notifications = prefs.getStringList("notifications");
+      if (notifications != null) count = notifications.length;
       time = prefs.getStringList("time");
       loading = false;
     });
@@ -34,6 +36,24 @@ class _NotificationPageState extends State<NotificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black12,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title:  Text(
+                            "Notifications",
+                            style: TextStyle(
+                              fontSize: 32,
+                              color: Colors.white,
+                            ),
+                          ),
+                          centerTitle: true,
+      ),
       body: loading
           ? Center(
               child: CircularProgressIndicator(),
@@ -61,57 +81,46 @@ class _NotificationPageState extends State<NotificationPage> {
                   color: Colors.black12,
                   child: Column(
                     children: <Widget>[
-                      ListTile(
-                        contentPadding: EdgeInsets.all(1),
-                        leading: IconButton(
-                          icon: Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                          ),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          padding: EdgeInsets.only(left: 10),
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "Notifications",
-                            style: TextStyle(
-                              fontSize: 32,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
+                     
                       SizedBox(
                         height: 10,
                       ),
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: notifications.length == null ? 0 : notifications.length,
-                          itemBuilder: (BuildContext ctxt, int index) {
-                            return Container(
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              color: Colors.black38,
-                              child: new ListTile(
-                                leading: CircleAvatar(
-                                    radius: 25,
-                                    child: Image(
-                                      image: AssetImage('assets/logo.png'),
-                                    )),
-                                title: Text(
-                                  notifications[index],
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 18),
-                                ),
-                                trailing: Text("${DateTime.parse(time[index]).day}-${DateTime.parse(time[index]).month}",style:TextStyle(color: Colors.white, fontSize: 12),)
+                      count > 0
+                          ? Expanded(
+                              child: ListView.builder(
+                                itemCount: count,
+                                itemBuilder: (BuildContext ctxt, int index) {
+                                  return Container(
+                                    padding: EdgeInsets.symmetric(vertical: 8),
+                                    color: Colors.black38,
+                                    child: new ListTile(
+                                        leading: CircleAvatar(
+                                            radius: 25,
+                                            child: Image(
+                                              image:
+                                                  AssetImage('assets/logo.png'),
+                                            )),
+                                        title: Text(
+                                          notifications[index],
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18),
+                                        ),
+                                        trailing: Text(
+                                          "${DateTime.parse(time[index]).day}-${DateTime.parse(time[index]).month}",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12),
+                                        )),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
-                      ),
+                            )
+                          : Center(
+                              child: Text(
+                              "No Notifications",
+                              style: TextStyle(color: Colors.white),
+                            )),
                     ],
                   ),
                 ),
