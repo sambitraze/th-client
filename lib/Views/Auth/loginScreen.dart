@@ -3,6 +3,7 @@ import 'package:client/Services/AuthService.dart';
 import 'package:client/Views/components/txtfield.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../ui_constants.dart';
 
@@ -23,6 +24,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   retryverif() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString("phoneNo", phone);
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(
       PhoneAuthProvider.credential(
@@ -30,6 +33,10 @@ class _LoginScreenState extends State<LoginScreen> {
         smsCode: smsCode,
       ),
     );
+    if (userCredential.additionalUserInfo.isNewUser) {
+      print(userCredential.user.uid);
+      pref.setBool("newUser", true);
+    }
     if (userCredential.user.phoneNumber != null) {
       setState(() {
         phoneVerified = true;
@@ -37,9 +44,12 @@ class _LoginScreenState extends State<LoginScreen> {
       });
     }
   }
-   bool showOTP = false;
+
+  bool showOTP = false;
 
   Future<void> verifyPhone(phoneNo) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString("phoneNo", phoneNo);
     setState(() {
       showOTP = false;
     });
@@ -80,6 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
         codeSent: smsSent,
         codeAutoRetrievalTimeout: autoTimeout);
   }
+
   Widget _input(
       int leftPadding,
       int rightPadding,
@@ -118,7 +129,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -167,118 +177,121 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                     Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _input(
-                    40,
-                    0,
-                    180,
-                    'Please enter Mobile Number',
-                    false,
-                    'Mobile Number',
-                    'Mobile Number',
-                    Icons.phone,
-                    TextInputType.phone, (value) {
-                  setState(() {
-                    if (value.length == 10) {
-                      setState(() {
-                        phone = value;
-                      });
-                    } else {
-                      // scaffkey.currentState.showSnackBar(new SnackBar(
-                      //   content: new Text("Enter valid phone No"),
-                      // ));
-                    }
-                  });
-                }),
-                !(codeSent)
-                    ? Padding(
-                        padding: EdgeInsets.only(left: 20, bottom: 20),
-                        child: MaterialButton(
-                            height: 50,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                side: BorderSide(color: Colors.transparent)),
-                            color: Color(0xff25354E),
-                            elevation: 2.0,
-                            onPressed: () {
-                              verifyPhone(phone);
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        _input(
+                            40,
+                            0,
+                            180,
+                            'Please enter Mobile Number',
+                            false,
+                            'Mobile Number',
+                            'Mobile Number',
+                            Icons.phone,
+                            TextInputType.phone, (value) {
+                          setState(() {
+                            if (value.length == 10) {
                               setState(() {
-                                showOTP = true;
+                                phone = value;
                               });
-                            },
-                            child: Text(
-                              phoneVerified ? 'Verified' : 'Verify',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
-                            )),
-                      )
-                    : Container(
-                        padding: EdgeInsets.only(left: 20, bottom: 20),
-                        child: CircularProgressIndicator(
-                            valueColor: new AlwaysStoppedAnimation<Color>(
-                                Color(0xff25354E))))
-              ],
-            ),
+                            } else {
+                              // scaffkey.currentState.showSnackBar(new SnackBar(
+                              //   content: new Text("Enter valid phone No"),
+                              // ));
+                            }
+                          });
+                        }),
+                        !(codeSent)
+                            ? Padding(
+                                padding: EdgeInsets.only(left: 20, bottom: 20),
+                                child: MaterialButton(
+                                    height: 50,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        side: BorderSide(
+                                            color: Colors.transparent)),
+                                    color: Color(0xff25354E),
+                                    elevation: 2.0,
+                                    onPressed: () {
+                                      verifyPhone(phone);
+                                      setState(() {
+                                        showOTP = true;
+                                      });
+                                    },
+                                    child: Text(
+                                      phoneVerified ? 'Verified' : 'Verify',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 16),
+                                    )),
+                              )
+                            : Container(
+                                padding: EdgeInsets.only(left: 20, bottom: 20),
+                                child: CircularProgressIndicator(
+                                    valueColor:
+                                        new AlwaysStoppedAnimation<Color>(
+                                            Color(0xff25354E))))
+                      ],
+                    ),
                     showOTP
-                ? Row(
-                    children: [
-                      _input(
-                          40,
-                          0,
-                          180,
-                          'Enter correct OTP',
-                          false,
-                          'Enter OTP',
-                          'Enter OTP',
-                          Icons.security,
-                          TextInputType.streetAddress, (value) {
-                        setState(() {
-                          this.smsCode = value;
-                        });
-                      }),
-                      Padding(
-                        padding: EdgeInsets.only(left: 20, bottom: 20),
-                        child: MaterialButton(
-                            height: 50,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                side: BorderSide(color: Colors.transparent)),
-                            color: Color(0xff25354E),
-                            elevation: 2.0,
-                            onPressed: phoneVerified
-                                ? () {}
-                                : () {
-                                    codeSent
-                                        ? retryverif()
-                                        : verifyPhone(phone);
-                                  },
-                            child: Text(
-                              phoneVerified ? 'Verified' : 'Verify',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
-                            )),
-                      ),
-                    ],
-                  )
-                : Container(), MaterialButton(
-                            height: 50,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                side: BorderSide(color: Colors.transparent)),
-                            color: Color(0xff25354E),
-                            elevation: 2.0,
-                            onPressed:() {
-                                  if( phoneVerified ){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>LandingScreen()));
-                                  }
-                                  },
-                            child: Text(
-                              phoneVerified ? 'Verified' : 'Verify',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
-                            )),
+                        ? Row(
+                            children: [
+                              _input(
+                                  40,
+                                  0,
+                                  180,
+                                  'Enter correct OTP',
+                                  false,
+                                  'Enter OTP',
+                                  'Enter OTP',
+                                  Icons.security,
+                                  TextInputType.streetAddress, (value) {
+                                setState(() {
+                                  this.smsCode = value;
+                                });
+                              }),
+                              Padding(
+                                padding: EdgeInsets.only(left: 20, bottom: 20),
+                                child: MaterialButton(
+                                    height: 50,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        side: BorderSide(
+                                            color: Colors.transparent)),
+                                    color: Color(0xff25354E),
+                                    elevation: 2.0,
+                                    onPressed: phoneVerified
+                                        ? () {}
+                                        : () {
+                                            codeSent
+                                                ? retryverif()
+                                                : verifyPhone(phone);
+                                          },
+                                    child: Text(
+                                      phoneVerified ? 'Verified' : 'Verify',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 16),
+                                    )),
+                              ),
+                            ],
+                          )
+                        : Container(),
+                    phoneVerified ? MaterialButton(
+                        height: 50,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            side: BorderSide(color: Colors.transparent)),
+                        color: Color(0xff25354E),
+                        elevation: 2.0,
+                        onPressed: () {
+                          AuthService.handleAuth();
+                         
+                        },
+                        child: Text('Login',
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        )):  Container(),
                   ],
                 ),
               ),
