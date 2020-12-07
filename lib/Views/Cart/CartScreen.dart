@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:client/LandingScreen.dart';
+import 'package:client/Services/DeliveryBoyService.dart';
 import 'package:client/Services/PushService.dart';
 import 'package:client/Services/UserService.dart';
 import 'package:client/Services/orderService.dart';
 import 'package:client/Views/Settings/ManageAddress.dart';
 import 'package:client/Views/UPI/UPIScreen.dart';
 import 'package:client/models/User.dart';
+import 'package:client/models/deliveryBoy.dart';
 import 'package:client/models/order.dart';
 import 'package:flutter/material.dart';
 import 'package:stepper_counter_swipe/stepper_counter_swipe.dart';
@@ -23,11 +25,13 @@ class _CartScreenState extends State<CartScreen> {
   bool showBill = true;
   User user;
   bool loading = false;
+  bool chkcart = true;
 
   @override
   void initState() {
     // TODO: implement initState
     getUserData();
+    assignDelivery();
     super.initState();
   }
 
@@ -36,21 +40,31 @@ class _CartScreenState extends State<CartScreen> {
       loading = true;
     });
     user = await UserService.getUserByPhone();
-    calcBill();
+   if(user.cart!=null){
+     setState(() {
+       chkcart = false;
+     });
+      calcBill();
+   }
+   else{
+ setState(() {
+       chkcart = true;
+     });
+   }
     setState(() {
       loading = false;
     });
   }
 
   bool processing = false;
-
+  bool loading1 = false;
   double itemsum = 0;
   double delivery = 0;
   double packing = 0;
   double gstper = 7; //TODO: update this
   double gstCharge = 0.0;
   double grandtot = 0.0;
-
+  List<DeliveryBoy> tempDeliveryBoys = [];
   calcBill() {
     int count = 0;
     delivery = 0.0;
@@ -95,6 +109,44 @@ class _CartScreenState extends State<CartScreen> {
         DateTime.now().second.toString() +
         DateTime.now().millisecond.toString();
     return orderId;
+  }
+
+  assignDelivery() async {
+    setState(() {
+      tempDeliveryBoys.clear();
+      loading1 = true;
+    });
+    tempDeliveryBoys = await DeliveryBoyService.getAllDeliveryBoy();
+    print(tempDeliveryBoys[0].name);
+    setState(() {
+      bubbleSort(tempDeliveryBoys);
+    });
+    tempDeliveryBoys.forEach((element) {
+      print(element.assigned);
+    });
+    setState(() {
+      loading1 = false;
+    });
+  }
+
+  void bubbleSort(List<DeliveryBoy> list) {
+    if (list == null || list.length == 0) return;
+
+    int n = list.length;
+    int i, step;
+    for (step = 0; step < n; step++) {
+      for (i = 0; i < n - step - 1; i++) {
+        if (int.parse(list[i].assigned) > int.parse(list[i + 1].assigned)) {
+          swap(list, i);
+        }
+      }
+    }
+  }
+
+  void swap(List<DeliveryBoy> list, int i) {
+    DeliveryBoy temp = list[i];
+    list[i] = list[i + 1];
+    list[i + 1] = temp;
   }
 
   @override
@@ -162,7 +214,7 @@ class _CartScreenState extends State<CartScreen> {
                       SizedBox(
                         height: 28,
                       ),
-                      user.cart.length == 0
+                      chkcart
                           ? Expanded(
                               child: Center(
                                   child: SvgPicture.asset(
@@ -605,6 +657,8 @@ class _CartScreenState extends State<CartScreen> {
                                                       orderId: genOrderNo(),
                                                       customer: user,
                                                       custName: user.name,
+                                                      deliveryby:
+                                                          tempDeliveryBoys[0],
                                                       custNumber: user.phone,
                                                       paymentType: "UPI",
                                                       orderType: "Delivery",
@@ -659,6 +713,8 @@ class _CartScreenState extends State<CartScreen> {
                                                         customer: user,
                                                         custName: user.name,
                                                         custNumber: user.phone,
+                                                        deliveryby:
+                                                            tempDeliveryBoys[0],
                                                         paymentType: "COD",
                                                         status: "placed",
                                                         orderType: "Delivery",
@@ -677,13 +733,17 @@ class _CartScreenState extends State<CartScreen> {
                                                       .createOrder(jsonEncode(
                                                           order.toJson()));
 
-                                                  // DeliveryBoy boy =
-                                                  //     await DeliveryService.getDeliveryBoy(
-                                                  //         tempDeliveryBoys[0].id);
-                                                  // await DeliveryService.updateDeliveryData(
-                                                  //     boy.id,
-                                                  //     (int.parse(boy.assignedOrder) + 1)
-                                                  //         .toString());
+                                                  setState(() {
+                                                    tempDeliveryBoys[0]
+                                                        .assigned = (int.parse(
+                                                                tempDeliveryBoys[
+                                                                        0]
+                                                                    .assigned) +
+                                                            1)
+                                                        .toString();
+                                                  });
+                                                  await DeliveryBoyService
+                                                      .updateDeliveryBoy(jsonEncode(tempDeliveryBoys[0].toJson()));
                                                   Navigator.pushAndRemoveUntil(
                                                     context,
                                                     MaterialPageRoute(

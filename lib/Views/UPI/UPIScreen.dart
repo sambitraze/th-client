@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:client/LandingScreen.dart';
+import 'package:client/Services/DeliveryBoyService.dart';
 import 'package:client/Services/PushService.dart';
 import 'package:client/Services/UserService.dart';
 import 'package:client/Services/orderService.dart';
@@ -53,15 +54,17 @@ class _UPIScreenState extends State<UPIScreen> {
 
   placeOrder() async {
     OrderService.createOrder(json.encode(widget.order.toJson()));
-    // DeliveryBoy boy =
-    //     await DeliveryService.getDeliveryBoy(widget.order.deliveryBy.id);
-    // await DeliveryService.updateDeliveryData(
-    //     boy.id, (int.parse(boy.assignedOrder) + 1).toString());
+    setState(() {
+      widget.order.deliveryby.assigned =
+          (int.parse(widget.order.deliveryby.assigned) + 1).toString();
+    });
+    await DeliveryBoyService.updateDeliveryBoy(
+       jsonEncode( widget.order.deliveryby.toJson()));
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (BuildContext context) => LandingScreen()),
       ModalRoute.withName('/'),
-    );    
+    );
     await PushService.sendPushToSelf("Order Update !!!",
         "Your order no : ${widget.order.orderId} is placed succesfully");
     // await PushService.sendPushToVendor("New Update !!!",

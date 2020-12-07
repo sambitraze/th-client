@@ -36,6 +36,7 @@ class _LandingScreenState extends State<LandingScreen> {
     super.initState();
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
+        print("show");
         SharedPreferences prefs = await SharedPreferences.getInstance();
         notifications = prefs.getStringList("notifications");
         time = prefs.getStringList("time");
@@ -92,10 +93,13 @@ class _LandingScreenState extends State<LandingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {         
+        onPressed: () async {   
+          print("sda");    
+          await PushService.genTokenID();  
           await PushService.sendPushToSelf("helo", "dssa");
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString("phoneNo", "7751992236");
+          prefs.setBool("login", true);
         },
       ),
       body: DoubleBackToCloseApp(

@@ -170,6 +170,8 @@ class _ManageAddressState extends State<ManageAddress> {
                           });                          
                           
                           setState(() {
+                            user.latitude = position.latitude.toString();
+                            user.longitude = position.longitude.toString();
                             user.address = (placemarks[0].name == "Unnamed Road"
                                   ? ""
                                   : placemarks[0].name) +

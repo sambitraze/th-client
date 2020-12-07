@@ -1,6 +1,6 @@
 import 'package:client/LandingScreen.dart';
-import 'package:client/Services/AuthService.dart';
-import 'package:client/Views/components/txtfield.dart';
+import 'package:client/Services/UserService.dart';
+import 'package:client/Views/Auth/AddData.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,6 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool showOTP = false;
 
   Future<void> verifyPhone(phoneNo) async {
+          print("phone start");
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString("phoneNo", phoneNo);
     setState(() {
@@ -55,6 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     final PhoneVerificationCompleted verified =
         (AuthCredential authResult) async {
+          print("phone verified");
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithCredential(authResult);
       if (userCredential.user.phoneNumber != null) {
@@ -69,16 +71,21 @@ class _LoginScreenState extends State<LoginScreen> {
     final PhoneVerificationFailed verificationfailed =
         (FirebaseAuthException authException) {
       print('${authException.message}');
+          print("phone failed");
     };
 
     final PhoneCodeSent smsSent = (String verId, [int forceResend]) {
+          print("phone sms sent");
       this.verificationId = verId;
       setState(() {
         this.codeSent = true;
+        this.showOTP = true;
       });
     };
 
     final PhoneCodeAutoRetrievalTimeout autoTimeout = (String verId) {
+      
+          print("phone timeout");
       this.verificationId = verId;
     };
 
@@ -285,9 +292,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             side: BorderSide(color: Colors.transparent)),
                         color: Color(0xff25354E),
                         elevation: 2.0,
-                        onPressed: () {
-                          AuthService.handleAuth();
-                         
+                        onPressed: ()async {
+                          SharedPreferences pref = await SharedPreferences.getInstance();
+                          pref.setBool("login", true);
+                          var chk = await UserService.userchk(phone);
+                          if(chk){
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LandingScreen()));
+                          }else{
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>AddData()));
+                          }
                         },
                         child: Text('Login',
                           style: TextStyle(color: Colors.white, fontSize: 16),
@@ -299,6 +312,11 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(onPressed: ()async{
+        // await FirebaseAuth.instance.signOut();
+          SharedPreferences pref = await SharedPreferences.getInstance();
+                          print(pref.getBool("login"));
+      },),
     );
   }
 }

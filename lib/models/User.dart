@@ -41,7 +41,7 @@ class User {
     factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["_id"] == null ? null : json["_id"],
         cart: json["cart"] == null
-            ? null
+            ? []
             : List<CartItem>.from(
                 json["cart"].map((x) => CartItem.fromJson(x))),
         name: json["name"] == null ? null : json["name"],

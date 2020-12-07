@@ -11,6 +11,7 @@ class PushService {
     final FirebaseMessaging _fcm = FirebaseMessaging();
     await _fcm.subscribeToTopic("offers");
     String deviceToken = await _fcm.getToken();
+    print(deviceToken);
     pref.setString("deviceToken", deviceToken);
     User user = await UserService.getUserByPhone();
     user.deviceToken = deviceToken;
@@ -29,8 +30,8 @@ class PushService {
         "http://tandoorhut.tk/notification/singleDevice",
         headers: headers,
         body: body);
-
     if (response.statusCode == 200) {
+      print("posted");
       return response.body;
     } else {
       return response.body;

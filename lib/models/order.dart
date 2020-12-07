@@ -6,6 +6,7 @@ import 'dart:convert';
 
 import 'package:client/models/User.dart';
 import 'package:client/models/cartItem.dart';
+import 'package:client/models/deliveryBoy.dart';
 
 
 Order orderFromJson(String str) => Order.fromJson(json.decode(str));
@@ -41,7 +42,7 @@ class Order {
   User customer;
   String custName;
   String custNumber;
-  String deliveryby;
+  DeliveryBoy deliveryby;
   String orderType;
   String paymentType;
   String txtId;
@@ -65,7 +66,7 @@ class Order {
         customer: json["customer"] == null ? null : User.fromJson(json["customer"]),
         custName: json["custName"] == null ? null : json["custName"],
         custNumber: json["custNumber"] == null ? null : json["custNumber"],
-        deliveryby: json["deliveryby"] == null ? null : json["deliveryby"],
+        deliveryby: json["deliveryby"] == null ? null :DeliveryBoy.fromJson( json["deliveryby"]),
         orderType: json["orderType"] == null ? null : json["orderType"],
         paymentType: json["paymentType"] == null ? null : json["paymentType"],
         txtId: json["txtId"] == null ? null : json["txtId"],
@@ -91,7 +92,7 @@ class Order {
         "customer": customer == null ? null : customer.toJson(),
         "custName": custName == null ? null : custName,
         "custNumber": custNumber == null ? null : custNumber,
-        "deliveryby": deliveryby == null ? null : deliveryby,
+        "deliveryby": deliveryby == null ? null : deliveryby.toJson(),
         "orderType": orderType == null ? null : orderType,
         "paymentType": paymentType == null ? null : paymentType,
         "txtId": txtId == null ? null : txtId,

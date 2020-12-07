@@ -55,6 +55,20 @@ class UserService {
     }
   }
 
+  static Future<bool> userchk(phone) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    http.Response response = await http.post(
+        "http://tandoorhut.tk/user/number/",
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({"phone": phone}));
+    if (response.statusCode == 200) {
+      prefs.setString("phoneNo", phone);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   // ignore: missing_return
   static Future<bool> updateUser(User user) async {
     http.Response response = await http.put(

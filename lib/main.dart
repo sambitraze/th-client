@@ -1,6 +1,6 @@
 
-import 'package:client/Services/AuthService.dart';
 import 'package:client/Views/Auth/loginScreen.dart';
+import 'package:client/Views/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -20,8 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      // home: AuthService.handleAuth(),
-      home: LoginScreen(),
+      home: SplashScreen(),
     );
   }
 }
