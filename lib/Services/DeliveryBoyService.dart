@@ -12,7 +12,7 @@ class DeliveryBoyService {
     if (response.statusCode == 200) {
       var responseMap = json.decode(response.body);
       DeliveryBoy deliveryBoy = DeliveryBoy.fromJson(responseMap[0]);
-      return deliveryBoy;
+      return deliveryBoy;      
     } else {
       print(response.body);
       return jsonDecode(response.body);
