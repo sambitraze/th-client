@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:client/Services/PushService.dart';
+import 'package:client/Services/UserService.dart';
 import 'package:client/Views/Auth/loginScreen.dart';
 import 'package:client/Views/Cart/CartScreen.dart';
 import 'package:client/Views/DineIn/DineInScreen.dart';
@@ -37,15 +38,15 @@ class _LandingScreenState extends State<LandingScreen> {
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("show");
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        notifications = prefs.getStringList("notifications");
-        time = prefs.getStringList("time");
-        setState(() {
-          time.add(DateTime.now().toString());
-          notifications.add(message['notification']['body']);
-        });
-        prefs.setStringList("notifications", notifications);
-        prefs.setStringList("time", time);
+        // SharedPreferences prefs = await SharedPreferences.getInstance();
+        // notifications = prefs.getStringList("notifications");
+        // time = prefs.getStringList("time");
+        // setState(() {
+        //   time.add(DateTime.now().toString());
+        //   notifications.add(message['notification']['body']);
+        // });
+        // prefs.setStringList("notifications", notifications);
+        // prefs.setStringList("time", time);
         showDialog(
           context: context,
           builder: (context) => Platform.isAndroid
@@ -93,13 +94,9 @@ class _LandingScreenState extends State<LandingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {   
-          print("sda");    
-          await PushService.genTokenID();  
-          await PushService.sendPushToSelf("helo", "dssa");
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString("phoneNo", "7751992236");
-          prefs.setBool("login", true);
+        onPressed: () async {
+          await PushService.genTokenID();
+         await PushService.sendPushToSelf("title", "message");
         },
       ),
       body: DoubleBackToCloseApp(

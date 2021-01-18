@@ -294,8 +294,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         elevation: 2.0,
                         onPressed: ()async {
                           SharedPreferences pref = await SharedPreferences.getInstance();
-                          pref.setBool("login", true);
+                          // pref.setBool("login", true);
                           var chk = await UserService.userchk(phone);
+                          print(chk);
                           if(chk){
                             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LandingScreen()));
                           }else{
@@ -313,9 +314,12 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(onPressed: ()async{
-        // await FirebaseAuth.instance.signOut();
-          SharedPreferences pref = await SharedPreferences.getInstance();
-                          print(pref.getBool("login"));
+        await FirebaseAuth.instance.signOut();
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.clear();
+        // await UserService.userchk("7751992236");
+        //   SharedPreferences pref = await SharedPreferences.getInstance();
+        //                   print(pref.getBool("login"));
       },),
     );
   }

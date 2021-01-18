@@ -31,8 +31,7 @@ dependencies:
   flutter_rating_bar: ^3.2.0+1
   flutter_svg: null
   flutter_upi: ^0.0.2
-  geocoding: ^1.0.5
-  geolocator: ^6.1.9
+  geolocator:
   google_fonts: ^1.1.1
   google_nav_bar: ^3.1.0
   http: ^0.12.2

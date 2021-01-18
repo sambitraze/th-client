@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 class DeliveryBoyService {
   static Future getDeliveryBoyByEmail(email) async {
     http.Response response = await http.post(
-      "http://tandoorhut.tk/deliveryBoy/email",
+      "http://64.225.85.5/deliveryBoy/email",
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({"email": email}),
     );
@@ -21,7 +21,7 @@ class DeliveryBoyService {
 
   static Future getAllDeliveryBoy() async {
     http.Response response = await http.get(
-      "http://tandoorhut.tk/deliveryBoy/",
+      "http://64.225.85.5/deliveryBoy/",
       headers: {"Content-Type": "application/json"},
     );
     if (response.statusCode == 200) {
@@ -39,7 +39,7 @@ class DeliveryBoyService {
   static Future<bool> updateDeliveryBoy(payload) async {
     print(payload);
     http.Response response = await http.put(
-      "http://tandoorhut.tk/deliveryBoy/update",
+      "http://64.225.85.5/deliveryBoy/update",
       headers: {"Content-Type": "application/json"},
       body: payload,
     );

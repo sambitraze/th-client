@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: (){
                   Navigator.of(context)
                               .push(MaterialPageRoute(
-                                  builder: (context) => ManageAddress()))
+                                  builder: (context) => EditProfileScreen()))
                               .then((value) async {
                             client = await UserService.getUserByPhone();
                             setState(() {});

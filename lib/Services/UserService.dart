@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UserService {
   // ignore: missing_return
   static Future<User> createUser(payload) async {
-    http.Response response = await http.post("http://tandoorhut.tk/user/create",
+    http.Response response = await http.post("http://64.225.85.5/user/create",
         headers: {"Content-Type": "application/json"}, body: payload);
     print(response.body);
     if (response.statusCode == 200) {
@@ -25,7 +25,7 @@ class UserService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String id = prefs.getString("id");
     http.Response response = await http.get(
-      "http://tandoorhut.tk/user/$id",
+      "http://64.225.85.5/user/$id",
       headers: {"Content-Type": "application/json"},
     );
     print(response.body);
@@ -43,7 +43,7 @@ class UserService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String phone = prefs.getString("phoneNo");
     http.Response response = await http.post(
-        "http://tandoorhut.tk/user/number/",
+        "http://64.225.85.5/user/number/",
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({"phone": phone}));
     if (response.statusCode == 200) {
@@ -58,7 +58,7 @@ class UserService {
   static Future<bool> userchk(phone) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     http.Response response = await http.post(
-        "http://tandoorhut.tk/user/number/",
+        "http://64.225.85.5/user/number/",
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({"phone": phone}));
     if (response.statusCode == 200) {
@@ -72,7 +72,7 @@ class UserService {
   // ignore: missing_return
   static Future<bool> updateUser(User user) async {
     http.Response response = await http.put(
-      "http://tandoorhut.tk/user/update/${user.id}",
+      "http://64.225.85.5/user/update/${user.id}",
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(
         user.toJson(),

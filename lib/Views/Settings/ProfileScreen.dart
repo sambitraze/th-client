@@ -9,6 +9,7 @@ import 'package:client/Views/Settings/settings.dart';
 import 'package:client/models/User.dart' as u;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -179,7 +180,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ManageAddress(),
+                              builder: (context) => EditProfileScreen(),
                             ),
                           ),
                           icon: Icon(
@@ -264,6 +265,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         FlatButton.icon(
                           onPressed: () async{
                              await FirebaseAuth.instance.signOut();
+                             SharedPreferences pref = await SharedPreferences.getInstance();
+                             pref.clear();
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => LoginScreen()));
                           },

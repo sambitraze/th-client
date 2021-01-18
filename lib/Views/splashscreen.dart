@@ -48,6 +48,11 @@ class _SplashScreenState extends State<SplashScreen> {
           return LoginScreen();
         }));
       }
+    }else{
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
+        return LoginScreen();
+      }));
     }
   }
 

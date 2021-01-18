@@ -27,7 +27,7 @@ class PushService {
       {"title": title, "message": message, "deviceToken": deviceToken},
     );
     http.Response response = await http.post(
-        "http://tandoorhut.tk/notification/singleDevice",
+        "http://64.225.85.5/notification/singleDevice",
         headers: headers,
         body: body);
     if (response.statusCode == 200) {
@@ -45,7 +45,7 @@ class PushService {
       {"title": title, "message": message, "deviceToken": id},
     );
     http.Response response = await http.post(
-        "http://tandoorhut.tk/notification/singleDevice",
+        "http://64.225.85.5/notification/singleDevice",
         headers: headers,
         body: body);
 

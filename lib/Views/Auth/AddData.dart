@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:client/LandingScreen.dart';
 import 'package:client/Services/UserService.dart';
 import 'package:client/Views/components/txtfield.dart';
 import 'package:client/models/User.dart';
@@ -19,13 +20,8 @@ class _AddDataState extends State<AddData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          SharedPreferences pref = await SharedPreferences.getInstance();
-          pref.setString("phoneNo", "7749923882");
-          print(pref.setBool("newUser", false));
-        },
-      ),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LandingScreen()));},),
       body: Container(
         decoration: BoxDecoration(
           color: Colors.black.withOpacity(1),
@@ -113,6 +109,7 @@ class _AddDataState extends State<AddData> {
                   );
                   if (user.id != null) {
                     pref.setBool("newUser", false);
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LandingScreen()));
                   } else {
                     print("sdasda");
                   }

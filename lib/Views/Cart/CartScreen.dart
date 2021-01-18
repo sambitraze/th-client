@@ -117,7 +117,6 @@ class _CartScreenState extends State<CartScreen> {
       loading1 = true;
     });
     tempDeliveryBoys = await DeliveryBoyService.getAllDeliveryBoy();
-    print(tempDeliveryBoys[0].name);
     setState(() {
       bubbleSort(tempDeliveryBoys);
     });
@@ -176,7 +175,7 @@ class _CartScreenState extends State<CartScreen> {
                         onTap: () {
                           Navigator.of(context)
                               .push(MaterialPageRoute(
-                                  builder: (context) => ManageAddress()))
+                                  builder: (context) => EditProfileScreen()))
                               .then((value) async {
                             user = await UserService.getUserByPhone();
                             setState(() {});
