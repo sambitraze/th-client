@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6bf993de-b6cf-42be-ab8a-172f7151a02e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/LandingScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/LandingScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Services/DeliveryBoyService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Services/DeliveryBoyService.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Services/ItemService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Services/ItemService.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Services/PushService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Services/PushService.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Services/UserService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Services/UserService.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Services/orderService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Services/orderService.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Auth/AddData.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Auth/AddData.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Auth/loginScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Auth/loginScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Cart/CartScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Cart/CartScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/HomeScreen/HomeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/HomeScreen/HomeScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Menu/ItemListScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Menu/ItemListScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Settings/ManageAddress.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Settings/ManageAddress.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Settings/ProfileScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Settings/ProfileScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/splashscreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/splashscreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-    </list>
+    <list default="true" id="6bf993de-b6cf-42be-ab8a-172f7151a02e" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
