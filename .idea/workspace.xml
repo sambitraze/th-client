@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="6bf993de-b6cf-42be-ab8a-172f7151a02e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Auth/loginScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Auth/loginScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Views/HomeScreen/HomeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/HomeScreen/HomeScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Views/Settings/ProfileScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Settings/ProfileScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Views/Settings/settings.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Views/splashscreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/splashscreen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +69,23 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="690" y="286" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1611338799007">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="690" y="286" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1611338799007" />
     <state x="100" y="100" width="1069" height="880" key="AVDManager" timestamp="1610940020949">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -57,25 +94,25 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="740" y="295" key="FileChooserDialogImpl/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1611038598845" />
-    <state width="1559" height="344" key="GridCell.Tab.0.bottom" timestamp="1611078190217">
+    <state width="1877" height="294" key="GridCell.Tab.0.bottom" timestamp="1611339571445">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1559" height="342" key="GridCell.Tab.0.bottom/-1920.0.1920.1080/0.0.1920.1080@-1920.0.1920.1080" timestamp="1610973370173" />
-    <state width="1559" height="344" key="GridCell.Tab.0.bottom/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1611078190217" />
-    <state width="1559" height="344" key="GridCell.Tab.0.center" timestamp="1611078190216">
+    <state width="1877" height="294" key="GridCell.Tab.0.bottom/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1611339571445" />
+    <state width="1877" height="294" key="GridCell.Tab.0.center" timestamp="1611339571445">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1559" height="342" key="GridCell.Tab.0.center/-1920.0.1920.1080/0.0.1920.1080@-1920.0.1920.1080" timestamp="1610973370171" />
-    <state width="1559" height="344" key="GridCell.Tab.0.center/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1611078190216" />
-    <state width="1559" height="344" key="GridCell.Tab.0.left" timestamp="1611078190216">
+    <state width="1877" height="294" key="GridCell.Tab.0.center/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1611339571445" />
+    <state width="1877" height="294" key="GridCell.Tab.0.left" timestamp="1611339571444">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1559" height="342" key="GridCell.Tab.0.left/-1920.0.1920.1080/0.0.1920.1080@-1920.0.1920.1080" timestamp="1610973370171" />
-    <state width="1559" height="344" key="GridCell.Tab.0.left/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1611078190216" />
-    <state width="1559" height="344" key="GridCell.Tab.0.right" timestamp="1611078190217">
+    <state width="1877" height="294" key="GridCell.Tab.0.left/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1611339571444" />
+    <state width="1877" height="294" key="GridCell.Tab.0.right" timestamp="1611339571445">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1559" height="342" key="GridCell.Tab.0.right/-1920.0.1920.1080/0.0.1920.1080@-1920.0.1920.1080" timestamp="1610973370171" />
-    <state width="1559" height="344" key="GridCell.Tab.0.right/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1611078190217" />
+    <state width="1877" height="294" key="GridCell.Tab.0.right/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1611339571445" />
   </component>
 </project>

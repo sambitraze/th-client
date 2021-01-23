@@ -41,9 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
               actions: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: InkWell(
+                  child: InkWell(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
                       child: Text(
                         client.name.substring(0, 1),
                         style: TextStyle(
@@ -51,11 +51,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontSize: 22,
                         ),
                       ),
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProfileScreen(),
-                        ),
+                    ),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileScreen(),
                       ),
                     ),
                   ),
@@ -67,14 +67,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 size: 35,
               ),
               title: InkWell(
-                onTap: (){
+                onTap: () {
                   Navigator.of(context)
-                              .push(MaterialPageRoute(
-                                  builder: (context) => EditProfileScreen()))
-                              .then((value) async {
-                            client = await UserService.getUserByPhone();
-                            setState(() {});
-                          });
+                      .push(MaterialPageRoute(
+                          builder: (context) => EditProfileScreen()))
+                      .then((value) async {
+                    client = await UserService.getUserByPhone();
+                    setState(() {});
+                  });
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Text(
-                      client.address ,
+                      client.address,
                       style: TextStyle(
                         color: Colors.grey[400],
                         fontSize: 14,

@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:client/LandingScreen.dart';
-import 'package:client/Views/Auth/AddData.dart';
 import 'package:client/Views/Auth/loginScreen.dart';
-import 'package:client/ui_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -60,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: 
+      body:
       Center(
         child: Container(
               alignment: Alignment.center,

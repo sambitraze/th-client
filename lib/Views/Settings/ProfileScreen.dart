@@ -5,11 +5,11 @@ import 'package:client/Views/Settings/EditProfileScreen.dart';
 import 'package:client/Views/Settings/ManageAddress.dart';
 import 'package:client/Views/Settings/OrderHistory.dart';
 import 'package:client/Views/Settings/notfication.dart';
-import 'package:client/Views/Settings/settings.dart';
 import 'package:client/models/User.dart' as u;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -157,25 +157,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                         ),
-                        FlatButton.icon(
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => NotificationPage(),
-                            ),
-                          ),
-                          icon: Icon(
-                            Icons.notification_important,
-                            color: Colors.grey,
-                          ),
-                          label: Text(
-                            'Notifications',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
+                        // FlatButton.icon(
+                        //   onPressed: () => Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => NotificationPage(),
+                        //     ),
+                        //   ),
+                        //   icon: Icon(
+                        //     Icons.notification_important,
+                        //     color: Colors.grey,
+                        //   ),
+                        //   label: Text(
+                        //     'Notifications',
+                        //     style: TextStyle(
+                        //       color: Colors.grey,
+                        //       fontSize: 16,
+                        //     ),
+                        //   ),
+                        // ),
                         FlatButton.icon(
                           onPressed: () => Navigator.push(
                             context,
@@ -235,13 +235,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         FlatButton.icon(
-                          onPressed: () => print('asd'),
+                          onPressed: ()async {
+                              // Android and iOS
+                              const uri =
+                                  'mailto:tandoorhut@gmail.com?subject=Query&body=';
+                              if (await canLaunch(uri)) {
+                                await launch(uri);
+                              } else {
+                                throw 'Could not launch $uri';
+                              }
+
+                          },
                           icon: Icon(
                             Icons.message,
                             color: Colors.grey,
                           ),
                           label: Text(
-                            'Chat with us!',
+                            'Reach us!',
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 16,
