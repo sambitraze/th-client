@@ -3,6 +3,10 @@ import 'package:client/Views/Settings/ManageAddress.dart';
 import 'package:client/Views/Settings/ProfileScreen.dart';
 import 'package:client/models/User.dart';
 import 'package:flutter/material.dart';
+import 'package:client/models/top.dart';
+import 'package:client/models/offers.dart';
+import 'package:client/Services/offerSerivce.dart';
+import 'package:client/Services/topService.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -18,12 +22,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool loading = false;
   User client;
+  List<Offer> offers = [];
+  List<Top> top8 = [];
 
   getData() async {
     setState(() {
       loading = true;
     });
     client = await UserService.getUserByPhone();
+    offers = await OfferService.getUnBlockedOffers();
+    top8 = await TopService.getTops();
     setState(() {
       loading = false;
     });
@@ -190,19 +198,68 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Lockdown Craving',
+                          'LockDown Craving',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 24,
                           ),
                         ),
-                        //top 10 items
                         SizedBox(height: 5),
                         Text(
                           'Most ordered in your city',
                           style: TextStyle(
                             color: Colors.grey[400],
                             fontSize: 12,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 120,
+                          child: ListView.builder(
+                            itemCount: top8.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return Stack(
+                                alignment: Alignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          Color.fromRGBO(255, 143, 54, 1),
+                                          Color.fromRGBO(252, 81, 133, 1)
+                                        ],
+                                      ),
+                                    ),
+                                    child: SizedBox(
+                                      height: 108,
+                                      width: 115,
+                                    ),
+                                  ),
+                                  Text(
+                                    top8[index].item.name.replaceAll(" ", "\n"),
+                                    style: TextStyle(
+                                      
+                                      color: Colors.white,
+                                      fontSize: 22,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  InkWell(
+                                    child: SizedBox(
+                                      height: 108,
+                                      width: 115,
+                                    ),
+                                    // onTap: () => Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (context) => AllOffers())),
+                                  ),
+                                ],
+                              );
+                            },
                           ),
                         ),
                         SizedBox(height: 20),

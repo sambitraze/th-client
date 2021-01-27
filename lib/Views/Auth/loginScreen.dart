@@ -294,7 +294,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         elevation: 2.0,
                         onPressed: ()async {
                           SharedPreferences pref = await SharedPreferences.getInstance();
-                          pref.setBool("login", true);
+                          // pref.setBool("login", true);
                           var chk = await UserService.userchk(phone);
                           print(chk);
                           if(chk){
