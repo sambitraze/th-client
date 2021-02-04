@@ -40,20 +40,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-            onPressed: () => Navigator.pop(context),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
           ),
-         ),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: load
             ? CircularProgressIndicator()
             : Column(
-                children: [                 
+                children: [
                   SizedBox(height: 20),
                   Container(
                     child: Column(
@@ -235,16 +235,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         FlatButton.icon(
-                          onPressed: ()async {
-                              // Android and iOS
-                              const uri =
-                                  'mailto:tandoorhut@gmail.com?subject=Query&body=';
-                              if (await canLaunch(uri)) {
-                                await launch(uri);
-                              } else {
-                                throw 'Could not launch $uri';
-                              }
-
+                          onPressed: () async {
+                            // Android and iOS
+                            const uri =
+                                'mailto:tandoorhut@gmail.com?subject=Query&body=';
+                            if (await canLaunch(uri)) {
+                              await launch(uri);
+                            } else {
+                              throw 'Could not launch $uri';
+                            }
                           },
                           icon: Icon(
                             Icons.message,
@@ -273,12 +272,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         FlatButton.icon(
-                          onPressed: () async{
-                             await FirebaseAuth.instance.signOut();
-                             SharedPreferences pref = await SharedPreferences.getInstance();
-                             pref.clear();
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                          onPressed: () async {
+                            await FirebaseAuth.instance.signOut();
+                            SharedPreferences pref =
+                                await SharedPreferences.getInstance();
+                            pref.clear();
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()));
                           },
                           icon: Icon(
                             Icons.exit_to_app,

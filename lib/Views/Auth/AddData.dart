@@ -4,6 +4,7 @@ import 'package:client/Services/UserService.dart';
 import 'package:client/Views/components/txtfield.dart';
 import 'package:client/models/User.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AddData extends StatefulWidget {
@@ -13,22 +14,60 @@ class AddData extends StatefulWidget {
 
 class _AddDataState extends State<AddData> {
   TextEditingController name = TextEditingController();
-  TextEditingController address = TextEditingController();
+  TextEditingController city = TextEditingController(text: "Ara, Bihar");
   TextEditingController email = TextEditingController();
-  double latitude, longitude = 0.0;
+  TextEditingController address = TextEditingController();
+
+  double latitude=0.0, longitude = 0.0;
   String deviceToken = '';
+  bool _loading = false;
+
+  Future _determinePosition() async {
+    setState(() {
+      _loading = true;
+    });
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permantly denied, we cannot request permissions.');
+    }
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission != LocationPermission.whileInUse &&
+          permission != LocationPermission.always) {
+        return Future.error(
+            'Location permissions are denied (actual value: $permission).');
+      }
+    }
+
+    Position position = await Geolocator.getCurrentPosition();
+
+    setState(() {
+      latitude = position.latitude;
+      longitude = position.longitude;
+      _loading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: (){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LandingScreen()));},),
       body: Container(
         decoration: BoxDecoration(
           color: Colors.black.withOpacity(1),
           image: DecorationImage(
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.7), BlendMode.dstATop),
+                Colors.black.withOpacity(0.5), BlendMode.dstATop),
             image: AssetImage('assets/loginbg.png'),
           ),
         ),
@@ -36,7 +75,7 @@ class _AddDataState extends State<AddData> {
         child: ListView(
           children: <Widget>[
             SizedBox(
-              height: 100,
+              height: 56,
             ),
             Text(
               "Add Info",
@@ -47,7 +86,18 @@ class _AddDataState extends State<AddData> {
               // textAlign: TextAlign.left,
             ),
             SizedBox(
-              height: 60,
+              height: 10,
+            ),
+            Text(
+              "**We are available in Ara, Bihar only",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
+              // textAlign: TextAlign.left,
+            ),
+            SizedBox(
+              height: 50,
             ),
             Column(
               children: <Widget>[
@@ -57,7 +107,7 @@ class _AddDataState extends State<AddData> {
                   controller: name,
                 ),
                 SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
@@ -66,33 +116,78 @@ class _AddDataState extends State<AddData> {
                   controller: email,
                 ),
                 SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 TextFormField(
+                  enabled: false,
                   style: TextStyle(color: Colors.white),
-                  decoration: TextFieldDec.inputDec("Address *"),
-                  controller: address,
+                  decoration: TextFieldDec.inputDec("City *").copyWith(disabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white, width: 1.0),
+                  ),),
+                  controller: city,
                 ),
               ],
             ),
             SizedBox(
-              height: 60,
+              height: 20,
+            ),
+            FlatButton.icon(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              color: Colors.grey[200],
+              onPressed: () async {
+                await _determinePosition();
+              },
+              icon: Icon(
+                Icons.location_on,
+                color: Colors.red,
+              ),
+              label: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: Text(
+                  "Get current location !",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            _loading? Center(child: CircularProgressIndicator()):Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Latitude: $latitude      Longitude: $longitude",
+                  style: TextStyle(color: Colors.white),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            TextFormField(
+              style: TextStyle(color: Colors.white),
+              decoration: TextFieldDec.inputDec("Address *"),
+              controller: address,
+            ),
+            SizedBox(
+              height: 50,
             ),
             MaterialButton(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
               padding: EdgeInsets.all(8),
-              color: Colors.green,
-              minWidth: 250,
+              color: Colors.amber,
+              minWidth: 180,
               onPressed: () async {
                 SharedPreferences pref = await SharedPreferences.getInstance();
                 if (name.text.length > 0 &&
                     email.text.length > 0 &&
-                    address.text.length > 0) {
+                    city.text=="Ara, Bihar" && address.text.length >0 && latitude != 0 && longitude != 0) {
                   print(name.text);
                   print(email.text);
-                  print(address.text);
+                  print(city.text);
                   print(pref.getString("phoneNo"));
                   User user = await UserService.createUser(
                     jsonEncode(
@@ -100,9 +195,10 @@ class _AddDataState extends State<AddData> {
                         phone: pref.getString("phoneNo"),
                         email: email.text,
                         name: name.text,
+                        city: city.text,
+                        address: address.text,
                         latitude: latitude.toString(),
                         longitude: longitude.toString(),
-                        address: address.text,
                         deviceToken: deviceToken,
                       ).toJson(),
                     ),
@@ -111,7 +207,7 @@ class _AddDataState extends State<AddData> {
                     pref.setBool("newUser", false);
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LandingScreen()));
                   } else {
-                    print("sdasda");
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LandingScreen()));
                   }
                 } else {
                   print('not entered');

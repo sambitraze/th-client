@@ -4,11 +4,13 @@ import 'package:client/LandingScreen.dart';
 import 'package:client/Services/DeliveryBoyService.dart';
 import 'package:client/Services/PushService.dart';
 import 'package:client/Services/UserService.dart';
+import 'package:client/Services/offerSerivce.dart';
 import 'package:client/Services/orderService.dart';
 import 'package:client/Views/Settings/ManageAddress.dart';
 import 'package:client/Views/UPI/UPIScreen.dart';
 import 'package:client/models/User.dart';
 import 'package:client/models/deliveryBoy.dart';
+import 'package:client/models/offers.dart';
 import 'package:client/models/order.dart';
 import 'package:flutter/material.dart';
 import 'package:stepper_counter_swipe/stepper_counter_swipe.dart';
@@ -35,22 +37,31 @@ class _CartScreenState extends State<CartScreen> {
     super.initState();
   }
 
+  List<Offer> offers = [];
+  Offer offerCode;
+
   getUserData() async {
     setState(() {
       loading = true;
     });
     user = await UserService.getUserByPhone();
-   if(user.cart!=null){
-     setState(() {
-       chkcart = false;
-     });
+    offers = await OfferService.getUnBlockedOffers();
+    offerCode = offers.where((element) {
+      if (element.offerCode == "NOOFFER")
+        return true;
+      else
+        return false;
+    }).first;
+    if (user.cart != null) {
+      setState(() {
+        chkcart = false;
+      });
       calcBill();
-   }
-   else{
- setState(() {
-       chkcart = true;
-     });
-   }
+    } else {
+      setState(() {
+        chkcart = true;
+      });
+    }
     setState(() {
       loading = false;
     });
@@ -59,28 +70,31 @@ class _CartScreenState extends State<CartScreen> {
   bool processing = false;
   bool loading1 = false;
   double itemsum = 0;
-  double delivery = 0;
+  double delivery = 10;
   double packing = 0;
-  double gstper = 7; //TODO: update this
+  double gstper = 5; //TODO: update this
   double gstCharge = 0.0;
   double grandtot = 0.0;
+  double  offerdeduct = 0.0;
   List<DeliveryBoy> tempDeliveryBoys = [];
   calcBill() {
-    int count = 0;
     delivery = 0.0;
-    // ((user.cart.length / 2) * 5).toDouble();
     itemsum = 0.0;
     gstCharge = 0.0;
     grandtot = 0.0;
+    packing = 0.0;
+    int count =0;
     setState(() {
       user.cart.forEach((element) {
         itemsum +=
             double.parse(element.item.price) * double.parse(element.count);
         count += int.parse(element.count);
       });
+      offerdeduct = itemsum* double.parse(offerCode.percentage)*0.01;
+      itemsum>300? delivery = 0 : delivery = 10;
       gstCharge = itemsum * gstper * 0.01;
-      delivery = ((count / 2) * 2).toDouble();
-      grandtot = gstCharge + itemsum + delivery;
+      packing = count * 5.0;
+      grandtot = gstCharge + itemsum + delivery-offerdeduct + packing;
     });
   }
 
@@ -119,9 +133,6 @@ class _CartScreenState extends State<CartScreen> {
     tempDeliveryBoys = await DeliveryBoyService.getAllDeliveryBoy();
     setState(() {
       bubbleSort(tempDeliveryBoys);
-    });
-    tempDeliveryBoys.forEach((element) {
-      print(element.assigned);
     });
     setState(() {
       loading1 = false;
@@ -169,7 +180,7 @@ class _CartScreenState extends State<CartScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       SizedBox(
-                        height: 12,
+                        height: 45,
                       ),
                       InkWell(
                         onTap: () {
@@ -202,7 +213,7 @@ class _CartScreenState extends State<CartScreen> {
                               Text(
                                 user.address,
                                 style: TextStyle(
-                                  color: Colors.grey[400],
+                                  color: Colors.grey[200],
                                   fontSize: 14,
                                 ),
                               ),
@@ -484,15 +495,14 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                       user.cart.length > 0
                           ? Container(
-                              padding: EdgeInsets.only(top: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                              padding: EdgeInsets.only(top: 16,left:16,right:16),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         'Total Bill',
@@ -501,113 +511,162 @@ class _CartScreenState extends State<CartScreen> {
                                             fontSize: 24,
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      SizedBox(
-                                        height: 15,
+                                      MaterialButton(
+                                        color: Colors.orange,
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                        height: 40,
+                                        minWidth: 100,
+                                        child: Text(
+                                          'Apply Coupon',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16),
+                                        ),
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                StatefulBuilder(
+                                              builder: (context, setState) =>
+                                                  AlertDialog(
+                                                title: Text("All Offer"),
+                                                content: Container(
+                                                  height: 200,
+                                                  width: 200,
+                                                  child: ListView.builder(
+                                                    itemCount: offers.length,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return ListTile(
+                                                        onTap: (){
+                                                          setState((){
+                                                            offerCode = offers[index];
+                                                          });
+                                                          calcBill();
+                                                        },
+                                                        title: Text(
+                                                            offers[index]
+                                                                .offerCode),
+                                                        subtitle: Text(offers[
+                                                                    index]
+                                                                .percentage +
+                                                            "% OFF"),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
                                       ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
                                       Text(
                                         'Item Total:',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 18),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        'Delivery Charges:',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 18),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        'GST',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 18),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        'Total',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 18),
-                                      ),
-                                      Text(
-                                        '*including gst and packaging',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 10),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Container(
-                                        height: 40,
-                                        width: 100,
-                                        child: SwitchListTile(
-                                          value: true,
-                                          onChanged: (value) => setState(() {}),
-                                          title: Text(
-                                            ' Apply Coupon',
-                                            style: TextStyle(
-                                                color: Colors.red,
-                                                fontSize: 16),
-                                          ),
-                                        ),
                                       ),
                                       Text(
                                         'Rs $itemsum',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 18),
                                       ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
                                       Text(
-                                        'Rs $delivery',
+                                        'Delivery & Charges:',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 18),
                                       ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
                                       Text(
-                                        ' Rs ${gstCharge.toStringAsFixed(2)}',
+                                        'Rs $delivery + ${gstCharge.toStringAsFixed(2)}',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 18),
                                       ),
-                                      SizedBox(
-                                        height: 10,
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Offer : ${offerCode.offerCode}',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 18),
+                                      ),
+                                      Text(
+                                        ' Rs $offerdeduct @  ${offerCode.percentage}%',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 18),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Total',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 18),
                                       ),
                                       Text(
                                         ' Rs ${grandtot.toStringAsFixed(2)}',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 18),
                                       ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
                                       Text(
-                                        '',
+                                        '*including gst and packaging',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 10),
                                       ),
+                                      Container()
                                     ],
                                   ),
                                 ],
                               ),
                             )
                           : Container(),
+                      SizedBox(
+                        height: 16,
+                      ),
                       user.cart.length > 0
                           ? Container(
-                              padding: EdgeInsets.all(12),
+                              padding: EdgeInsets.all(8),
                               child: MaterialButton(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 padding: EdgeInsets.all(8),
-                                color: Colors.amber,
-                                minWidth: 250,
+                                color: Colors.orange,
+                                minWidth: 200,
                                 onPressed: () {
                                   if (showBill == true) {
                                     showDialog(
@@ -742,7 +801,11 @@ class _CartScreenState extends State<CartScreen> {
                                                         .toString();
                                                   });
                                                   await DeliveryBoyService
-                                                      .updateDeliveryBoy(jsonEncode(tempDeliveryBoys[0].toJson()));
+                                                      .updateDeliveryBoy(
+                                                          jsonEncode(
+                                                              tempDeliveryBoys[
+                                                                      0]
+                                                                  .toJson()));
                                                   Navigator.pushAndRemoveUntil(
                                                     context,
                                                     MaterialPageRoute(
@@ -770,7 +833,7 @@ class _CartScreenState extends State<CartScreen> {
                                 child: Text(
                                   "Checkout",
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 28),
+                                      color: Colors.white, fontSize: 24),
                                 ),
                               ),
                             )

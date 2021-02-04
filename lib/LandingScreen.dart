@@ -93,18 +93,14 @@ class _LandingScreenState extends State<LandingScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await PushService.genTokenID();
-         await PushService.sendPushToSelf("title", "message");
-        },
-      ),
       body: DoubleBackToCloseApp(
         snackBar: const SnackBar(
           content: Text('Tap back again to leave'),
         ),
         child: SafeArea(
+          top: false,
           child: PageView(
+            physics: NeverScrollableScrollPhysics(),
             controller: pageController,
             onPageChanged: (index) {
               setState(() {

@@ -209,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           'Most ordered in your city',
                           style: TextStyle(
                             color: Colors.grey[400],
-                            fontSize: 12,
+                            fontSize: 14,
                           ),
                         ),
                         SizedBox(
@@ -218,51 +218,55 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemCount: top8.length,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
-                              return Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: [
-                                          Color.fromRGBO(255, 143, 54, 1),
-                                          Color.fromRGBO(252, 81, 133, 1)
-                                        ],
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 16.0),
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: <Widget>[
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        gradient: LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          colors: [
+                                            Color.fromRGBO(255, 143, 54, 1),
+                                            Color.fromRGBO(252, 81, 133, 1)
+                                          ],
+                                        ),
+                                      ),
+                                      child: SizedBox(
+                                        height: 108,
+                                        width: 115,
                                       ),
                                     ),
-                                    child: SizedBox(
-                                      height: 108,
-                                      width: 115,
+                                    Text(
+                                      top8[index]
+                                          .item
+                                          .name
+                                          .replaceAll(" ", "\n"),
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                      ),
+                                      textAlign: TextAlign.center,
                                     ),
-                                  ),
-                                  Text(
-                                    top8[index].item.name.replaceAll(" ", "\n"),
-                                    style: TextStyle(
-                                      
-                                      color: Colors.white,
-                                      fontSize: 22,
+                                    InkWell(
+                                      child: SizedBox(
+                                        height: 108,
+                                        width: 115,
+                                      ),
+                                      // onTap: () => Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) => AllOffers())),
                                     ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  InkWell(
-                                    child: SizedBox(
-                                      height: 108,
-                                      width: 115,
-                                    ),
-                                    // onTap: () => Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context) => AllOffers())),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               );
                             },
                           ),
                         ),
-                        SizedBox(height: 20),
                       ],
                     ),
                   ),
@@ -319,83 +323,103 @@ class _HomeScreenState extends State<HomeScreen> {
                                       height: 108,
                                       width: 115,
                                     ),
-                                    // onTap: () => Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context) => AllOffers())),
+                                    onTap: () {
+                                      showDialog(context: context, builder: (context)=> AlertDialog(
+                                        title: Text("All Offer"),
+                                        content: Container(
+                                          height: 200,
+                                          width: 200,
+                                          child: ListView.builder(
+                                            itemCount: offers.length,
+                                            itemBuilder: (context, index){
+                                              return ListTile(
+                                                title: Text(offers[index].offerCode),
+                                                subtitle: Text(offers[index].percentage + "% OFF"),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ));
+                                    },
                                   ),
                                 ],
                               ),
                               SizedBox(
                                 width: 16,
                               ),
-                              Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: [
-                                          Color.fromRGBO(248, 255, 59, 1),
-                                          Color.fromRGBO(110, 182, 255, 1)
-                                        ],
-                                      ),
-                                    ),
-                                    child: InkWell(
-                                      child: SizedBox(
-                                        height: 108,
-                                        width: 115,
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    'min\n30%\nOFF',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 22,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  )
-                                ],
-                              ),
+                              offers.length > 0
+                                  ? Stack(
+                                      alignment: Alignment.center,
+                                      children: <Widget>[
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            gradient: LinearGradient(
+                                              begin: Alignment.topCenter,
+                                              end: Alignment.bottomCenter,
+                                              colors: [
+                                                Color.fromRGBO(248, 255, 59, 1),
+                                                Color.fromRGBO(110, 182, 255, 1)
+                                              ],
+                                            ),
+                                          ),
+                                          child: InkWell(
+                                            child: SizedBox(
+                                              height: 108,
+                                              width: 115,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'min\n${offers[0].percentage}%\nOFF',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 22,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        )
+                                      ],
+                                    )
+                                  : Container(),
                               SizedBox(
                                 width: 16,
                               ),
-                              Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: [
-                                          Color.fromRGBO(248, 255, 59, 1),
-                                          Color.fromRGBO(21, 183, 185, 1)
-                                        ],
-                                      ),
-                                    ),
-                                    child: InkWell(
-                                      child: SizedBox(
-                                        height: 108,
-                                        width: 115,
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    'min\n40%\nOFF ',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 22,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  )
-                                ],
-                              ),
+                              offers.length > 1
+                                  ? Stack(
+                                      alignment: Alignment.center,
+                                      children: <Widget>[
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            gradient: LinearGradient(
+                                              begin: Alignment.topCenter,
+                                              end: Alignment.bottomCenter,
+                                              colors: [
+                                                Color.fromRGBO(248, 255, 59, 1),
+                                                Color.fromRGBO(21, 183, 185, 1)
+                                              ],
+                                            ),
+                                          ),
+                                          child: InkWell(
+                                            child: SizedBox(
+                                              height: 108,
+                                              width: 115,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'min\n${offers[1].percentage}%\nOFF',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 22,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        )
+                                      ],
+                                    )
+                                  : Container(),
                             ],
                           ),
                         ),
@@ -412,7 +436,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Quick Links',
+                          'Featured',
                           style: TextStyle(
                             color: Color.fromRGBO(136, 136, 136, 1),
                             fontSize: 19,

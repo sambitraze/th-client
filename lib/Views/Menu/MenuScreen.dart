@@ -56,7 +56,6 @@ class _MenuScreenState extends State<MenuScreen> {
       loading = true;
     });
     items = await ItemService.getItems();
-    print(items.length);
     items.forEach((element) {
       setState(() {
         if (element.category == "Tandoor") {
@@ -76,7 +75,6 @@ class _MenuScreenState extends State<MenuScreen> {
         }
       });
     });
-    print(items.length);
     setState(() {
       loading = false;
     });

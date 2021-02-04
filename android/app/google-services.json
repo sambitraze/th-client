@@ -29,10 +29,6 @@
             "package_name": "com.example.tandoor_hut",
             "certificate_hash": "7d10ec775f435fc7334f54be5c796fca023e38a0"
           }
-        },
-        {
-          "client_id": "975115877464-o0u36v8f818ct23f0etfu6s5c9ch4qjm.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -42,12 +38,7 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "975115877464-o0u36v8f818ct23f0etfu6s5c9ch4qjm.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     },
@@ -74,10 +65,6 @@
             "package_name": "com.tandoorhur.thdelivery.Th_delivery",
             "certificate_hash": "bf4a4394aeae185818e24080c4ddc4c2589be7ee"
           }
-        },
-        {
-          "client_id": "975115877464-o0u36v8f818ct23f0etfu6s5c9ch4qjm.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -87,12 +74,7 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "975115877464-o0u36v8f818ct23f0etfu6s5c9ch4qjm.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     },
@@ -105,24 +87,28 @@
       },
       "oauth_client": [
         {
+          "client_id": "975115877464-61pr6k8qp6id0mumpn6clran7e8tje0c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tandoorhut.client",
+            "certificate_hash": "36766deb5c7bbcd0e92bc45368503ecd787627c2"
+          }
+        },
+        {
+          "client_id": "975115877464-6p8246qu1v8vcntuva1cs73k4np4nbc3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tandoorhut.client",
+            "certificate_hash": "1ef8c8184a140176d70c521775c1fd1303afac1d"
+          }
+        },
+        {
           "client_id": "975115877464-pbb3r2523ecrp8e92l3dsg65vvg8hukg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.tandoorhut.client",
             "certificate_hash": "7ee58b8850d8de9fde7f13b0fcbfbbcb3237ebdb"
           }
-        },
-        {
-          "client_id": "975115877464-spug58njuk7lrskcbidcgi391i6hqhrf.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.tandoorhut.client",
-            "certificate_hash": "bf4a4394aeae185818e24080c4ddc4c2589be7ee"
-          }
-        },
-        {
-          "client_id": "975115877464-o0u36v8f818ct23f0etfu6s5c9ch4qjm.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -132,12 +118,7 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "975115877464-o0u36v8f818ct23f0etfu6s5c9ch4qjm.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

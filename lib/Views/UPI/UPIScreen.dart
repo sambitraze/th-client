@@ -35,13 +35,13 @@ class _UPIScreenState extends State<UPIScreen> {
     try {
       String response = await FlutterUpi.initiateTransaction(
           app: app,
-          pa: "sayannath235@okicici", //replace
-          pn: "Sayan Nath",
+          pa: "8340245998@okbizaxis", //replace
+          pn: "Tandoor Hut",
           tr: widget.order.orderId,
           tn: "Tandoor Hut payment",
           am: widget.total,
           cu: "INR",
-          url: "http://www.tandoorhut.tk");
+          url: "http://64.225.85.5/");
       print(response);
 
       return response;

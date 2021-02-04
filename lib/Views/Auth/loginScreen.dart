@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool showOTP = false;
 
   Future<void> verifyPhone(phoneNo) async {
-          print("phone start");
+    print("phone start");
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString("phoneNo", phoneNo);
     setState(() {
@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     final PhoneVerificationCompleted verified =
         (AuthCredential authResult) async {
-          print("phone verified");
+      print("phone verified");
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithCredential(authResult);
       if (userCredential.user.phoneNumber != null) {
@@ -71,11 +71,11 @@ class _LoginScreenState extends State<LoginScreen> {
     final PhoneVerificationFailed verificationfailed =
         (FirebaseAuthException authException) {
       print('${authException.message}');
-          print("phone failed");
+      print("phone failed");
     };
 
     final PhoneCodeSent smsSent = (String verId, [int forceResend]) {
-          print("phone sms sent");
+      print("phone sms sent");
       this.verificationId = verId;
       setState(() {
         this.codeSent = true;
@@ -84,8 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
     };
 
     final PhoneCodeAutoRetrievalTimeout autoTimeout = (String verId) {
-      
-          print("phone timeout");
+      print("phone timeout");
       this.verificationId = verId;
     };
 
@@ -261,52 +260,63 @@ class _LoginScreenState extends State<LoginScreen> {
                               Padding(
                                 padding: EdgeInsets.only(left: 20, bottom: 20),
                                 child: MaterialButton(
-                                    height: 50,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        side: BorderSide(
-                                            color: Colors.transparent)),
-                                    color: Color(0xff25354E),
-                                    elevation: 2.0,
-                                    onPressed: phoneVerified
-                                        ? () {}
-                                        : () {
-                                            codeSent
-                                                ? retryverif()
-                                                : verifyPhone(phone);
-                                          },
-                                    child: Text(
-                                      phoneVerified ? 'Verified' : 'Verify',
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 16),
-                                    )),
+                                  height: 50,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      side: BorderSide(
+                                          color: Colors.transparent)),
+                                  color: Color(0xff25354E),
+                                  elevation: 2.0,
+                                  onPressed: phoneVerified
+                                      ? () {}
+                                      : () {
+                                          codeSent
+                                              ? retryverif()
+                                              : verifyPhone(phone);
+                                        },
+                                  child: Text(
+                                    phoneVerified ? 'Verified' : 'Verify',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 16),
+                                  ),
+                                ),
                               ),
                             ],
                           )
                         : Container(),
-                    phoneVerified ? MaterialButton(
-                        height: 50,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            side: BorderSide(color: Colors.transparent)),
-                        color: Color(0xff25354E),
-                        elevation: 2.0,
-                        onPressed: ()async {
-                          SharedPreferences pref = await SharedPreferences.getInstance();
-                          // pref.setBool("login", true);
-                          var chk = await UserService.userchk(phone);
-                          print(chk);
-                          if(chk){
-                            pref.setBool("login", true);
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LandingScreen()));
-                          }else{
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>AddData()));
-                          }
-                        },
-                        child: Text('Login',
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        )):  Container(),
+                    phoneVerified
+                        ? MaterialButton(
+                            height: 50,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                side: BorderSide(color: Colors.transparent)),
+                            color: Color(0xff25354E),
+                            elevation: 2.0,
+                            onPressed: () async {
+                              SharedPreferences pref =
+                                  await SharedPreferences.getInstance();
+                              // pref.setBool("login", true);
+                              var chk = await UserService.userchk(phone);
+                              print(chk);
+                              if (chk) {
+                                pref.setBool("login", true);
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LandingScreen()));
+                              } else {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AddData()));
+                              }
+                            },
+                            child: Text(
+                              'Login',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            ))
+                        : Container(),
                   ],
                 ),
               ),
@@ -314,14 +324,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: ()async{
-        await FirebaseAuth.instance.signOut();
-        SharedPreferences pref = await SharedPreferences.getInstance();
-        pref.clear();
-        // await UserService.userchk("7751992236");
-        //   SharedPreferences pref = await SharedPreferences.getInstance();
-        //                   print(pref.getBool("login"));
-      },),
     );
   }
 }
