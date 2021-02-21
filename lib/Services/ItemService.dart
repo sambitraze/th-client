@@ -13,7 +13,6 @@ class ItemService {
       var responseMap = json.decode(response.body);
       List<Item> items =
           responseMap.map<Item>((itemMap) => Item.fromJson(itemMap)).toList();
-      print(items.length);
       return items;
     } else {
       print("Debug get item");

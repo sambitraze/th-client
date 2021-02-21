@@ -47,7 +47,7 @@ class _CartScreenState extends State<CartScreen> {
     user = await UserService.getUserByPhone();
     offers = await OfferService.getUnBlockedOffers();
     offerCode = offers.where((element) {
-      if (element.offerCode == "NOOFFER")
+      if (element.offerCode == "NO OFFER")
         return true;
       else
         return false;
@@ -94,7 +94,7 @@ class _CartScreenState extends State<CartScreen> {
       itemsum>300? delivery = 0 : delivery = 10;
       gstCharge = itemsum * gstper * 0.01;
       packing = count * 5.0;
-      grandtot = gstCharge + itemsum + delivery-offerdeduct + packing;
+      grandtot = gstCharge + itemsum + delivery - offerdeduct + packing;
     });
   }
 
@@ -263,6 +263,7 @@ class _CartScreenState extends State<CartScreen> {
                                       mainAxisSize: MainAxisSize.min,
                                       children: <Widget>[
                                         Row(
+                                          mainAxisSize: MainAxisSize.min,
                                           children: <Widget>[
                                             user.cart[index].item.isVeg
                                                 ? Image.asset(
@@ -285,6 +286,99 @@ class _CartScreenState extends State<CartScreen> {
                                                 ),
                                               ),
                                             ),
+                                            MaterialButton(onPressed: ()async{
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                    content: Column(
+                                                      mainAxisSize:
+                                                      MainAxisSize
+                                                          .min,
+                                                      children: [
+                                                        Text(
+                                                          "Remove Item",
+                                                          style:
+                                                          TextStyle(
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                            "\nDo you want to remove item?"),
+                                                      ],
+                                                    ),
+                                                    actionsPadding:
+                                                    EdgeInsets.only(
+                                                        right: 15,
+                                                        bottom: 5),
+                                                    actions: [
+                                                      MaterialButton(
+                                                        onPressed: () {
+
+                                                          Navigator.of(
+                                                              context)
+                                                              .pop();
+                                                        },
+                                                        child: Text(
+                                                          "No",
+                                                          style:
+                                                          TextStyle(
+                                                            fontSize: 18,
+                                                            color: Color(
+                                                                0xff25354E),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      MaterialButton(
+                                                        shape:
+                                                        RoundedRectangleBorder(
+                                                          borderRadius:
+                                                          BorderRadius
+                                                              .circular(
+                                                              18),
+                                                        ),
+                                                        color: Color(
+                                                            0xff25354E),
+                                                        onPressed:
+                                                            () async {
+                                                          setState(() {
+                                                            user.cart
+                                                                .removeAt(
+                                                                index);
+                                                          });
+                                                          calcBill();
+                                                          await UserService
+                                                              .updateUser(
+                                                              user);
+                                                          Navigator.of(
+                                                              context)
+                                                              .pop();
+                                                        },
+                                                        child: Text(
+                                                          "Yes",
+                                                          style:
+                                                          TextStyle(
+                                                            fontSize: 18,
+                                                            color: Colors
+                                                                .white,
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                    shape:
+                                                    RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      BorderRadius
+                                                          .circular(
+                                                          12),
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            }, child: Icon(Icons.delete),)
                                           ],
                                         ),
                                         Container(height: 2.0),
@@ -312,7 +406,7 @@ class _CartScreenState extends State<CartScreen> {
                                           ],
                                         ),
                                         SizedBox(
-                                          height: 20,
+                                          height: 5,
                                         ),
                                         Row(
                                           mainAxisAlignment:
@@ -353,10 +447,6 @@ class _CartScreenState extends State<CartScreen> {
                                                     Colors.grey[200],
                                                 withSpring: true,
                                                 onChanged: (int val) {
-                                                  // setState(() {
-                                                  //   user.cart[index].count =
-                                                  //       val.toString();
-                                                  // });
                                                   if (val == 0) {
                                                     showDialog(
                                                       context: context,
@@ -543,6 +633,7 @@ class _CartScreenState extends State<CartScreen> {
                                                             offerCode = offers[index];
                                                           });
                                                           calcBill();
+                                                          Navigator.of(context).pop();
                                                         },
                                                         title: Text(
                                                             offers[index]
@@ -594,10 +685,22 @@ class _CartScreenState extends State<CartScreen> {
                                             color: Colors.white, fontSize: 18),
                                       ),
                                       Text(
-                                        'Rs $delivery + ${gstCharge.toStringAsFixed(2)}',
+                                        'Rs $delivery + ${gstCharge.toStringAsFixed(2)} + $packing',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 18),
                                       ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        '*including gst, packaging, delivery',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 10),
+                                      ),
+                                      Container()
                                     ],
                                   ),
                                   SizedBox(
@@ -627,7 +730,7 @@ class _CartScreenState extends State<CartScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'Total',
+                                        'Grand Total',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 18),
                                       ),
@@ -638,18 +741,18 @@ class _CartScreenState extends State<CartScreen> {
                                       ),
                                     ],
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        '*including gst and packaging',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 10),
-                                      ),
-                                      Container()
-                                    ],
-                                  ),
+                                  // Row(
+                                  //   mainAxisAlignment:
+                                  //       MainAxisAlignment.spaceBetween,
+                                  //   children: [
+                                  //     Text(
+                                  //       '*including gst and packaging',
+                                  //       style: TextStyle(
+                                  //           color: Colors.white, fontSize: 10),
+                                  //     ),
+                                  //     Container()
+                                  //   ],
+                                  // ),
                                 ],
                               ),
                             )

@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
           image: DecorationImage(
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.7), BlendMode.dstATop),
+                Colors.black.withOpacity(0.6), BlendMode.dstATop),
             image: AssetImage('assets/loginbg.png'),
           ),
         ),
