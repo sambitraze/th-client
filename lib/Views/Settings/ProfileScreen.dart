@@ -4,7 +4,6 @@ import 'package:client/Views/Settings/DevPage.dart';
 import 'package:client/Views/Settings/EditProfileScreen.dart';
 import 'package:client/Views/Settings/ManageAddress.dart';
 import 'package:client/Views/Settings/OrderHistory.dart';
-import 'package:client/Views/Settings/notfication.dart';
 import 'package:client/models/User.dart' as u;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -138,23 +137,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         //     ),
                         //   ),
                         // ),
-                        FlatButton.icon(
+                        MaterialButton(
                           onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => OrderHistory(),
                             ),
                           ),
-                          icon: Icon(
-                            Icons.pages,
-                            color: Colors.grey,
-                          ),
-                          label: Text(
-                            'Your Orders',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
-                            ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.pages,
+                                color: Colors.grey,
+                              ),
+                              Text(
+                                'Your Orders',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         // FlatButton.icon(
@@ -176,23 +179,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         //     ),
                         //   ),
                         // ),
-                        FlatButton.icon(
+                        MaterialButton(
                           onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => EditProfileScreen(),
                             ),
                           ),
-                          icon: Icon(
-                            Icons.contacts,
-                            color: Colors.grey,
-                          ),
-                          label: Text(
-                            'Manage Address',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
-                            ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.contacts,
+                                color: Colors.grey,
+                              ),
+                              Text(
+                                'Manage Address',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -215,26 +222,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             fontSize: 20,
                           ),
                         ),
-                        FlatButton.icon(
+                        MaterialButton(
                           onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => DevPage(),
                             ),
                           ),
-                          icon: Icon(
-                            Icons.developer_mode,
-                            color: Colors.grey,
-                          ),
-                          label: Text(
-                            'Our Developers',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
-                            ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.developer_mode,
+                                color: Colors.grey,
+                              ),
+                              Text(
+                                'Our Developers',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        FlatButton.icon(
+                        MaterialButton(
                           onPressed: () async {
                             // Android and iOS
                             const uri =
@@ -245,33 +256,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               throw 'Could not launch $uri';
                             }
                           },
-                          icon: Icon(
-                            Icons.message,
-                            color: Colors.grey,
-                          ),
-                          label: Text(
-                            'Reach us!',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
-                            ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.message,
+                                color: Colors.grey,
+                              ),
+                              Text(
+                                'Reach us!',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        FlatButton.icon(
+                        MaterialButton(
                           onPressed: () => print('asd'),
-                          icon: Icon(
-                            Icons.star,
-                            color: Colors.grey,
-                          ),
-                          label: Text(
-                            'Rate Us!',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
-                            ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.star,
+                                color: Colors.grey,
+                              ),
+                              Text(
+                                'Rate Us!',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        FlatButton.icon(
+                        MaterialButton(
                           onPressed: () async {
                             await FirebaseAuth.instance.signOut();
                             SharedPreferences pref =
@@ -282,16 +301,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 MaterialPageRoute(
                                     builder: (context) => LoginScreen()));
                           },
-                          icon: Icon(
-                            Icons.exit_to_app,
-                            color: Colors.grey,
-                          ),
-                          label: Text(
-                            'Logout',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
-                            ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.exit_to_app,
+                                color: Colors.grey,
+                              ),
+                              Text(
+                                'Logout',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],

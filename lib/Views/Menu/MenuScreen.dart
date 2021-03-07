@@ -57,23 +57,21 @@ class _MenuScreenState extends State<MenuScreen> {
     });
     items = await ItemService.getItems();
     items.forEach((element) {
-      setState(() {
-        if (element.category == "Tandoor") {
-          menulist0.add(element);
-        } else if (element.category == "Main Course") {
-          menulist1.add(element);
-        } else if (element.category == "Chinese Main Course") {
-          menulist2.add(element);
-        } else if (element.category == "Rice/Biryani") {
-          menulist3.add(element);
-        } else if (element.category == "Noodles") {
-          menulist4.add(element);
-        } else if (element.category == "Rolls and Momos") {
-          menulist5.add(element);
-        } else if (element.category == "Breads") {
-          menulist6.add(element);
-        }
-      });
+      if (element.category == "Tandoor") {
+        menulist0.add(element);
+      } else if (element.category == "Main Course") {
+        menulist1.add(element);
+      } else if (element.category == "Chinese Main Course") {
+        menulist2.add(element);
+      } else if (element.category == "Rice/Biryani") {
+        menulist3.add(element);
+      } else if (element.category == "Noodles") {
+        menulist4.add(element);
+      } else if (element.category == "Rolls and Momos") {
+        menulist5.add(element);
+      } else if (element.category == "Breads") {
+        menulist6.add(element);
+      }
     });
     setState(() {
       loading = false;

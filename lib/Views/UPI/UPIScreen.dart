@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:client/LandingScreen.dart';
 import 'package:client/Services/DeliveryBoyService.dart';
 import 'package:client/Services/PushService.dart';
-import 'package:client/Services/UserService.dart';
 import 'package:client/Services/orderService.dart';
-import 'package:client/models/User.dart';
 import 'package:client/models/order.dart';
 import 'package:flutter/material.dart';
 import 'package:client/ui_constants.dart';
@@ -31,6 +29,7 @@ class _UPIScreenState extends State<UPIScreen> {
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
+  // ignore: missing_return
   Future<String> initTransaction(String app) async {
     try {
       String response = await FlutterUpi.initiateTransaction(
@@ -46,7 +45,7 @@ class _UPIScreenState extends State<UPIScreen> {
 
       return response;
     } catch (e) {
-      _key.currentState.showSnackBar(new SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
         content: new Text("Payment Cancel"),
       ));
     }

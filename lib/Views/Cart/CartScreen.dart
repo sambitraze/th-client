@@ -15,6 +15,7 @@ import 'package:client/models/order.dart';
 import 'package:flutter/material.dart';
 import 'package:stepper_counter_swipe/stepper_counter_swipe.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+// ignore: implementation_imports
 import 'package:flutter_rating_bar/src/rating_bar.dart';
 
 class CartScreen extends StatefulWidget {
@@ -52,7 +53,7 @@ class _CartScreenState extends State<CartScreen> {
       else
         return false;
     }).first;
-    if (user.cart != null) {
+    if (user.cart.length>0) {
       setState(() {
         chkcart = false;
       });
@@ -71,7 +72,6 @@ class _CartScreenState extends State<CartScreen> {
   bool loading1 = false;
   double itemsum = 0;
   double delivery = 10;
-  double packing = 0;
   double gstper = 5; //TODO: update this
   double gstCharge = 0.0;
   double grandtot = 0.0;
@@ -82,19 +82,15 @@ class _CartScreenState extends State<CartScreen> {
     itemsum = 0.0;
     gstCharge = 0.0;
     grandtot = 0.0;
-    packing = 0.0;
-    int count =0;
     setState(() {
       user.cart.forEach((element) {
         itemsum +=
             double.parse(element.item.price) * double.parse(element.count);
-        count += int.parse(element.count);
       });
       offerdeduct = itemsum* double.parse(offerCode.percentage)*0.01;
       itemsum>300? delivery = 0 : delivery = 10;
       gstCharge = itemsum * gstper * 0.01;
-      packing = count * 5.0;
-      grandtot = gstCharge + itemsum + delivery - offerdeduct + packing;
+      grandtot = gstCharge + itemsum + delivery - offerdeduct ;
     });
   }
 
@@ -226,11 +222,25 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       chkcart
                           ? Expanded(
-                              child: Center(
-                                  child: SvgPicture.asset(
-                                'assets/svg/cart.svg',
-                                height: 128,
-                              )),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Center(
+                                      child: SvgPicture.asset(
+                                    'assets/svg/cart.svg',
+                                    height: 128,
+                                  )),
+                                  SizedBox(height: 20,),
+                                  Text(
+                                    'No Items',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             )
                           : Expanded(
                               child: ListView.builder(
@@ -412,13 +422,14 @@ class _CartScreenState extends State<CartScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
-                                            FlatButton.icon(
-                                              icon: Image.asset(
-                                                'assets/rupee.png',
-                                                height: 18,
-                                              ),
-                                              onPressed: null,
-                                              label: Text(
+                                           Container(
+                                             child: Image.asset(
+                                               'assets/rupee.png',
+                                               height: 18,
+                                             ),
+                                           ),
+                                            Container(
+                                              child: Text(
                                                 user.cart[index].item.price,
                                                 style: TextStyle(
                                                   fontSize: 18,
@@ -685,7 +696,7 @@ class _CartScreenState extends State<CartScreen> {
                                             color: Colors.white, fontSize: 18),
                                       ),
                                       Text(
-                                        'Rs $delivery + ${gstCharge.toStringAsFixed(2)} + $packing',
+                                        'Rs $delivery + ${gstCharge.toStringAsFixed(2)} ',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 18),
                                       ),
@@ -741,18 +752,6 @@ class _CartScreenState extends State<CartScreen> {
                                       ),
                                     ],
                                   ),
-                                  // Row(
-                                  //   mainAxisAlignment:
-                                  //       MainAxisAlignment.spaceBetween,
-                                  //   children: [
-                                  //     Text(
-                                  //       '*including gst and packaging',
-                                  //       style: TextStyle(
-                                  //           color: Colors.white, fontSize: 10),
-                                  //     ),
-                                  //     Container()
-                                  //   ],
-                                  // ),
                                 ],
                               ),
                             )
@@ -826,7 +825,7 @@ class _CartScreenState extends State<CartScreen> {
                                                       amount:
                                                           itemsum.toString(),
                                                       packing:
-                                                          delivery.toString(),
+                                                          "0",
                                                       gst: gstCharge.toString(),
                                                       gstRate:
                                                           gstper.toString(),
@@ -883,7 +882,7 @@ class _CartScreenState extends State<CartScreen> {
                                                         amount:
                                                             itemsum.toString(),
                                                         packing:
-                                                            delivery.toString(),
+                                                            "0",
                                                         gst: gstCharge
                                                             .toString(),
                                                         gstRate:
@@ -909,6 +908,10 @@ class _CartScreenState extends State<CartScreen> {
                                                               tempDeliveryBoys[
                                                                       0]
                                                                   .toJson()));
+
+                                                  await PushService.sendPushToSelf(
+                                                      "Order Update !!!",
+                                                      "Your order no : ${order.orderId} is placed successfully");
                                                   Navigator.pushAndRemoveUntil(
                                                     context,
                                                     MaterialPageRoute(
@@ -917,13 +920,6 @@ class _CartScreenState extends State<CartScreen> {
                                                             LandingScreen()),
                                                     ModalRoute.withName('/'),
                                                   );
-                                                  await PushService.sendPushToSelf(
-                                                      "Order Update !!!",
-                                                      "Your order no : ${order.orderId} is placed succesfully");
-                                                  // await PushService.sendPushToVendor(
-                                                  //     "New Update !!!",
-                                                  //     "New Order : ${order.orderId} ",
-                                                  //     vendor.deviceToken);
                                                 },
                                               ),
                                             ),

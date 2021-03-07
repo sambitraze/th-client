@@ -1,8 +1,8 @@
 
-import 'package:client/Views/Auth/loginScreen.dart';
 import 'package:client/Views/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        primaryTextTheme: GoogleFonts.nunitoTextTheme(Theme.of(context).textTheme)
       ),
       home: SplashScreen(),
     );

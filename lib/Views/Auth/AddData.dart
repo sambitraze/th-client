@@ -18,7 +18,7 @@ class _AddDataState extends State<AddData> {
   TextEditingController email = TextEditingController();
   TextEditingController address = TextEditingController();
 
-  double latitude=0.0, longitude = 0.0;
+  double latitude = 0.0, longitude = 0.0;
   String deviceToken = '';
   bool _loading = false;
 
@@ -121,9 +121,11 @@ class _AddDataState extends State<AddData> {
                 TextFormField(
                   enabled: false,
                   style: TextStyle(color: Colors.white),
-                  decoration: TextFieldDec.inputDec("City *").copyWith(disabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white, width: 1.0),
-                  ),),
+                  decoration: TextFieldDec.inputDec("City *").copyWith(
+                    disabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 1.0),
+                    ),
+                  ),
                   controller: city,
                 ),
               ],
@@ -131,37 +133,44 @@ class _AddDataState extends State<AddData> {
             SizedBox(
               height: 20,
             ),
-            FlatButton.icon(
+            MaterialButton(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               color: Colors.grey[200],
               onPressed: () async {
                 await _determinePosition();
               },
-              icon: Icon(
-                Icons.location_on,
-                color: Colors.red,
-              ),
-              label: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Text(
-                  "Get current location !",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.location_on,
+                    color: Colors.red,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: Text(
+                      "Get current location !",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(
               height: 20,
             ),
-            _loading? Center(child: CircularProgressIndicator()):Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Latitude: $latitude      Longitude: $longitude",
-                  style: TextStyle(color: Colors.white),
-                )
-              ],
-            ),
+            _loading
+                ? Center(child: CircularProgressIndicator())
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Latitude: $latitude      Longitude: $longitude",
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
+                  ),
             SizedBox(
               height: 20,
             ),
@@ -184,7 +193,10 @@ class _AddDataState extends State<AddData> {
                 SharedPreferences pref = await SharedPreferences.getInstance();
                 if (name.text.length > 0 &&
                     email.text.length > 0 &&
-                    city.text=="Ara, Bihar" && address.text.length >0 && latitude != 0 && longitude != 0) {
+                    city.text == "Ara, Bihar" &&
+                    address.text.length > 0 &&
+                    latitude != 0 &&
+                    longitude != 0) {
                   print(name.text);
                   print(email.text);
                   print(city.text);
@@ -205,9 +217,15 @@ class _AddDataState extends State<AddData> {
                   );
                   if (user.id != null) {
                     pref.setBool("newUser", false);
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LandingScreen()));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LandingScreen()));
                   } else {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LandingScreen()));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LandingScreen()));
                   }
                 } else {
                   print('not entered');

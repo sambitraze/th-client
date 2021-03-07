@@ -109,7 +109,7 @@ class _ItemListScreenState extends State<ItemListScreen> {
                       if (prevCartLength< user.cart.length) {
                         add2cart();
                       } else {
-                        scaffkey.currentState.showSnackBar(new SnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
                           content: new Text(
                             "Select an item first",
                             style: TextStyle(color: Colors.white),

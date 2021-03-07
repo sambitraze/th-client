@@ -24,21 +24,21 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.0
-  double_back_to_close_app: ^1.2.0
-  firebase_auth: ^0.18.3
-  firebase_core: ^0.5.2
-  firebase_messaging: ^7.0.3
-  flutter_rating_bar: ^3.2.0+1
+  double_back_to_close_app: ^2.0.1
+  firebase_auth: ^1.0.0
+  firebase_core: ^1.0.0
+  firebase_messaging: ^9.0.0
+  flutter_rating_bar: ^4.0.0
   flutter_svg: null
   flutter_upi: ^0.0.2
   geolocator:
-  google_fonts: ^1.1.1
-  google_nav_bar: ^3.1.0
-  http: ^0.12.2
-  intl: ^0.16.1
-  shared_preferences: ^0.5.12+4
+  google_fonts: ^2.0.0
+  google_nav_bar: ^4.0.2
+  http: ^0.13.0
+  intl: ^0.17.0
+  shared_preferences: ^2.0.3
   stepper_counter_swipe: ^1.0.0
-  url_launcher: ^5.7.10
+  url_launcher: ^6.0.2
 
 dev_dependencies:
   flutter_test:

@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PushService {
   static Future<String> genTokenID() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    final FirebaseMessaging _fcm = FirebaseMessaging();
+    final FirebaseMessaging _fcm = FirebaseMessaging.instance;
     await _fcm.subscribeToTopic("offers");
     String deviceToken = await _fcm.getToken();
     print(deviceToken);
@@ -27,7 +27,7 @@ class PushService {
       {"title": title, "message": message, "deviceToken": deviceToken},
     );
     http.Response response = await http.post(
-        "http://64.225.85.5/notification/singleDevice",
+        Uri.parse("http://64.225.85.5/notification/singleDevice"),
         headers: headers,
         body: body);
     if (response.statusCode == 200) {
@@ -45,7 +45,7 @@ class PushService {
       {"title": title, "message": message, "deviceToken": id},
     );
     http.Response response = await http.post(
-        "http://64.225.85.5/notification/singleDevice",
+        Uri.parse("http://64.225.85.5/notification/singleDevice"),
         headers: headers,
         body: body);
 

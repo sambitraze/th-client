@@ -66,7 +66,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       loading = true;
     });
     user = await UserService.getUserByPhone();
-    print(user.toJson());
     setState(() {
       loading = false;
     });
@@ -84,7 +83,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             child: SizedBox(
               height: UIConstants.fitToHeight(40, context),
               width: UIConstants.fitToWidth(292, context),
-              child: RaisedButton(
+              child: MaterialButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25.0),
                       side: BorderSide(color: Colors.transparent)),
@@ -158,20 +157,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     SizedBox(
                       height: UIConstants.fitToHeight(60, context),
                     ),
-                    FlatButton.icon(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      color: Colors.grey[200],
-                      onPressed: () async {
-                        await _determinePosition();
-                      },
-                      icon: Icon(
-                        Icons.location_on,
+                    Container(
+                      width: 220,
+                      child: MaterialButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        color: Colors.grey[200],
+                        onPressed: () async {
+                          await _determinePosition();
+                        },
+                        child: Row(
+                          children: [Icon(
+                      Icons.location_on,
                         color: Colors.red,
                       ),
-                      label: Text(
-                        "Get current location !",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                            Text(
+                              "Get current location !",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -231,6 +237,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         keyboardType: type,
         onChanged: save,
         initialValue: init,
+        minLines: 3,
+        maxLines: 5,
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,

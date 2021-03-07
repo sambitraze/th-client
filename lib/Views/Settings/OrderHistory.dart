@@ -80,143 +80,158 @@ class _OrderHistoryState extends State<OrderHistory> {
                     width: 128,
                   ),
                 ),
-                orders.length > 0 ? Container(
-                  color: Colors.black12,
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: orders.length,
-                          itemBuilder: (context, int index) {
-                            return Container(
-                              color: Colors.black38,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Divider(
-                                    color: Colors.grey.withOpacity(0.88),
-                                    height: 1,
-                                  ),
-                                  ListTile(
-                                    leading: Text(
-                                      'Order No: ' + orders[index].orderId,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    trailing: FlatButton.icon(
-                                      onPressed: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              OrderDetailScreen(order: orders[index],),
+                orders.length > 0
+                    ? Container(
+                        color: Colors.black12,
+                        child: Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Expanded(
+                              child: ListView.builder(
+                                itemCount: orders.length,
+                                itemBuilder: (context, int index) {
+                                  return Container(
+                                    color: Colors.black38,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Divider(
+                                          color: Colors.grey.withOpacity(0.88),
+                                          height: 1,
                                         ),
-                                      ),
-                                      icon: Icon(
-                                        Icons.more,
-                                        color: Colors.green,
-                                      ),
-                                      label: Text(
-                                        'Details',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.white,
+                                        ListTile(
+                                          leading: Text(
+                                            'Order No: ' +
+                                                orders[index].orderId,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          trailing: Container(
+                                            width: 100,
+                                            child: MaterialButton(
+                                              onPressed: () => Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      OrderDetailScreen(
+                                                    order: orders[index],
+                                                  ),
+                                                ),
+                                              ),
+                                              child: Text(
+                                                'Details',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Colors.grey.withOpacity(0.48),
-                                    height: 1,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 12, vertical: 8),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              'Status',
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Text(                                              
-                                              orders[index].status,
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.grey[400],
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Text(
-                                              "Time",
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Text(
-                                              '${orders[index].createdAt.day}-${orders[index].createdAt.month}-${orders[index].createdAt.year}',
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.grey[400],
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
+                                        Divider(
+                                          color: Colors.grey.withOpacity(0.48),
+                                          height: 1,
                                         ),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              'Total: Rs ${(double.parse(orders[index].amount) + double.parse(orders[index].gst) + double.parse(orders[index].packing)).toStringAsFixed(2)}',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 12, vertical: 8),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Text(
+                                                    'Status',
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    orders[index].status,
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.grey[400],
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    "Time",
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    '${orders[index].createdAt.day}-${orders[index].createdAt.month}-${orders[index].createdAt.year}',
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.grey[400],
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                          ],
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    'Total: Rs ${(double.parse(orders[index].amount) + double.parse(orders[index].gst) + double.parse(orders[index].packing)).toStringAsFixed(2)}',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Divider(
+                                          color: Colors.grey.withOpacity(0.48),
+                                          height: 0,
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  Divider(
-                                    color: Colors.grey.withOpacity(0.48),
-                                    height: 0,
-                                  ),
-                                ],
+                                  );
+                                },
                               ),
-                            );
-                          },
+                            ),
+                          ],
                         ),
+                      )
+                    : Column(
+                        children: [
+                          SizedBox(
+                            height: 100,
+                          ),
+                          Center(
+                              child: Text(
+                            "No Orders ",
+                            style: TextStyle(color: Colors.white),
+                          )),
+                        ],
                       ),
-                    ],
-                  ),
-                ): Column(
-                  children: [
-                    SizedBox(height: 100,),
-                    Center(child: Text("No Orders ", style: TextStyle(color: Colors.white),)),
-                  ],
-                ),
               ],
             )
           : Center(child: CircularProgressIndicator()),

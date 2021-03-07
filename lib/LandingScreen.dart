@@ -1,20 +1,16 @@
 import 'dart:io';
 
 import 'package:client/Services/PushService.dart';
-import 'package:client/Services/UserService.dart';
-import 'package:client/Views/Auth/loginScreen.dart';
 import 'package:client/Views/Cart/CartScreen.dart';
 import 'package:client/Views/DineIn/DineInScreen.dart';
 import 'package:client/Views/HomeScreen/HomeScreen.dart';
 import 'package:client/Views/Menu/MenuScreen.dart';
 import 'package:client/Views/TakeAway/TakeAwayScreen.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LandingScreen extends StatefulWidget {
   @override
@@ -30,59 +26,31 @@ class _LandingScreenState extends State<LandingScreen> {
   List<String> notifications = [];
   List<String> time = [];
 
-  final _fcm = FirebaseMessaging();
+  final _fcm = FirebaseMessaging.instance;
   @override
   void initState() {
     PushService.genTokenID();
     super.initState();
-    _fcm.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        print("show");
-        // SharedPreferences prefs = await SharedPreferences.getInstance();
-        // notifications = prefs.getStringList("notifications");
-        // time = prefs.getStringList("time");
-        // setState(() {
-        //   time.add(DateTime.now().toString());
-        //   notifications.add(message['notification']['body']);
-        // });
-        // prefs.setStringList("notifications", notifications);
-        // prefs.setStringList("time", time);
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification notification = message.notification;
+      AndroidNotification android = message.notification?.android;
+      if (notification != null && android != null) {
         showDialog(
-          context: context,
-          builder: (context) => Platform.isAndroid
-              ? AlertDialog(
-                  title: Text(message['notification']['title']),
+            context: context,
+            builder: (context) => AlertDialog(
+                  title: Text(notification.title),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12)),
-                  content: Text(message['notification']['body']),
+                  content: Text(notification.title),
                   actions: <Widget>[
-                    FlatButton(
+                    MaterialButton(
                       child: Text('Ok'),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                   ],
-                )
-              : CupertinoAlertDialog(
-                  title: Text(message['notification']['title']),
-                  content: Text(message['notification']['body']),
-                  actions: <Widget>[
-                    FlatButton(
-                      child: Text('Ok'),
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                  ],
-                ),
-        );
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
-        // TODO optional
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-        // TODO optional
-      },
-    );
+                ));
+      }
+    });
   }
 
   @override
@@ -167,8 +135,9 @@ class _LandingScreenState extends State<LandingScreen> {
                   _selectedIndex = index;
                 },
               );
-              pageController.animateToPage(index,
-                  duration: Duration(milliseconds: 300), curve: Curves.ease);
+              pageController.jumpToPage(
+                index,
+              );
             },
           ),
         ),

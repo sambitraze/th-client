@@ -4,9 +4,10 @@ import 'package:client/models/top.dart';
 
 class TopService {
 
+  // ignore: missing_return
   static Future<List<Top>> getTops() async {
     http.Response response = await http.get(
-      "http://64.225.85.5/top/",
+      Uri.parse("http://64.225.85.5/top/"),
       headers: {"Content-Type": "application/json"},
     );
     if (response.statusCode == 200) {
