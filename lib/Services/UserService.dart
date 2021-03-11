@@ -27,6 +27,7 @@ class UserService {
       Uri.parse("http://64.225.85.5/user/$id"),
       headers: {"Content-Type": "application/json"},
     );
+    print(id);
     if (response.statusCode == 200) {
       var responseMap = json.decode(response.body);
       User user = User.fromJson(responseMap);

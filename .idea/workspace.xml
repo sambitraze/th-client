@@ -22,35 +22,13 @@
     <list default="true" id="6bf993de-b6cf-42be-ab8a-172f7151a02e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/google-services.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/menu0.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/menu0.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/menu1.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/menu1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/menu2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/menu2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/menu3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/menu3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/menu4.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/menu4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/menu5.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/menu5.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/menu6.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/menu6.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/LandingScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/LandingScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Services/DeliveryBoyService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Services/DeliveryBoyService.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Services/ItemService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Services/ItemService.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Services/PushService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Services/PushService.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Services/UserService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Services/UserService.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Services/offerSerivce.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Services/offerSerivce.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Services/orderService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Services/orderService.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Services/topService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Services/topService.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Auth/AddData.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Auth/AddData.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Views/Auth/loginScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Auth/loginScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Views/Cart/CartScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Cart/CartScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Menu/ItemListScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Menu/ItemListScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Menu/MenuScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Menu/MenuScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Settings/ManageAddress.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Settings/ManageAddress.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Settings/OrderHistory.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Settings/OrderHistory.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Settings/ProfileScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Settings/ProfileScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Views/Settings/orderDetialScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Settings/orderDetialScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Views/UPI/UPIScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/UPI/UPIScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +51,7 @@
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../SANUS/sanus" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../fad" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
@@ -117,10 +95,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="100" y="100" width="1069" height="880" key="AVDManager/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1610940020949" />
-    <state x="740" y="295" key="FileChooserDialogImpl" timestamp="1611895381910">
+    <state x="740" y="295" key="FileChooserDialogImpl" timestamp="1615294688556">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="740" y="295" key="FileChooserDialogImpl/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1611895381910" />
+    <state x="740" y="295" key="FileChooserDialogImpl/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1615294688556" />
     <state width="1545" height="342" key="GridCell.Tab.0.bottom" timestamp="1615136748448">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

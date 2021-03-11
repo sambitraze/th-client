@@ -840,7 +840,7 @@ class _CartScreenState extends State<CartScreen> {
                                                       total:
                                                           grandtot.toString(),
                                                     );
-                                                  }));
+                                                  }));                                                  
                                                 },
                                               ),
                                             ),

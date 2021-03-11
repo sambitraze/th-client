@@ -41,7 +41,7 @@ class _LandingScreenState extends State<LandingScreen> {
                   title: Text(notification.title),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12)),
-                  content: Text(notification.title),
+                  content: Text(notification.body),
                   actions: <Widget>[
                     MaterialButton(
                       child: Text('Ok'),

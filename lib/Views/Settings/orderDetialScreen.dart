@@ -1,9 +1,15 @@
+import 'dart:convert';
+
+import 'package:client/Services/orderService.dart';
+import 'package:client/Views/Maps/mapscreen.dart';
+import 'package:client/Views/UPI/penanltyupi.dart';
 import 'package:flutter/material.dart';
 import 'package:client/models/order.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:client/ui_constants.dart';
+
 class OrderDetailScreen extends StatefulWidget {
   final Order order;
   OrderDetailScreen({this.order});
@@ -12,7 +18,7 @@ class OrderDetailScreen extends StatefulWidget {
 }
 
 class _OrderDetailScreenState extends State<OrderDetailScreen> {
-   Order order;
+  Order order;
   bool isVisible = false;
   bool isVisible1 = false;
   List<Widget> srlNo = [
@@ -134,7 +140,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     else
       return false;
   }
-   callAction(String number) async {
+
+  callAction(String number) async {
     String url = 'tel:$number';
     if (await canLaunch(url)) {
       await launch(url);
@@ -146,7 +153,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,      
+      backgroundColor: Colors.black,
       appBar: AppBar(
         brightness: Brightness.light,
         backgroundColor: Colors.black,
@@ -154,16 +161,13 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
         title: Text(
           'Order Details',
           style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 30),
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),
         ),
-        centerTitle: true,       
+        centerTitle: true,
         iconTheme: IconThemeData(
           color: Colors.blue, //change your color here
         ),
       ),
-      
       body: Container(
         height: UIConstants.fitToHeight(640, context),
         width: UIConstants.fitToWidth(360, context),
@@ -188,27 +192,28 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         fontWeight: FontWeight.w400),
                   ),
                 ),
-                 SizedBox(height: UIConstants.fitToHeight(25, context)),
+                SizedBox(height: UIConstants.fitToHeight(25, context)),
                 ListTile(
                   title: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4.0),
                     child: Text(
                       "Deliver to",
                       style: GoogleFonts.lato(
-                          textStyle: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.white,
-                          ),),
+                        textStyle: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                   subtitle: Text(
                     '${order.customer.name}, \n${order.customer.address}',
-                    style:TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 SizedBox(height: UIConstants.fitToHeight(15, context)),
@@ -221,7 +226,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 ),
                 SizedBox(height: UIConstants.fitToHeight(15, context)),
                 Padding(
-                  padding: const EdgeInsets.only(top: 15.0,bottom: 15.0),
+                  padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -238,15 +243,13 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         ),
                       ),
                       Padding(
-                        padding:
-                            const EdgeInsets.only(top: 15.0, bottom: 15.0),
+                        padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Column(children: srlNo),
                               Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: itemName),
                               Column(children: quantity),
                               Column(children: price),
@@ -270,21 +273,27 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Item total: ',
-                         style: GoogleFonts.lato(
+                      Text(
+                        'Item total: ',
+                        style: GoogleFonts.lato(
                           textStyle: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
-                          ),),),
-                      Text('Rs ${double.parse(order.amount)}',
-                          textAlign: TextAlign.left,
-                          style:GoogleFonts.lato(
+                          ),
+                        ),
+                      ),
+                      Text(
+                        'Rs ${double.parse(order.amount)}',
+                        textAlign: TextAlign.left,
+                        style: GoogleFonts.lato(
                           textStyle: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
-                          ),),),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -296,21 +305,23 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     children: [
                       Text(
                         'Total Charges: ',
-                        style:GoogleFonts.lato(
+                        style: GoogleFonts.lato(
                           textStyle: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
-                          ),),
+                          ),
+                        ),
                       ),
                       Text('₹ ${order.gst}',
                           textAlign: TextAlign.left,
                           style: GoogleFonts.lato(
-                          textStyle: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),)),
+                            textStyle: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          )),
                     ],
                   ),
                 ),
@@ -380,19 +391,21 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     children: [
                       Text('Payment Method: ',
                           style: GoogleFonts.lato(
-                          textStyle: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),)),
+                            textStyle: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          )),
                       Text('${order.paymentType}',
                           textAlign: TextAlign.left,
                           style: GoogleFonts.lato(
-                          textStyle: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),)),
+                            textStyle: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          )),
                     ],
                   ),
                 ),
@@ -403,22 +416,24 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Order Status: ',
-                          style:GoogleFonts.lato(
-                          textStyle: GoogleFonts.lato(
-                          textStyle: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),),
+                          style: GoogleFonts.lato(
+                            textStyle: GoogleFonts.lato(
+                              textStyle: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
                           )),
                       Text('${order.status}',
                           textAlign: TextAlign.left,
                           style: GoogleFonts.lato(
-                          textStyle: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),)),
+                            textStyle: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          )),
                     ],
                   ),
                 ),
@@ -431,45 +446,75 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   color: Colors.white,
                 ),
                 SizedBox(height: UIConstants.fitToHeight(15, context)),
-                // ListTile(
-                //   trailing: Row(
-                //     mainAxisAlignment: MainAxisAlignment.end,
-                //     mainAxisSize: MainAxisSize.min,
-                //     children: [
-                //       isVisible
-                //           ? IconButton(
-                //               icon: Icon(
-                //                 Icons.call,
-                //                 color: Colors.green,
-                //               ),
-                //               onPressed: () {
-                //                 callAction(order.deliveryBy.phone);
-                //               })
-                //           : Container(),
-                //       trackButton(context),
-                //       cancelOrder(context)
-                //     ],
-                //   ),
-                //   title: Padding(
-                //     padding: const EdgeInsets.symmetric(vertical: 4.0),
-                //     child: Text(
-                //       "Delivery By",
-                //       style: TextStyle(
-                //             fontSize: 16,
-                //             fontWeight: FontWeight.normal,
-                //             color: Colors.white,
-                //           ),
-                //     ),
-                //   ),
-                //   subtitle: Text(
-                //     '${order.deliveryBy.name}\n${order.deliveryBy.phone}',
-                //     style: TextStyle(
-                //             fontSize: 17,
-                //             fontWeight: FontWeight.bold,
-                //             color: Colors.white,
-                //           ),
-                //   ),
-                // ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    order.status == "out for delivery"
+                        ? MaterialButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                            color: Colors.redAccent,
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      MapScreen(order: order)));
+                            },
+                            child: Text(
+                              'Track',
+                              textAlign: TextAlign.left,
+                              style: GoogleFonts.lato(
+                                textStyle: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          )
+                        : Container(),
+                    order.status == "placed" || order.status == "cooking"
+                        ? SizedBox(
+                            width: 28,
+                          )
+                        : Container(),
+                    order.status == "placed" || order.status == "cooking"
+                        ? MaterialButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                            color: Colors.redAccent,
+                            onPressed: () {
+                              if (DateTime.now()
+                                      .difference(
+                                          DateFormat("yy-MM-dd HH:mm:SSS")
+                                              .parse(order.createdAt.toString(),
+                                                  true)
+                                              .toLocal())
+                                      .inMinutes >
+                                  10) {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>PenaltyUPI(order: order,)));
+                              } else {
+                                setState(() {
+                                  order.status = "cancelled";
+                                });
+                                OrderService.updateOrder(
+                                    jsonEncode(order.toJson()));
+                              }
+                            },
+                            child: Text(
+                              'Cancel',
+                              textAlign: TextAlign.left,
+                              style: GoogleFonts.lato(
+                                textStyle: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          )
+                        : Container(),
+                  ],
+                )
               ],
             ),
           ),

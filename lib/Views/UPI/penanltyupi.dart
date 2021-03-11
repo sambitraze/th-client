@@ -9,15 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:client/ui_constants.dart';
 import 'package:flutter_upi/flutter_upi.dart';
 
-class UPIScreen extends StatefulWidget {
-  UPIScreen({this.order, this.total});
-  final String total;
+class PenaltyUPI extends StatefulWidget {
+  PenaltyUPI({this.order});
   final Order order;
   @override
-  _UPIScreenState createState() => _UPIScreenState();
+  _PenaltyUPIState createState() => _PenaltyUPIState();
 }
 
-class _UPIScreenState extends State<UPIScreen> {
+class _PenaltyUPIState extends State<PenaltyUPI> {
   Future _initiateTransaction;
   GlobalKey<ScaffoldState> _key;
   SliverGridDelegate sliverGridDelegate;
@@ -38,7 +37,7 @@ class _UPIScreenState extends State<UPIScreen> {
           pn: "Tandoor Hut",
           tr: widget.order.orderId,
           tn: "Tandoor Hut payment",
-          am: widget.total,
+          am: "49",
           cu: "INR",
           url: "http://64.225.85.5/");
       print(response);
@@ -119,15 +118,14 @@ class _UPIScreenState extends State<UPIScreen> {
                                       LandingScreen()),
                               ModalRoute.withName('/'),
                             );
-                            PushService.sendPushToSelf("payament pailed", "Order: ${widget.order.orderId} is now placed for Cash on Delivery");
+                          PushService.sendPushToSelf("Payament Failed", "Your payment failed order cancellation failed.");
                           }
                           if (flutterUpiResponse.Status == "SUCCESS") {
                             setState(() {
-                              widget.order.paid = true;
-                              widget.order.txtId = flutterUpiResponse.txnId;
+                              widget.order.status = "cancelled";
                             });
-                            PushService.sendPushToSelf("Order Placed", "Order: ${widget.order.orderId} is placed successfully");
-                            Navigator.pushAndRemoveUntil(
+                          PushService.sendPushToSelf("Payament successfull", "Your payment proccessed order cancellation successfull.");
+                          Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
                                   builder: (BuildContext context) =>
