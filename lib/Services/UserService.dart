@@ -11,8 +11,6 @@ class UserService {
     if (response.statusCode == 200) {
       var responseMap = json.decode(response.body);
       User user = User.fromJson(responseMap);
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString("id", user.id);
       return user;
     } else {
       print("Debug create user");
@@ -27,7 +25,6 @@ class UserService {
       Uri.parse("http://64.225.85.5/user/$id"),
       headers: {"Content-Type": "application/json"},
     );
-    print(id);
     if (response.statusCode == 200) {
       var responseMap = json.decode(response.body);
       User user = User.fromJson(responseMap);

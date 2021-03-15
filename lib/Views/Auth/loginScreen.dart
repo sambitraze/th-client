@@ -297,7 +297,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               SharedPreferences pref =
                                   await SharedPreferences.getInstance();
                               var chk = await UserService.userchk(phone);
-                              print(chk);
                               if (chk) {
                                 var client = await UserService.getUserByPhone();
                                 pref.setString("id", client.id);                                

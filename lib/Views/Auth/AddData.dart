@@ -197,25 +197,19 @@ class _AddDataState extends State<AddData> {
                     address.text.length > 0 &&
                     latitude != 0 &&
                     longitude != 0) {
-                  print(name.text);
-                  print(email.text);
-                  print(city.text);
-                  print(pref.getString("phoneNo"));
                   User user = await UserService.createUser(
-                    jsonEncode(
-                      User(
-                        phone: pref.getString("phoneNo"),
-                        email: email.text,
-                        name: name.text,
-                        city: city.text,
-                        address: address.text,
-                        latitude: latitude.toString(),
-                        longitude: longitude.toString(),
-                        deviceToken: deviceToken,
-                      ).toJson(),
-                    ),
+                   jsonEncode( {
+                     "phone": pref.getString("phoneNo"),
+                     "email": email.text,
+                     "name": name.text,
+                     "city": city.text,
+                     'address': address.text,
+                     'latitude': latitude.toString(),
+                     'longitude': longitude.toString(),
+                   }),
                   );
                   if (user.id != null) {
+                    pref.setString("id", user.id);
                     pref.setBool("newUser", false);
                     Navigator.pushReplacement(
                         context,

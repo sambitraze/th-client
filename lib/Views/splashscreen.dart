@@ -34,6 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void navigate() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool chk = prefs.getBool("login");
+    print(chk);
     if (chk != null) {
       if (chk) {
         Navigator.of(context)
