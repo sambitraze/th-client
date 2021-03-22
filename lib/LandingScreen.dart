@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:client/Services/PushService.dart';
 import 'package:client/Views/Cart/CartScreen.dart';
 import 'package:client/Views/DineIn/DineInScreen.dart';

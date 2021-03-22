@@ -49,7 +49,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool showOTP = false;
 
   Future<void> verifyPhone(phoneNo) async {
-    print("phone start");
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString("phoneNo", phoneNo);
     setState(() {
@@ -188,13 +187,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         _input(
-                            40,
+                            20,
                             0,
                             180,
                             'Please enter Mobile Number',
                             false,
-                            'Mobile Number',
-                            'Mobile Number',
+                            'Mobile',
+                            'Mobile',
                             Icons.phone,
                             TextInputType.phone, (value) {
                           setState(() {
@@ -213,32 +212,34 @@ class _LoginScreenState extends State<LoginScreen> {
                             ? Padding(
                                 padding: EdgeInsets.only(left: 20, bottom: 20),
                                 child: MaterialButton(
-                                    height: 50,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        side: BorderSide(
-                                            color: Colors.transparent)),
-                                    color: Color(0xff25354E),
-                                    elevation: 2.0,
-                                    onPressed: () {
-                                      verifyPhone(phone);
-                                      setState(() {
-                                        showOTP = true;
-                                      });
-                                    },
-                                    child: Text(
-                                      phoneVerified ? 'Verified' : 'Verify',
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 16),
-                                    )),
+                                  height: 50,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      side: BorderSide(
+                                          color: Colors.transparent)),
+                                  color: Color(0xff25354E),
+                                  elevation: 2.0,
+                                  onPressed: () {
+                                    verifyPhone(phone);
+                                    setState(() {
+                                      showOTP = true;
+                                    });
+                                  },
+                                  child: Text(
+                                    phoneVerified ? '✓' : 'Verify',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  ),
+                                ),
                               )
                             : Container(
                                 padding: EdgeInsets.only(left: 20, bottom: 20),
                                 child: CircularProgressIndicator(
-                                    valueColor:
-                                        new AlwaysStoppedAnimation<Color>(
-                                            Color(0xff25354E))))
+                                  valueColor: new AlwaysStoppedAnimation<Color>(
+                                    Color(0xff25354E),
+                                  ),
+                                ),
+                              ),
                       ],
                     ),
                     showOTP
@@ -299,7 +300,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               var chk = await UserService.userchk(phone);
                               if (chk) {
                                 var client = await UserService.getUserByPhone();
-                                pref.setString("id", client.id);                                
+                                pref.setString("id", client.id);
                                 pref.setBool("login", true);
                                 Navigator.pushReplacement(
                                     context,
@@ -316,7 +317,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               'Login',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 16),
-                            ))
+                            ),
+                          )
                         : Container(),
                   ],
                 ),
