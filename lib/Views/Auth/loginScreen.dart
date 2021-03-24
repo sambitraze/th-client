@@ -246,7 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ? Row(
                             children: [
                               _input(
-                                  40,
+                                  20,
                                   0,
                                   180,
                                   'Enter correct OTP',

@@ -59,41 +59,30 @@ class _ItemListScreenState extends State<ItemListScreen> {
         context, MaterialPageRoute(builder: (context) => CartScreen()));
   }
 
+  bool chkoutbutton = true;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         key: scaffkey,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
         body: Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20.0),
-              child: ListTile(
-                leading: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                        ),
-                        onPressed: () => Navigator.pop(context),
-                      ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Choose your dish",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Image.asset(
-                      'assets/menulist.png',
-                      height: 60,
-                    )
-                  ],
-                ),
-                trailing: Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: MaterialButton(
+                  ),
+                  MaterialButton(
                     color: Colors.orange,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -106,7 +95,7 @@ class _ItemListScreenState extends State<ItemListScreen> {
                           });
                         }
                       });
-                      if (prevCartLength< user.cart.length) {
+                      if (prevCartLength < user.cart.length) {
                         add2cart();
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
@@ -120,35 +109,12 @@ class _ItemListScreenState extends State<ItemListScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        'Add to\ncart',
+                        'Add to cart',
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    widget.title.replaceAll('\n', '\t'),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  //   IconButton(
-                  //     icon: Icon(Icons.search, color: Colors.white, size: 30),
-                  //     onPressed: () => print('fsd'),
-                  //   )
                 ],
               ),
             ),
@@ -161,7 +127,7 @@ class _ItemListScreenState extends State<ItemListScreen> {
                 itemCount: cartItems.length,
                 itemBuilder: (BuildContext ctxt, int index) {
                   return Container(
-                    color: Colors.black38,
+                    color: Colors.white,
                     child: Column(
                       children: <Widget>[
                         Container(
@@ -184,15 +150,27 @@ class _ItemListScreenState extends State<ItemListScreen> {
                                   cartItems[index].item.name,
                                   style: TextStyle(
                                     fontSize: 16,
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
+                                SizedBox(
+                                  height: 6,
+                                ),
                                 RatingBar(
                                   ratingWidget: RatingWidget(
-                                    full: Icon(Icons.star),
-                                    half: Icon(Icons.star_half),
-                                    empty: Icon(Icons.star_outline),
+                                    full: Icon(
+                                      Icons.star,
+                                      color: Colors.amberAccent,
+                                    ),
+                                    half: Icon(
+                                      Icons.star_half,
+                                      color: Colors.amberAccent,
+                                    ),
+                                    empty: Icon(
+                                      Icons.star_outline,
+                                      color: Colors.amberAccent,
+                                    ),
                                   ),
                                   direction: Axis.horizontal,
                                   allowHalfRating: true,
@@ -204,6 +182,9 @@ class _ItemListScreenState extends State<ItemListScreen> {
                                   itemPadding:
                                       EdgeInsets.symmetric(horizontal: 4.0),
                                 ),
+                                SizedBox(
+                                  height: 6,
+                                ),
                                 Row(children: <Widget>[
                                   Image.asset(
                                     'assets/rupee.png',
@@ -213,8 +194,8 @@ class _ItemListScreenState extends State<ItemListScreen> {
                                   Text(
                                     cartItems[index].item.price,
                                     style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.white,
+                                      fontSize: 16,
+                                      color: Colors.black,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -222,6 +203,7 @@ class _ItemListScreenState extends State<ItemListScreen> {
                               ],
                             ),
                             trailing: Column(
+                              mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 int.parse(cartItems[index].count) > 0
                                     ? Expanded(
@@ -237,6 +219,7 @@ class _ItemListScreenState extends State<ItemListScreen> {
                                               Duration(milliseconds: 100),
                                           direction: Axis.horizontal,
                                           dragButtonColor: Colors.orange,
+                                          iconsColor: Colors.orange,
                                           withSpring: true,
                                           minValue: 0,
                                           onChanged: (int val) {
@@ -248,33 +231,32 @@ class _ItemListScreenState extends State<ItemListScreen> {
                                           },
                                         ),
                                       )
-                                    : Expanded(
-                                        child: MaterialButton(
-                                          color: Colors.orange,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                          height: 8,
-                                          onPressed: () {
-                                            print('add');
-                                            setState(() {
-                                              cartItems[index].count = "1";
-                                            });
-                                          },
-                                          child: Text(
-                                            'Add +',
-                                            style: TextStyle(color: Colors.white),
-                                          ),
+                                    : MaterialButton(
+                                        color: Colors.orange,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        height: 32,
+                                        onPressed: () {
+                                          print('add');
+                                          setState(() {
+                                            chkoutbutton = true;
+                                            cartItems[index].count = "1";
+                                          });
+                                        },
+                                        child: Text(
+                                          'Add +',
+                                          style: TextStyle(color: Colors.white),
                                         ),
                                       ),
-                                Text(
-                                  'customizable',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12,
-                                  ),
-                                ),
+                                // Text(
+                                //   'customizable',
+                                //   style: TextStyle(
+                                //     color: Colors.black,
+                                //     fontSize: 12,
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),

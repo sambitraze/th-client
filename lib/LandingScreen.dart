@@ -3,6 +3,7 @@ import 'package:client/Views/Cart/CartScreen.dart';
 import 'package:client/Views/DineIn/DineInScreen.dart';
 import 'package:client/Views/HomeScreen/HomeScreen.dart';
 import 'package:client/Views/Menu/MenuScreen.dart';
+import 'package:client/Views/Settings/ProfileScreen.dart';
 import 'package:client/Views/TakeAway/TakeAwayScreen.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -75,10 +76,11 @@ class _LandingScreenState extends State<LandingScreen> {
             },
             children: [
               HomeScreen(),
-              MenuScreen(),
+              // MenuScreen(),
               CartScreen(),
-              TakeAwayScreen(),
+              // TakeAwayScreen(),
               DineInScreen(),
+              ProfileScreen()
             ],
           ),
         ),
@@ -105,10 +107,10 @@ class _LandingScreenState extends State<LandingScreen> {
             duration: Duration(milliseconds: 500),
             tabBackgroundColor: Color.fromRGBO(252, 126, 47, 1),
             tabs: [
-              GButton(
-                icon: Icons.home,
-                text: 'Home',
-              ),
+              // GButton(
+              //   icon: Icons.home,
+              //   text: 'Home',
+              // ),
               GButton(
                 icon: Icons.fastfood,
                 text: 'Menu',
@@ -117,13 +119,17 @@ class _LandingScreenState extends State<LandingScreen> {
                 icon: Icons.shopping_cart,
                 text: 'Cart',
               ),
-              GButton(
-                icon: Icons.directions_run,
-                text: 'Takeaway',
-              ),
+              // GButton(
+              //   icon: Icons.directions_run,
+              //   text: 'Takeaway',
+              // ),
               GButton(
                 icon: Icons.phone_in_talk,
                 text: 'Dine-In',
+              ),
+              GButton(
+                icon: Icons.person,
+                text: 'Profile',
               ),
             ],
             selectedIndex: _selectedIndex,
