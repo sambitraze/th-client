@@ -38,16 +38,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        elevation: 0,
+        backgroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: Colors.white,
+            color: Colors.black,
           ),
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: load
             ? CircularProgressIndicator()
@@ -58,13 +59,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Column(
                       children: <Widget>[
                         CircleAvatar(
-                          backgroundColor: Colors.white,
+                          backgroundColor: Colors.black,
                           radius: 40,
                           child: InkWell(
                             child: Text(
                               user.name.substring(0, 1),
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontSize: 32,
                               ),
                             ),
@@ -82,8 +83,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Text(
                           user.name,
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 28,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         SizedBox(
@@ -93,7 +95,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           user.email + '\n' + "+91 " + user.phone,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.grey[400],
+                            color: Colors.grey[500],
                             fontSize: 18,
                           ),
                         ),
@@ -114,29 +116,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Text(
                           'Settings',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ),
                         ),
-                        // FlatButton.icon(
-                        //   onPressed: () => Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => SavedFoodPage(),
-                        //     ),
-                        //   ),
-                        //   icon: Icon(
-                        //     Icons.save,
-                        //     color: Colors.grey,
-                        //   ),
-                        //   label: Text(
-                        //     'Saved Foods',
-                        //     style: TextStyle(
-                        //       color: Colors.grey,
-                        //       fontSize: 16,
-                        //     ),
-                        //   ),
-                        // ),
                         MaterialButton(
                           onPressed: () => Navigator.push(
                             context,
@@ -160,25 +144,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ],
                           ),
                         ),
-                        // FlatButton.icon(
-                        //   onPressed: () => Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => NotificationPage(),
-                        //     ),
-                        //   ),
-                        //   icon: Icon(
-                        //     Icons.notification_important,
-                        //     color: Colors.grey,
-                        //   ),
-                        //   label: Text(
-                        //     'Notifications',
-                        //     style: TextStyle(
-                        //       color: Colors.grey,
-                        //       fontSize: 16,
-                        //     ),
-                        //   ),
-                        // ),
                         MaterialButton(
                           onPressed: () => Navigator.push(
                             context,
@@ -218,8 +183,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Text(
                           'About',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 20,
+                            fontWeight: FontWeight.bold
                           ),
                         ),
                         MaterialButton(

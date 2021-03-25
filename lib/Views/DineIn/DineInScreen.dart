@@ -10,7 +10,7 @@ class _DineInScreenState extends State<DineInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: Container(
         alignment: Alignment.center,
         child: Column(
@@ -24,7 +24,7 @@ class _DineInScreenState extends State<DineInScreen> {
             Text(
               'Coming Soon',
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 20,
               ),
             )
