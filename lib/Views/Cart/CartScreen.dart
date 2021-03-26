@@ -839,16 +839,13 @@ class _CartScreenState extends State<CartScreen> {
                                                     SizedBox(
                                                       height: 16,
                                                     ),
-                                                    Container(
-                                                      child: Text(
-                                                        'Select Order Type',
-                                                        style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 24,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
+                                                    Text(
+                                                      'Select Order Type',
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 24,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                     Padding(
                                                       padding:
@@ -859,30 +856,60 @@ class _CartScreenState extends State<CartScreen> {
                                                             MainAxisAlignment
                                                                 .spaceEvenly,
                                                         children: [
-                                                          Container(
-                                                            height: 100,
-                                                            width: 100,
-                                                            decoration:
-                                                            BoxDecoration(
-                                                              image:
-                                                              DecorationImage(
-                                                                image: AssetImage(
-                                                                    "assets/take-away.png"),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          InkWell(
-                                                            child: Container(
-                                                              height: 100,
-                                                              width: 100,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                image:
-                                                                    DecorationImage(
-                                                                  image: AssetImage(
-                                                                      "assets/delivery-truck.png"),
+                                                          Column(
+                                                            children: [
+                                                              Container(
+                                                                height: 90,
+                                                                width: 100,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  image:
+                                                                      DecorationImage(
+                                                                    image: AssetImage(
+                                                                        "assets/take-away.png"),
+                                                                  ),
                                                                 ),
                                                               ),
+                                                              SizedBox(height: 10,),
+                                                              Text(
+                                                                'TakeAway',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight.bold),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          InkWell(
+                                                            child: Column(
+                                                              children: [
+                                                                Container(
+                                                                  height: 100,
+                                                                  width: 100,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    image:
+                                                                        DecorationImage(
+                                                                      image: AssetImage(
+                                                                          "assets/delivery-truck.png"),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  'Delivery',
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          16,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                ),
+                                                              ],
                                                             ),
                                                             onTap: () {
                                                               if (showBill ==
