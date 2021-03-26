@@ -95,7 +95,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           user.email + '\n' + "+91 " + user.phone,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.grey[500],
+                            color: Colors.black,
                             fontSize: 18,
                           ),
                         ),
@@ -104,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   SizedBox(height: 25),
                   Divider(
-                    color: Colors.grey.withOpacity(0.48),
+                    color: Colors.black,
                     height: 1,
                   ),
                   Container(
@@ -132,12 +132,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               Icon(
                                 Icons.pages,
-                                color: Colors.grey,
+                                color: Colors.black,
                               ),
                               Text(
                                 'Your Orders',
                                 style: TextStyle(
-                                  color: Colors.grey,
+                                  color: Colors.black,
                                   fontSize: 16,
                                 ),
                               ),
@@ -155,12 +155,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               Icon(
                                 Icons.contacts,
-                                color: Colors.grey,
+                                color: Colors.black,
                               ),
                               Text(
                                 'Manage Address',
                                 style: TextStyle(
-                                  color: Colors.grey,
+                                  color: Colors.black,
                                   fontSize: 16,
                                 ),
                               ),
@@ -171,7 +171,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   Divider(
-                    color: Colors.grey.withOpacity(0.48),
+                    color: Colors.black,
                     height: 1,
                   ),
                   Container(
@@ -183,10 +183,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Text(
                           'About',
                           style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold
-                          ),
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
                         ),
                         MaterialButton(
                           onPressed: () => Navigator.push(
@@ -199,12 +198,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               Icon(
                                 Icons.developer_mode,
-                                color: Colors.grey,
+                                color: Colors.black,
                               ),
                               Text(
                                 'Our Developers',
                                 style: TextStyle(
-                                  color: Colors.grey,
+                                  color: Colors.black,
                                   fontSize: 16,
                                 ),
                               ),
@@ -226,12 +225,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               Icon(
                                 Icons.message,
-                                color: Colors.grey,
+                                color: Colors.black,
                               ),
                               Text(
                                 'Reach us!',
                                 style: TextStyle(
-                                  color: Colors.grey,
+                                  color: Colors.black,
                                   fontSize: 16,
                                 ),
                               ),
@@ -239,17 +238,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         MaterialButton(
-                          onPressed: () => print('asd'),
+                          onPressed: () async {
+                            // Android and iOS
+                            const uri =
+                                'https://play.google.com/store/apps/details?id=com.tandoorhut.client';
+                            if (await canLaunch(uri)) {
+                              await launch(uri);
+                            } else {
+                              throw 'Could not launch $uri';
+                            }
+                          },
                           child: Row(
                             children: [
                               Icon(
                                 Icons.star,
-                                color: Colors.grey,
+                                color: Colors.black,
                               ),
                               Text(
                                 'Rate Us!',
                                 style: TextStyle(
-                                  color: Colors.grey,
+                                  color: Colors.black,
                                   fontSize: 16,
                                 ),
                               ),
@@ -271,12 +279,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               Icon(
                                 Icons.exit_to_app,
-                                color: Colors.grey,
+                                color: Colors.black,
                               ),
                               Text(
                                 'Logout',
                                 style: TextStyle(
-                                  color: Colors.grey,
+                                  color: Colors.black,
                                   fontSize: 16,
                                 ),
                               ),

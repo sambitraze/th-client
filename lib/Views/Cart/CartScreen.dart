@@ -856,32 +856,167 @@ class _CartScreenState extends State<CartScreen> {
                                                             MainAxisAlignment
                                                                 .spaceEvenly,
                                                         children: [
-                                                          Column(
-                                                            children: [
-                                                              Container(
-                                                                height: 90,
-                                                                width: 100,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  image:
-                                                                      DecorationImage(
-                                                                    image: AssetImage(
-                                                                        "assets/take-away.png"),
+                                                          InkWell(
+                                                            child: Column(
+                                                              children: [
+                                                                Container(
+                                                                  height: 90,
+                                                                  width: 100,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    image:
+                                                                        DecorationImage(
+                                                                      image: AssetImage(
+                                                                          "assets/take-away.png"),
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              SizedBox(height: 10,),
-                                                              Text(
-                                                                'TakeAway',
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .black,
-                                                                    fontSize:
-                                                                        16,
-                                                                    fontWeight:
-                                                                        FontWeight.bold),
-                                                              ),
-                                                            ],
+                                                                SizedBox(height: 10,),
+                                                                Text(
+                                                                  'TakeAway',
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          16,
+                                                                      fontWeight:
+                                                                          FontWeight.bold),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            onTap: (){
+                                                              if (showBill ==
+                                                                  true) {
+                                                                showDialog(
+                                                                  context:
+                                                                  context,
+                                                                  builder:
+                                                                      (context) =>
+                                                                      AlertDialog(
+                                                                        title: Text(
+                                                                          'Select Payment',
+                                                                          style: TextStyle(
+                                                                              color: Colors
+                                                                                  .black,
+                                                                              fontSize:
+                                                                              28),
+                                                                        ),
+                                                                        shape: RoundedRectangleBorder(
+                                                                            borderRadius:
+                                                                            BorderRadius.circular(12)),
+                                                                        backgroundColor:
+                                                                        Colors
+                                                                            .white,
+                                                                        content:
+                                                                        Column(
+                                                                          mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                          mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .min,
+                                                                          children: [
+                                                                            ListTile(
+                                                                              contentPadding:
+                                                                              EdgeInsets.all(0),
+                                                                              leading:
+                                                                              Image.asset(
+                                                                                "assets/upi.png",
+                                                                                height:
+                                                                                15,
+                                                                              ),
+                                                                              title:
+                                                                              Padding(
+                                                                                padding:
+                                                                                const EdgeInsets.only(left: 10.0),
+                                                                                child:
+                                                                                Text(
+                                                                                  'UPI',
+                                                                                  style: TextStyle(fontSize: 14),
+                                                                                ),
+                                                                              ),
+                                                                              trailing:
+                                                                              IconButton(
+                                                                                icon:
+                                                                                Icon(
+                                                                                  Icons.keyboard_arrow_right,
+                                                                                  color: Colors.black,
+                                                                                ),
+                                                                                onPressed:
+                                                                                    () {
+                                                                                  Order order;
+                                                                                  setState(() {
+                                                                                    order = Order(
+                                                                                      items: user.cart,
+                                                                                      orderId: genOrderNo(),
+                                                                                      customer: user,
+                                                                                      custName: user.name,
+                                                                                      custNumber: user.phone,
+                                                                                      paymentType: "UPI",
+                                                                                      orderType: "Takeaway",
+                                                                                      amount: itemsum.toString(),
+                                                                                      packing: "0",
+                                                                                      gst: gstCharge.toString(),
+                                                                                      gstRate: gstper.toString(),
+                                                                                    );
+                                                                                  });
+                                                                                  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                                                                                    return UPIScreen(
+                                                                                      order: order,
+                                                                                      total: grandtot.toString(),
+                                                                                    );
+                                                                                  }));
+                                                                                },
+                                                                              ),
+                                                                            ),
+                                                                            ListTile(
+                                                                              contentPadding:
+                                                                              EdgeInsets.all(0),
+                                                                              leading:
+                                                                              Icon(
+                                                                                Icons.drive_eta_rounded,
+                                                                                size:
+                                                                                30,
+                                                                              ),
+                                                                              title:
+                                                                              Padding(
+                                                                                padding:
+                                                                                const EdgeInsets.only(left: 12.0),
+                                                                                child:
+                                                                                Text(
+                                                                                  'COD',
+                                                                                  style: TextStyle(fontSize: 14),
+                                                                                ),
+                                                                              ),
+                                                                              trailing:
+                                                                              IconButton(
+                                                                                icon:
+                                                                                Icon(
+                                                                                  Icons.keyboard_arrow_right,
+                                                                                  color: Colors.black,
+                                                                                ),
+                                                                                onPressed:
+                                                                                    () async {
+                                                                                  Order order;
+                                                                                  setState(() {
+                                                                                    order = Order(items: user.cart, orderId: genOrderNo(), customer: user, custName: user.name, custNumber: user.phone, paymentType: "COD", status: "placed", orderType: "Takeaway", paid: false, amount: itemsum.toString(), packing: "0", gst: gstCharge.toString(), gstRate: gstper.toString(), txtId: "COD");
+                                                                                  });
+                                                                                  await OrderService.createOrder(jsonEncode(order.toJson()));
+                                                                                  await PushService.sendPushToSelf("Order Update !!!", "Your order no : ${order.orderId} is placed successfully");
+                                                                                  Navigator.pushAndRemoveUntil(
+                                                                                    context,
+                                                                                    MaterialPageRoute(builder: (BuildContext context) => LandingScreen()),
+                                                                                    ModalRoute.withName('/'),
+                                                                                  );
+                                                                                },
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                );
+                                                              }
+                                                            },
                                                           ),
                                                           InkWell(
                                                             child: Column(

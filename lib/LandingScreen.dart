@@ -2,9 +2,7 @@ import 'package:client/Services/PushService.dart';
 import 'package:client/Views/Cart/CartScreen.dart';
 import 'package:client/Views/DineIn/DineInScreen.dart';
 import 'package:client/Views/HomeScreen/HomeScreen.dart';
-import 'package:client/Views/Menu/MenuScreen.dart';
 import 'package:client/Views/Settings/ProfileScreen.dart';
-import 'package:client/Views/TakeAway/TakeAwayScreen.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -60,6 +58,7 @@ class _LandingScreenState extends State<LandingScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: DoubleBackToCloseApp(
         snackBar: const SnackBar(
           content: Text('Tap back again to leave'),

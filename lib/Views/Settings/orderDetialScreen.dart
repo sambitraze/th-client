@@ -25,7 +25,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     Text(
       'Sl No.',
       style: TextStyle(
-        color: Colors.white,
+        color: Colors.black,
         fontSize: 16,
         fontWeight: FontWeight.bold,
       ),
@@ -35,7 +35,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     Text(
       'Item Name',
       style: TextStyle(
-        color: Colors.white,
+        color: Colors.black,
         fontSize: 16,
         fontWeight: FontWeight.bold,
       ),
@@ -45,7 +45,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     Text(
       'Quantity',
       style: TextStyle(
-        color: Colors.white,
+        color: Colors.black,
         fontSize: 16,
         fontWeight: FontWeight.bold,
       ),
@@ -55,7 +55,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     Text(
       'Price',
       style: TextStyle(
-        color: Colors.white,
+        color: Colors.black,
         fontSize: 16,
         fontWeight: FontWeight.bold,
       ),
@@ -83,7 +83,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             (i + 1).toString() + ".",
             textAlign: TextAlign.right,
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
@@ -94,7 +94,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             element.item.name,
             textAlign: TextAlign.right,
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
@@ -105,7 +105,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             'x' + element.count,
             textAlign: TextAlign.right,
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
@@ -116,7 +116,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             '₹' + element.item.price,
             textAlign: TextAlign.right,
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
@@ -153,15 +153,15 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         brightness: Brightness.light,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
         elevation: 0.0,
         title: Text(
           'Order Details',
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30),
         ),
         centerTitle: true,
         iconTheme: IconThemeData(
@@ -181,18 +181,63 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 ListTile(
                   title: Text('#${order.orderId}',
                       style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 18)),
                   subtitle: Text(
                     '${DateFormat("yy-MM-dd HH:mm:SSS").parse(order.createdAt.toString(), true).toLocal()}',
                     style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 14,
                         fontWeight: FontWeight.w400),
                   ),
                 ),
-                SizedBox(height: UIConstants.fitToHeight(25, context)),
+                SizedBox(height: UIConstants.fitToHeight(15, context)),
+                Divider(
+                  height: 1,
+                  thickness: 1,
+                  endIndent: 10,
+                  indent: 10,
+                  color: Colors.black,
+                ),
+                Padding(
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Order Type: ',
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        order.orderType,
+                        textAlign: TextAlign.left,
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Divider(
+                  height: 1,
+                  thickness: 1,
+                  endIndent: 10,
+                  indent: 10,
+                  color: Colors.black,
+                ),
+                SizedBox(height: UIConstants.fitToHeight(15, context)),
                 ListTile(
                   title: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -202,8 +247,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         textStyle: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.normal,
-                          color: Colors.white,
-                        ),
+                          color: Colors.black,
+                        )
                       ),
                     ),
                   ),
@@ -212,7 +257,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -222,7 +267,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   thickness: 1,
                   endIndent: 10,
                   indent: 10,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 SizedBox(height: UIConstants.fitToHeight(15, context)),
                 Padding(
@@ -236,7 +281,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         child: Text(
                           'ITEMS',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.w600,
                             fontSize: 20,
                           ),
@@ -264,7 +309,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   thickness: 1,
                   endIndent: 10,
                   indent: 10,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 SizedBox(height: UIConstants.fitToHeight(15, context)),
                 Padding(
@@ -279,7 +324,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           textStyle: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w600,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                         ),
                       ),
@@ -290,7 +335,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           textStyle: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w600,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                         ),
                       ),
@@ -309,7 +354,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           textStyle: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w600,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                         ),
                       ),
@@ -319,7 +364,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             textStyle: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w600,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                           )),
                     ],
@@ -360,7 +405,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     children: [
                       Text('Grand Total: ',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
                           )),
@@ -368,7 +413,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           '₹ ${(double.parse(order.amount) + double.parse(order.gst) + double.parse(order.packing)).toStringAsFixed(2)}',
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 17,
                               fontWeight: FontWeight.w500)),
                     ],
@@ -380,7 +425,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   thickness: 1,
                   endIndent: 10,
                   indent: 10,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 SizedBox(height: UIConstants.fitToHeight(15, context)),
                 Padding(
@@ -394,7 +439,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             textStyle: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w600,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                           )),
                       Text('${order.paymentType}',
@@ -403,7 +448,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             textStyle: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w600,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                           )),
                     ],
@@ -421,7 +466,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                               textStyle: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w600,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                             ),
                           )),
@@ -431,7 +476,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             textStyle: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w600,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                           )),
                     ],
@@ -443,7 +488,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   thickness: 1,
                   endIndent: 10,
                   indent: 10,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 SizedBox(height: UIConstants.fitToHeight(15, context)),
                 Row(
@@ -466,7 +511,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                 textStyle: TextStyle(
                                   fontSize: 17,
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
@@ -507,7 +552,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                 textStyle: TextStyle(
                                   fontSize: 17,
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),

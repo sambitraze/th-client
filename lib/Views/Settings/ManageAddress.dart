@@ -87,7 +87,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25.0),
                       side: BorderSide(color: Colors.transparent)),
-                  color: Color(0xff25354E),
+                  color: Colors.orange,
                   elevation: 2.0,
                   onPressed: () async {
                     setState(() {
@@ -100,7 +100,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   },
                   child: Text(
                     'Update',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
                   )),
             ),
           )
@@ -116,7 +119,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       appBar: AppBar(
           brightness: Brightness.light,
           leading: IconButton(
@@ -127,10 +130,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             },
           ),
           iconTheme: IconThemeData(
-            color: Colors.white, //change your color here
+            color: Colors.black, //change your color here
           ),
           elevation: 0.0,
-          backgroundColor: Colors.transparent),
+          backgroundColor: Colors.white),
       body: loading
           ? Center(
               child: CircularProgressIndicator(
@@ -150,7 +153,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           bottom: UIConstants.fitToHeight(10, context)),
                       child: Text('Edit Profile',
                           style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 25,
                               fontWeight: FontWeight.w500)),
                     ),
@@ -158,6 +161,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       height: UIConstants.fitToHeight(60, context),
                     ),
                     Container(
+                      height: 45,
                       width: 220,
                       child: MaterialButton(
                         shape: RoundedRectangleBorder(
@@ -167,14 +171,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           await _determinePosition();
                         },
                         child: Row(
-                          children: [Icon(
-                      Icons.location_on,
-                        color: Colors.red,
-                      ),
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.location_on,
+                              color: Colors.red,
+                            ),
                             Text(
                               "Get current location !",
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
                             ),
                           ],
                         ),
@@ -183,22 +190,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    _loading? Center(child: CircularProgressIndicator()):Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Latitude: ${user.latitude}\nLongitude: ${user.longitude}",
-                          style: TextStyle(color: Colors.white),
-                        )
-                      ],
-                    ),
+                    _loading
+                        ? Center(child: CircularProgressIndicator())
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Latitude: ${user.latitude}\nLongitude: ${user.longitude}",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16),
+                              )
+                            ],
+                          ),
                     SizedBox(
                       height: 20,
                     ),
                     Center(
                       child: Text(
                         '------OR------',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                     SizedBox(

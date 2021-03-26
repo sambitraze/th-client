@@ -1,15 +1,14 @@
 import 'package:client/Services/ItemService.dart';
 import 'package:client/Services/UserService.dart';
-import 'package:client/Services/offerSerivce.dart';
-import 'package:client/Services/topService.dart';
+import 'package:client/Views/HomeScreen/search/ItemSearch.dart';
 import 'package:client/Views/Menu/ItemListScreen.dart';
 import 'package:client/Views/Settings/ManageAddress.dart';
 import 'package:client/Views/Settings/ProfileScreen.dart';
 import 'package:client/models/Item.dart';
 import 'package:client/models/User.dart';
-import 'package:client/models/offers.dart';
-import 'package:client/models/top.dart';
 import 'package:flutter/material.dart';
+
+import '../../ui_constants.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -20,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   bool loading = false;
   User client;
   List<Item> items = [];
+  List<String> itemNames = [];
   List<String> menuName = [
     'Tandoor',
     'Main\nCourse',
@@ -58,10 +58,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   List<Item> menulist6 = [];
   List<Item> menulist7 = [];
 
+
   @override
   void initState() {
     getData();
-    _tabController = TabController(length: 8, vsync: this, initialIndex: _index);
+    _tabController =
+        TabController(length: 8, vsync: this, initialIndex: _index);
     super.initState();
   }
 
@@ -69,8 +71,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     setState(() {
       loading = true;
     });
+    itemNames.clear();
     items = await ItemService.getItems();
     items.forEach((element) {
+      itemNames.add(element.name);
       if (element.category == "Tandoor") {
         menulist0.add(element);
       } else if (element.category == "Main Course") {
@@ -97,228 +101,226 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   TabController _tabController;
   int _index = 0;
+  List searchResult = [];
 
   @override
   Widget build(BuildContext context) {
     return loading
         ? Center(child: CircularProgressIndicator())
         : Scaffold(
+            resizeToAvoidBottomInset: false,
             body: SafeArea(
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                child: Column(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/menu' + _index.toString() + '.png'),
-                              colorFilter: ColorFilter.mode(Colors.black45, BlendMode.darken),
-                              fit: BoxFit.cover,
-                            )),
-                        // height: MediaQuery.of(context).size.height * 0.23,
-                        // width: MediaQuery.of(context).size.width,
-                        // color: Colors.orange,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            ListTile(
-                              leading: Icon(
-                                Icons.location_on,
-                                color: Colors.white,
-                                size: 35,
+                child: Center(
+                  child: Column(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                            image: AssetImage(
+                                'assets/menu' + _index.toString() + '.png'),
+                            colorFilter: ColorFilter.mode(
+                                Colors.black45, BlendMode.darken),
+                            fit: BoxFit.cover,
+                          )),
+                          // height: MediaQuery.of(context).size.height * 0.23,
+                          // width: MediaQuery.of(context).size.width,
+                          // color: Colors.orange,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              ListTile(
+                                leading: Icon(
+                                  Icons.location_on,
+                                  color: Colors.white,
+                                  size: 35,
+                                ),
+                                title: InkWell(
+                                  onTap: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                EditProfileScreen()))
+                                        .then((value) async {
+                                      client =
+                                          await UserService.getUserByPhone();
+                                      setState(() {});
+                                    });
+                                  },
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        'Home',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      Text(
+                                        client.address,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                trailing: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      InkWell(
+                                        child: Icon(
+                                          Icons.search
+                                              ,color: Colors.white,size: 28,
+                                        ),
+                                        onTap: () {
+                                          showSearch(
+                                              context: context,
+                                              delegate: ItemSearch(
+                                                  names: itemNames, items: items));
+                                        }
+                                      ),
+                                      SizedBox(width: 16,),
+                                      InkWell(
+                                        child: CircleAvatar(
+                                          backgroundColor: Colors.white,
+                                          child: Text(
+                                            client.name.substring(0, 1),
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 22,
+                                            ),
+                                          ),
+                                        ),
+                                        onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => ProfileScreen(),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                              title: InkWell(
-                                onTap: () {
-                                  Navigator.of(context)
-                                      .push(MaterialPageRoute(
-                                          builder: (context) =>
-                                              EditProfileScreen()))
-                                      .then((value) async {
-                                    client = await UserService.getUserByPhone();
-                                    setState(() {});
-                                  });
-                                },
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      'Home',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                      ),
+                              SizedBox(height: 70,),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                ),
+                                child: TabBar(
+                                  isScrollable: true,
+                                  controller: _tabController,
+                                  indicator: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  labelStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                  unselectedLabelStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                  unselectedLabelColor: Colors.white,
+                                  labelColor: Colors.black,
+                                  tabs: [
+                                    Tab(
+                                      text: "Tandoor",
                                     ),
-                                    Text(
-                                      client.address,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                      ),
+                                    Tab(
+                                      text: "Main Course",
+                                    ),
+                                    Tab(
+                                      text: "Chinese Main Course",
+                                    ),
+                                    Tab(
+                                      text: "Rice/Biryani",
+                                    ),
+                                    Tab(
+                                      text: "Noodles",
+                                    ),
+                                    Tab(
+                                      text: "Rolls and Momos",
+                                    ),
+                                    Tab(
+                                      text: "Breads",
+                                    ),
+                                    Tab(
+                                      text: "Beverages",
                                     ),
                                   ],
+                                  onTap: (value) {
+                                    setState(() {
+                                      _index = value;
+                                    });
+                                    _tabController.animateTo(value,
+                                        curve: Curves.easeIn,
+                                        duration: Duration(milliseconds: 500));
+                                  },
                                 ),
                               ),
-                              trailing: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: InkWell(
-                                  child: CircleAvatar(
-                                    backgroundColor: Colors.white,
-                                    child: Text(
-                                      client.name.substring(0, 1),
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 22,
-                                      ),
-                                    ),
-                                  ),
-                                  onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProfileScreen(),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 9,
+                        child: TabBarView(
+                          physics: NeverScrollableScrollPhysics(),
+                          controller: _tabController,
+                          children: <Widget>[
+                            ItemListScreen(
+                              title: menuName[0],
+                              itemlist: getlist(0),
                             ),
-                            Padding(
-                              padding: EdgeInsets.all(12),
-                              child: TextField(
-                                onChanged: onSearchTextChanged,
-                                decoration: InputDecoration(
-                                  hintText: "Search...",
-                                  hintStyle:
-                                      TextStyle(color: Colors.grey.shade600),
-                                  prefixIcon: Icon(
-                                    Icons.search,
-                                    color: Colors.grey.shade600,
-                                    size: 20,
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.grey.shade100,
-                                  contentPadding: EdgeInsets.all(8),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: BorderSide(
-                                          color: Colors.grey.shade100)),
-                                ),
-                              ),
+                            ItemListScreen(
+                              title: menuName[1],
+                              itemlist: getlist(1),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                              ),
-                              child: TabBar(
-                                isScrollable: true,
-                                controller: _tabController,
-                                indicator: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
-                                unselectedLabelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                                unselectedLabelColor: Colors.white,
-                                labelColor: Colors.black,
-                                tabs: [
-                                  Tab(
-                                    text: "Tandoor",
-                                  ),
-                                  Tab(
-                                    text: "Main Course",
-                                  ),
-                                  Tab(
-                                    text: "Chinese Main Course",
-                                  ),
-                                  Tab(
-                                    text: "Rice/Biryani",
-                                  ),
-                                  Tab(
-                                    text: "Noodles",
-                                  ),
-                                  Tab(
-                                    text: "Rolls and Momos",
-                                  ),
-                                  Tab(
-                                    text: "Breads",
-                                  ),
-                                  Tab(
-                                    text: "Beverages",
-                                  ),
-                                ],
-                                onTap: (value) {
-                                  setState(() {
-                                    _index = value;
-                                  });
-                                  _tabController.animateTo(value, curve: Curves.easeIn, duration: Duration(milliseconds: 500));
-                                },
-                              ),
+                            ItemListScreen(
+                              title: menuName[2],
+                              itemlist: getlist(2),
+                            ),
+                            ItemListScreen(
+                              title: menuName[3],
+                              itemlist: getlist(3),
+                            ),
+                            ItemListScreen(
+                              title: menuName[4],
+                              itemlist: getlist(4),
+                            ),
+                            ItemListScreen(
+                              title: menuName[5],
+                              itemlist: getlist(5),
+                            ),
+                            ItemListScreen(
+                              title: menuName[6],
+                              itemlist: getlist(6),
+                            ),
+                            ItemListScreen(
+                              title: menuName[7],
+                              itemlist: getlist(7),
                             ),
                           ],
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 9,
-                      child: TabBarView(
-                        physics: NeverScrollableScrollPhysics(),
-                        controller: _tabController,
-                        children: <Widget>[
-                          ItemListScreen(
-                            title: menuName[0],
-                            itemlist: getlist(0),
-                          ),
-                          ItemListScreen(
-                            title: menuName[1],
-                            itemlist: getlist(1),
-                          ),
-                          ItemListScreen(
-                            title: menuName[2],
-                            itemlist: getlist(2),
-                          ),
-                          ItemListScreen(
-                            title: menuName[3],
-                            itemlist: getlist(3),
-                          ),
-                          ItemListScreen(
-                            title: menuName[4],
-                            itemlist: getlist(4),
-                          ),
-                          ItemListScreen(
-                            title: menuName[5],
-                            itemlist: getlist(5),
-                          ),
-                          ItemListScreen(
-                            title: menuName[6],
-                            itemlist: getlist(6),
-                          ),
-                          ItemListScreen(
-                            title: menuName[7],
-                            itemlist: getlist(7),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
           );
   }
 
-  onSearchTextChanged(String text) async {
-    // _searchResult.clear();
-    // if (text.isEmpty) {
-    //   setState(() {});
-    //   return;
-    // }
-
-    // _userDetails.forEach((userDetail) {
-    //   if (userDetail.firstName.contains(text) || userDetail.lastName.contains(text))
-    //     _searchResult.add(userDetail);
-    // });
-
-    // setState(() {});
-  }
 }
