@@ -32,11 +32,12 @@ dependencies:
   flutter_svg: null
   flutter_upi: ^0.0.2
   geolocator:
+  flutter_neat_and_clean_calendar: ^0.1.4+6
   google_fonts: ^2.0.0
   google_nav_bar: ^4.0.2
   google_maps_flutter:
   http: ^0.13.0
-  intl: ^0.17.0
+  intl:
   shared_preferences: ^2.0.3
   stepper_counter_swipe: ^1.0.0
   url_launcher: ^6.0.2
