@@ -366,8 +366,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                           .circular(
                                                                               18),
                                                                 ),
-                                                                color: Color(
-                                                                    0xff25354E),
+                                                                color: Colors.orange,
                                                                 onPressed:
                                                                     () async {
                                                                   setState(() {
@@ -954,7 +953,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                                       custNumber: user.phone,
                                                                                       paymentType: "UPI",
                                                                                       orderType: "Takeaway",
-                                                                                      amount: itemsum.toString(),
+                                                                                      amount: (itemsum-delivery).toString(),
                                                                                       packing: "0",
                                                                                       gst: gstCharge.toString(),
                                                                                       gstRate: gstper.toString(),
@@ -999,7 +998,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                                     () async {
                                                                                   Order order;
                                                                                   setState(() {
-                                                                                    order = Order(items: user.cart, orderId: genOrderNo(), customer: user, custName: user.name, custNumber: user.phone, paymentType: "COD", status: "placed", orderType: "Takeaway", paid: false, amount: itemsum.toString(), packing: "0", gst: gstCharge.toString(), gstRate: gstper.toString(), txtId: "COD");
+                                                                                    order = Order(items: user.cart, orderId: genOrderNo(), customer: user, custName: user.name, custNumber: user.phone, paymentType: "COD", status: "placed", orderType: "Takeaway", paid: false, amount: (itemsum-delivery).toString(), packing: "0", gst: gstCharge.toString(), gstRate: gstper.toString(), txtId: "COD");
                                                                                   });
                                                                                   await OrderService.createOrder(jsonEncode(order.toJson()));
                                                                                   await PushService.sendPushToSelf("Order Update !!!", "Your order no : ${order.orderId} is placed successfully");
