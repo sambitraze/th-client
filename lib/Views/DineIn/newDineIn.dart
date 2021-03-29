@@ -1,88 +1,300 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'TimeClass.dart';
 
 class NewDineIn extends StatefulWidget {
   @override
   _NewDineInState createState() => _NewDineInState();
 }
 
-class _NewDineInState extends State<NewDineIn> {
-  List<Meeting> meetings;
+class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
+  TabController _tabController;
+  int _index = 0;
+
+  List<Tab> tabList = [];
+  List<List<DropdownMenuItem>> startList = List.generate(timeList.length, (i) => List.generate(10, (index) => null), growable: false);
+  List<List<DropdownMenuItem>> endList = List.generate(timeList.length, (i) => List.generate(10, (index) => null), growable: false);
+  List<List<TimeRegion>> bookingList=List.generate(365, (i) => List.generate(100, (index) => null), growable: false);
+
+  TimeClass startTime = timeList[0];
+  TimeClass endTime = timeList[0];
+
+  bool isLoading = false;
+  @override
+  void initState() {
+    genTabs();
+    genDropDown();
+    _tabController =
+        TabController(length: 10, vsync: this, initialIndex: _index);
+    // TODO: implement initState
+    super.initState();
+  }
+
+  genDropDown() {
+    for (int index = 0; index < timeList.length; index++) {
+      for (int i = 0; i < 10; i++) {
+        setState(() {
+          startList[index][i] = DropdownMenuItem(
+            child: Text("${timeList[index].hr} : ${timeList[index].min}"),
+            value: timeList[index],
+          );
+          endList[index][i] = DropdownMenuItem(
+            child: Text("${timeList[index].hr} : ${timeList[index].min}"),
+            value: timeList[index],
+          );
+          // bookingList[index][i] = TimeRegion(
+          //     startTime: DateTime(today.year, today.month, today.day, 13, 0, 0),
+          //     endTime: DateTime(today.year, today.month, today.day, 16, 0, 0),
+          //     enablePointerInteraction: false,
+          //     color: Colors.red.withOpacity(0.5),
+          //     text: 'Booked  Table $i');
+        });
+      }
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  genTabs() {
+    setState(() {
+      isLoading = true;
+    });
+    for (int i = 0; i < 10; i++) {
+      tabList.add(
+        Tab(
+          text: "Table${i + 1}",
+        ),
+      );
+    }
+  }
+
+  final DateTime today = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          body: SfCalendar(
-            view: CalendarView.workWeek,
-            dataSource: MeetingDataSource(_getDataSource()),
-            timeSlotViewSettings: TimeSlotViewSettings(
-                startHour:11,
-                endHour: 22,
-                nonWorkingDays: <int>[]),
-            monthViewSettings: MonthViewSettings(
-                appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
-          )),
+    return isLoading
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : SafeArea(
+            child: Scaffold(
+                body: Column(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                  child: TabBar(
+                    isScrollable: true,
+                    controller: _tabController,
+                    indicator: BoxDecoration(
+                      color: Colors.orange,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    labelStyle: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                    unselectedLabelStyle:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    unselectedLabelColor: Colors.black,
+                    labelColor: Colors.black,
+                    tabs: tabList,
+                    onTap: (value) {
+                      setState(() {
+                        _index = value;
+                      });
+                      _tabController.animateTo(value,
+                          curve: Curves.easeIn,
+                          duration: Duration(milliseconds: 500));
+                    },
+                  ),
+                ),
+                Expanded(
+                  flex: 9,
+                  child: TabBarView(
+                    physics: NeverScrollableScrollPhysics(),
+                    controller: _tabController,
+                    children: <Widget>[
+                      calendarWidget(0),
+                      calendarWidget(1),
+                      calendarWidget(2),
+                      calendarWidget(3),
+                      calendarWidget(4),
+                      calendarWidget(5),
+                      calendarWidget(6),
+                      calendarWidget(7),
+                      calendarWidget(8),
+                      calendarWidget(9),
+                    ],
+                  ),
+                ),
+              ],
+            )),
+          );
+  }
+
+  calendarWidget(int index) {
+    //index
+    // special regions, start time list, end time list
+    return SfCalendar(
+      showDatePickerButton: true,
+      view: CalendarView.day,
+      onTap: (value) {
+        print(value.date);
+        showDialog(
+          context: context,
+          builder: (context) {
+            return StatefulBuilder(
+              builder: (context, setState) => AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16)),
+                title: Center(
+                  child: Text("Reservation for date:\n" +
+                      value.date.day.toString() +
+                      "-" +
+                      value.date.month.toString() +
+                      "-" +
+                      value.date.year.toString()),
+                ),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Choose Reservation\nStart Time: "),
+                          DropdownButton(
+                            items: startList[index],
+                            value: startTime,
+                            onChanged: (value) {
+                              setState(() {
+                                startTime = value;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Choose Reservation\nEnd Time: "),
+                          DropdownButton(
+                            items: endList[index],
+                            value: endTime,
+                            onChanged: (value) {
+                              setState(() {
+                                endTime = value;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    MaterialButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16)),
+                      child: Text(
+                        "Book",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      color: Colors.orange,
+                      onPressed: () async {
+                        print(endTime);
+                        print(startTime);
+                      },
+                    )
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+      specialRegions: _getTimeRegions(),
+      allowViewNavigation: true,
+      minDate: today,
+      allowedViews: [
+        CalendarView.day,
+        CalendarView.workWeek,
+      ],
+      timeSlotViewSettings: TimeSlotViewSettings(
+          startHour: 11,
+          timeInterval: Duration(minutes: 15),
+          endHour: 22,
+          timeFormat: 'h:m a',
+          nonWorkingDays: <int>[]),
     );
   }
-  List<Meeting> _getDataSource() {
-    meetings = <Meeting>[];
-    final DateTime today = DateTime.now();
-    final DateTime startTime =
-    DateTime(today.year, today.month, today.day, 9, 0, 0);
-    final DateTime endTime = startTime.add(const Duration(hours: 2));
-    meetings.add(Meeting(
-        'booked', startTime, endTime, const Color(0xFF0F8644), false));
-    return meetings;
+
+  List<TimeRegion> _getTimeRegions() {
+    final List<TimeRegion> regions = <TimeRegion>[];
+    regions.add(TimeRegion(
+        startTime: DateTime(today.year, today.month, today.day, 13, 0, 0),
+        endTime: DateTime(today.year, today.month, today.day, 16, 0, 0),
+        enablePointerInteraction: false,
+        color: Colors.red.withOpacity(0.5),
+        text: 'Booked    Table 1'));
+    return regions;
   }
 }
-class MeetingDataSource extends CalendarDataSource {
-  /// Creates a meeting data source, which used to set the appointment
-  /// collection to the calendar
-  MeetingDataSource(List<Meeting> source) {
-    appointments = source;
-  }
 
-  @override
-  DateTime getStartTime(int index) {
-    return appointments[index].from;
-  }
-
-  @override
-  DateTime getEndTime(int index) {
-    return appointments[index].to;
-  }
-
-  @override
-  String getSubject(int index) {
-    return appointments[index].eventName;
-  }
-
-  @override
-  Color getColor(int index) {
-    return appointments[index].background;
-  }
-
-  @override
-  bool isAllDay(int index) {
-    return appointments[index].isAllDay;
-  }
-}
-class Meeting {
-  /// Creates a meeting class with required details.
-  Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay);
-
-  /// Event name which is equivalent to subject property of [Appointment].
-  String eventName;
-
-  /// From which is equivalent to start time property of [Appointment].
-  DateTime from;
-
-  /// To which is equivalent to end time property of [Appointment].
-  DateTime to;
-
-  /// Background which is equivalent to color property of [Appointment].
-  Color background;
-
-  /// IsAllDay which is equivalent to isAllDay property of [Appointment].
-  bool isAllDay;
-}
+List timeList = [
+  TimeClass(id: 1, hr: 11, min: 0),
+  TimeClass(id: 2, hr: 11, min: 15),
+  TimeClass(id: 3, hr: 11, min: 30),
+  TimeClass(id: 4, hr: 11, min: 45),
+  TimeClass(id: 5, hr: 12, min: 0),
+  TimeClass(id: 6, hr: 12, min: 15),
+  TimeClass(id: 7, hr: 12, min: 30),
+  TimeClass(id: 8, hr: 12, min: 45),
+  TimeClass(id: 9, hr: 13, min: 0),
+  TimeClass(id: 10, hr: 13, min: 0),
+  TimeClass(id: 11, hr: 13, min: 15),
+  TimeClass(id: 12, hr: 13, min: 30),
+  TimeClass(id: 13, hr: 13, min: 45),
+  TimeClass(id: 14, hr: 14, min: 0),
+  TimeClass(id: 15, hr: 14, min: 15),
+  TimeClass(id: 16, hr: 14, min: 30),
+  TimeClass(id: 17, hr: 14, min: 45),
+  TimeClass(id: 18, hr: 15, min: 0),
+  TimeClass(id: 19, hr: 15, min: 15),
+  TimeClass(id: 20, hr: 15, min: 30),
+  TimeClass(id: 21, hr: 15, min: 45),
+  TimeClass(id: 22, hr: 16, min: 0),
+  TimeClass(id: 23, hr: 16, min: 15),
+  TimeClass(id: 24, hr: 16, min: 30),
+  TimeClass(id: 25, hr: 16, min: 45),
+  TimeClass(id: 26, hr: 17, min: 0),
+  TimeClass(id: 27, hr: 17, min: 15),
+  TimeClass(id: 28, hr: 17, min: 30),
+  TimeClass(id: 29, hr: 17, min: 45),
+  TimeClass(id: 30, hr: 18, min: 0),
+  TimeClass(id: 31, hr: 18, min: 15),
+  TimeClass(id: 32, hr: 18, min: 30),
+  TimeClass(id: 33, hr: 18, min: 45),
+  TimeClass(id: 34, hr: 19, min: 0),
+  TimeClass(id: 35, hr: 19, min: 15),
+  TimeClass(id: 36, hr: 19, min: 30),
+  TimeClass(id: 37, hr: 19, min: 45),
+  TimeClass(id: 38, hr: 20, min: 0),
+  TimeClass(id: 39, hr: 20, min: 15),
+  TimeClass(id: 40, hr: 20, min: 30),
+  TimeClass(id: 41, hr: 20, min: 45),
+  TimeClass(id: 42, hr: 21, min: 0),
+  TimeClass(id: 43, hr: 21, min: 15),
+  TimeClass(id: 44, hr: 21, min: 30),
+  TimeClass(id: 45, hr: 21, min: 45),
+  TimeClass(id: 46, hr: 22, min: 0),
+];
