@@ -39,6 +39,7 @@ dependencies:
   http: ^0.13.0
   intl:
   shared_preferences: ^2.0.3
+  syncfusion_flutter_calendar: ^18.4.49
   stepper_counter_swipe: ^1.0.0
   url_launcher: ^6.0.2
 

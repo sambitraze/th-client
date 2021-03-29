@@ -1,3 +1,4 @@
+import 'package:client/Views/DineIn/newDineIn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neat_and_clean_calendar/flutter_neat_and_clean_calendar.dart';
 import 'package:flutter_neat_and_clean_calendar/neat_and_clean_calendar_event.dart';
@@ -57,18 +58,21 @@ class _DineInScreenState extends State<DineInScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  onPressed: () async{
-                    DateTime picked = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(), // Refer step 1
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime(2025),
-                    );
-                    if (picked != null && picked != selectedDate)
-                      setState(() {
-                        selectedDate = picked;
-                      });
-                    print(selectedDate.toString());
+                  onPressed: () async {
+                    // DateTime picked = await showDatePicker(
+                    //   context: context,
+                    //   initialDate: DateTime.now(), // Refer step 1
+                    //   firstDate: DateTime.now(),
+                    //   lastDate: DateTime(2025),
+                    // );
+                    // if (picked != null && picked != selectedDate)
+                    //   setState(() {
+                    //     selectedDate = picked;
+                    //   });
+                    // print(selectedDate.toString());
+
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => NewDineIn()));
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
