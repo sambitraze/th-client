@@ -203,9 +203,7 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
     // special regions, start time list, end time list
     return SfCalendar(
       view: CalendarView.day,
-
       onTap: (value) {
-        print(value.date);
         showDialog(
           context: context,
           builder: (context) {
