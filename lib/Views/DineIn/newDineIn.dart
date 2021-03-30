@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'TimeClass.dart';
@@ -14,58 +15,105 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
   int _index = 0;
 
   List<Tab> tabList = [];
-  List<List<DropdownMenuItem>> startList = List.generate(timeList.length, (i) => List.generate(10, (index) => null), growable: false);
-  List<List<DropdownMenuItem>> endList = List.generate(timeList.length, (i) => List.generate(10, (index) => null), growable: false);
-  List<List<TimeRegion>> bookingList=List.generate(365, (i) => List.generate(100, (index) => null), growable: false);
+
+  List<List<DropdownMenuItem>> startList = List.generate(
+      10,
+      (i) => List.generate(
+            0,
+            (index) => DropdownMenuItem(
+              child: Text("${timeList[0].hr} : ${timeList[0].min}"),
+              value: timeList[0],
+            ),
+          ),
+      growable: true);
+  List<List<DropdownMenuItem>> endList = List.generate(
+      10,
+      (i) => List.generate(
+            0,
+            (index) => DropdownMenuItem(
+              child: Text("${timeList[0].hr} : ${timeList[0].min}"),
+              value: timeList[0],
+            ),
+          ),
+      growable: true);
+  List<List<TimeRegion>> tableBookingList = List.generate(
+      10, (i) => List.generate(0, (index) => TimeRegion()),
+      growable: true);
 
   TimeClass startTime = timeList[0];
   TimeClass endTime = timeList[0];
 
+  List bookings = [];
+
+  String getDateValue;
+
   bool isLoading = false;
   @override
   void initState() {
+    startLoading1();
     genTabs();
+    getBooking();
     genDropDown();
+    stopLoading1();
     _tabController =
         TabController(length: 10, vsync: this, initialIndex: _index);
     // TODO: implement initState
     super.initState();
   }
-
-  genDropDown() {
-    for (int index = 0; index < timeList.length; index++) {
-      for (int i = 0; i < 10; i++) {
-        setState(() {
-          startList[index][i] = DropdownMenuItem(
-            child: Text("${timeList[index].hr} : ${timeList[index].min}"),
-            value: timeList[index],
-          );
-          endList[index][i] = DropdownMenuItem(
-            child: Text("${timeList[index].hr} : ${timeList[index].min}"),
-            value: timeList[index],
-          );
-          // bookingList[index][i] = TimeRegion(
-          //     startTime: DateTime(today.year, today.month, today.day, 13, 0, 0),
-          //     endTime: DateTime(today.year, today.month, today.day, 16, 0, 0),
-          //     enablePointerInteraction: false,
-          //     color: Colors.red.withOpacity(0.5),
-          //     text: 'Booked  Table $i');
-        });
-      }
-    }
+  startLoading1(){
+    setState(() {
+      isLoading = true;
+    });
+    getDateValue="${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}";
+  }
+  stopLoading1(){
     setState(() {
       isLoading = false;
     });
   }
 
+  getBooking() {
+    for (int i = 0; i < 10; i++) {
+      tableBookingList[i].clear();
+      bookings.forEach((element) {
+        setState(() {
+          tableBookingList[i].add(TimeRegion(
+              startTime: DateTime(today.year, today.month, today.day, 13, 0, 0),
+              endTime: DateTime(today.year, today.month, today.day, 16, 0, 0),
+              enablePointerInteraction: false,
+              color: Colors.red.withOpacity(0.5),
+              text: 'Booked  Table $i'));
+        });
+      });
+    }
+    setState(() {});
+  }
+  //booking{id, date string 31/12/2001,String startTimeID [1-46], String endTimeID [1-46], string tableId, object id customerId}
+
+  genDropDown() {
+    for (int i = 0; i < 10; i++) {
+      startList[i].clear();
+      endList[i].clear();
+      timeList.forEach((element) {
+        setState(() {
+          startList[i].add(DropdownMenuItem(
+            child: Text("${element.hr} : ${element.min}"),
+            value: element,
+          ));
+          endList[i].add(DropdownMenuItem(
+            child: Text("${element.hr} : ${element.min}"),
+            value: element,
+          ));
+        });
+      });
+    }
+  }
+
   genTabs() {
-    setState(() {
-      isLoading = true;
-    });
     for (int i = 0; i < 10; i++) {
       tabList.add(
         Tab(
-          text: "Table${i + 1}",
+          text: "Table ${i + 1}",
         ),
       );
     }
@@ -83,6 +131,20 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
             child: Scaffold(
                 body: Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Center(
+                    child: Text(
+                      'Choose Table and Time Slot',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
@@ -140,8 +202,8 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
     //index
     // special regions, start time list, end time list
     return SfCalendar(
-      showDatePickerButton: true,
       view: CalendarView.day,
+
       onTap: (value) {
         print(value.date);
         showDialog(
@@ -225,6 +287,7 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
       specialRegions: _getTimeRegions(),
       allowViewNavigation: true,
       minDate: today,
+      maxDate: today,
       allowedViews: [
         CalendarView.day,
         CalendarView.workWeek,
