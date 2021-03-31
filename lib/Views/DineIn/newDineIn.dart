@@ -1,5 +1,12 @@
+import 'dart:convert';
 import 'dart:math';
 
+import 'package:client/LandingScreen.dart';
+import 'package:client/Services/UserService.dart';
+import 'package:client/Services/bookingService.dart';
+import 'package:client/Services/tableService.dart';
+import 'package:client/models/User.dart';
+import 'package:client/models/booking.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -15,6 +22,7 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
   int _index = 0;
 
   List<Tab> tabList = [];
+  User curuser;
 
   List<List<DropdownMenuItem>> startList = List.generate(
       10,
@@ -43,70 +51,94 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
   TimeClass startTime = timeList[0];
   TimeClass endTime = timeList[0];
 
-  List bookings = [];
-
-  String getDateValue;
+  List<Booking> bookings = [];
 
   bool isLoading = false;
   @override
   void initState() {
-    startLoading1();
-    genTabs();
     getBooking();
-    genDropDown();
-    stopLoading1();
     _tabController =
         TabController(length: 10, vsync: this, initialIndex: _index);
     // TODO: implement initState
     super.initState();
   }
-  startLoading1(){
+
+  getBooking() async {
     setState(() {
       isLoading = true;
     });
-    getDateValue="${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}";
-  }
-  stopLoading1(){
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  getBooking() {
+    curuser = await UserService.getUserByPhone();
+    bookings = await BookingService.getTodayBooking(
+        "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}");
     for (int i = 0; i < 10; i++) {
       tableBookingList[i].clear();
       bookings.forEach((element) {
-        setState(() {
-          tableBookingList[i].add(TimeRegion(
-              startTime: DateTime(today.year, today.month, today.day, 13, 0, 0),
-              endTime: DateTime(today.year, today.month, today.day, 16, 0, 0),
-              enablePointerInteraction: false,
-              color: Colors.red.withOpacity(0.5),
-              text: 'Booked  Table $i'));
-        });
+        if (i + 1 == int.parse(element.tableId)) {
+          setState(() {
+            tableBookingList[i].add(TimeRegion(
+                startTime: DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    timeClassToActualHr(element.startTimeId),
+                    timeClassToActualMin(element.startTimeId),
+                    0),
+                endTime: DateTime(
+                    today.year,
+                    today.month,
+                    today.day,
+                    timeClassToActualHr(element.endTimeId),
+                    timeClassToActualMin(element.endTimeId),
+                    0),
+                enablePointerInteraction: false,
+                color: Colors.red.withOpacity(0.5),
+                text: 'Table No ${element.tableId} Booked'));
+          });
+        }
       });
     }
     setState(() {});
+    genTabs();
+    genDropDown();
   }
-  //booking{id, date string 31/12/2001,String startTimeID [1-46], String endTimeID [1-46], string tableId, object id customerId}
 
   genDropDown() {
     for (int i = 0; i < 10; i++) {
       startList[i].clear();
       endList[i].clear();
       timeList.forEach((element) {
-        setState(() {
-          startList[i].add(DropdownMenuItem(
-            child: Text("${element.hr} : ${element.min}"),
-            value: element,
-          ));
-          endList[i].add(DropdownMenuItem(
-            child: Text("${element.hr} : ${element.min}"),
-            value: element,
-          ));
-        });
+        bookings.length == 0
+            ? setState(() {
+                startList[i].add(DropdownMenuItem(
+                  child: Text("${element.hr} : ${element.min}"),
+                  value: element,
+                ));
+                endList[i].add(DropdownMenuItem(
+                  child: Text("${element.hr} : ${element.min}"),
+                  value: element,
+                ));
+              })
+            : bookings.forEach((booking) {
+                if (element.id > int.parse(booking.startTimeId) &&
+                    element.id < int.parse(booking.endTimeId)) {
+                } else {
+                  setState(() {
+                    startList[i].add(DropdownMenuItem(
+                      child: Text("${element.hr} : ${element.min}"),
+                      value: element,
+                    ));
+                    endList[i].add(DropdownMenuItem(
+                      child: Text("${element.hr} : ${element.min}"),
+                      value: element,
+                    ));
+                  });
+                }
+              });
       });
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   genTabs() {
@@ -120,6 +152,17 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
   }
 
   final DateTime today = DateTime.now();
+  timeClassToActualHr(String id) {
+    TimeClass current =
+        timeList.where((element) => element.id == int.parse(id)).first;
+    return current.hr;
+  }
+
+  timeClassToActualMin(String id) {
+    TimeClass current =
+        timeList.where((element) => element.id == int.parse(id)).first;
+    return current.min;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -273,6 +316,58 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
                       onPressed: () async {
                         print(endTime);
                         print(startTime);
+                        bool created = await BookingService.createBooking(
+                          jsonEncode(
+                            {
+                              "date":
+                                  "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
+                              "startTimeID": startTime.id.toString(),
+                              "endTimeID": endTime.id.toString(),
+                              "tableId": index,
+                              "customer": curuser.id,
+                              "canceled": false
+                            },
+                          ),
+                        );
+                        if (created) {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              content: Text("Reservation successfully done!"),
+                              actions: [
+                                MaterialButton(
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                LandingScreen()));
+                                  },
+                                  child: Text("Ok"),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              content: Text("Reservation successfully done!"),
+                              actions: [
+                                MaterialButton(
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                LandingScreen()));
+                                  },
+                                  child: Text("Ok"),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
                       },
                     )
                   ],
@@ -282,7 +377,7 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
           },
         );
       },
-      specialRegions: _getTimeRegions(),
+      specialRegions: tableBookingList[index],
       allowViewNavigation: true,
       minDate: today,
       maxDate: today,
