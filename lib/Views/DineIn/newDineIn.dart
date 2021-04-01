@@ -48,8 +48,8 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
       10, (i) => List.generate(0, (index) => TimeRegion()),
       growable: true);
 
-  TimeClass startTime = timeList[0];
-  TimeClass endTime = timeList[0];
+  TimeClass startTime;
+  TimeClass endTime;
 
   List<Booking> bookings = [];
 
@@ -68,7 +68,7 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
       isLoading = true;
     });
     curuser = await UserService.getUserByPhone();
-    bookings = await BookingService.getTodayBooking(
+    bookings = await BookingService.getTodayBookingByUserId(curuser.id,
         "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}");
     for (int i = 0; i < 10; i++) {
       tableBookingList[i].clear();
@@ -107,35 +107,24 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
       startList[i].clear();
       endList[i].clear();
       timeList.forEach((element) {
-        bookings.length == 0
-            ? setState(() {
-                startList[i].add(DropdownMenuItem(
-                  child: Text("${element.hr} : ${element.min}"),
-                  value: element,
-                ));
-                endList[i].add(DropdownMenuItem(
-                  child: Text("${element.hr} : ${element.min}"),
-                  value: element,
-                ));
-              })
-            : bookings.forEach((booking) {
-                if (element.id > int.parse(booking.startTimeId) &&
-                    element.id < int.parse(booking.endTimeId)) {
-                } else {
-                  setState(() {
-                    startList[i].add(DropdownMenuItem(
-                      child: Text("${element.hr} : ${element.min}"),
-                      value: element,
-                    ));
-                    endList[i].add(DropdownMenuItem(
-                      child: Text("${element.hr} : ${element.min}"),
-                      value: element,
-                    ));
-                  });
-                }
-              });
+        setState(() {
+          startList[i].add(DropdownMenuItem(
+            child: Text("${element.hr} : ${element.min}"),
+            value: element,
+          ));
+          endList[i].add(DropdownMenuItem(
+            child: Text("${element.hr} : ${element.min}"),
+            value: element,
+          ));
+        });
       });
     }
+    bookings.forEach((element) {
+      setState(() {
+        startList[int.parse(element.tableId)-1].removeRange(int.parse(element.startTimeId)-1, int.parse(element.endTimeId)-1);
+        endList[int.parse(element.tableId)-1].removeRange(int.parse(element.startTimeId)-1, int.parse(element.endTimeId)-1);
+      });
+    });
     setState(() {
       isLoading = false;
     });
@@ -323,7 +312,7 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
                                   "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
                               "startTimeID": startTime.id.toString(),
                               "endTimeID": endTime.id.toString(),
-                              "tableId": index,
+                              "tableId": index+1,
                               "customer": curuser.id,
                               "canceled": false
                             },
@@ -332,8 +321,9 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
                         if (created) {
                           showDialog(
                             context: context,
+                            barrierDismissible: false,
                             builder: (context) => AlertDialog(
-                              content: Text("Reservation successfully done!"),
+                              content: Text("Reservation successfully done !"),
                               actions: [
                                 MaterialButton(
                                   onPressed: () {
@@ -351,8 +341,9 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
                         } else {
                           showDialog(
                             context: context,
+                            barrierDismissible: false,
                             builder: (context) => AlertDialog(
-                              content: Text("Reservation successfully done!"),
+                              content: Text("Reservation not successful !"),
                               actions: [
                                 MaterialButton(
                                   onPressed: () {
@@ -386,7 +377,7 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
         CalendarView.workWeek,
       ],
       timeSlotViewSettings: TimeSlotViewSettings(
-          startHour: 11,
+          startHour:  11,
           timeInterval: Duration(minutes: 15),
           endHour: 22,
           timeFormat: 'h:m a',
@@ -407,50 +398,49 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
 }
 
 List timeList = [
-  TimeClass(id: 1, hr: 11, min: 0),
+  TimeClass(id: 1, hr: 11, min: 00),
   TimeClass(id: 2, hr: 11, min: 15),
   TimeClass(id: 3, hr: 11, min: 30),
   TimeClass(id: 4, hr: 11, min: 45),
-  TimeClass(id: 5, hr: 12, min: 0),
+  TimeClass(id: 5, hr: 12, min: 00),
   TimeClass(id: 6, hr: 12, min: 15),
   TimeClass(id: 7, hr: 12, min: 30),
   TimeClass(id: 8, hr: 12, min: 45),
-  TimeClass(id: 9, hr: 13, min: 0),
-  TimeClass(id: 10, hr: 13, min: 0),
-  TimeClass(id: 11, hr: 13, min: 15),
-  TimeClass(id: 12, hr: 13, min: 30),
-  TimeClass(id: 13, hr: 13, min: 45),
-  TimeClass(id: 14, hr: 14, min: 0),
-  TimeClass(id: 15, hr: 14, min: 15),
-  TimeClass(id: 16, hr: 14, min: 30),
-  TimeClass(id: 17, hr: 14, min: 45),
-  TimeClass(id: 18, hr: 15, min: 0),
-  TimeClass(id: 19, hr: 15, min: 15),
-  TimeClass(id: 20, hr: 15, min: 30),
-  TimeClass(id: 21, hr: 15, min: 45),
-  TimeClass(id: 22, hr: 16, min: 0),
-  TimeClass(id: 23, hr: 16, min: 15),
-  TimeClass(id: 24, hr: 16, min: 30),
-  TimeClass(id: 25, hr: 16, min: 45),
-  TimeClass(id: 26, hr: 17, min: 0),
-  TimeClass(id: 27, hr: 17, min: 15),
-  TimeClass(id: 28, hr: 17, min: 30),
-  TimeClass(id: 29, hr: 17, min: 45),
-  TimeClass(id: 30, hr: 18, min: 0),
-  TimeClass(id: 31, hr: 18, min: 15),
-  TimeClass(id: 32, hr: 18, min: 30),
-  TimeClass(id: 33, hr: 18, min: 45),
-  TimeClass(id: 34, hr: 19, min: 0),
-  TimeClass(id: 35, hr: 19, min: 15),
-  TimeClass(id: 36, hr: 19, min: 30),
-  TimeClass(id: 37, hr: 19, min: 45),
-  TimeClass(id: 38, hr: 20, min: 0),
-  TimeClass(id: 39, hr: 20, min: 15),
-  TimeClass(id: 40, hr: 20, min: 30),
-  TimeClass(id: 41, hr: 20, min: 45),
-  TimeClass(id: 42, hr: 21, min: 0),
-  TimeClass(id: 43, hr: 21, min: 15),
-  TimeClass(id: 44, hr: 21, min: 30),
-  TimeClass(id: 45, hr: 21, min: 45),
-  TimeClass(id: 46, hr: 22, min: 0),
+  TimeClass(id: 9, hr: 13, min: 00),
+  TimeClass(id: 10, hr: 13, min: 15),
+  TimeClass(id: 11, hr: 13, min: 30),
+  TimeClass(id: 12, hr: 13, min: 45),
+  TimeClass(id: 13, hr: 14, min: 00),
+  TimeClass(id: 14, hr: 14, min: 15),
+  TimeClass(id: 15, hr: 14, min: 30),
+  TimeClass(id: 16, hr: 14, min: 45),
+  TimeClass(id: 17, hr: 15, min: 00),
+  TimeClass(id: 18, hr: 15, min: 15),
+  TimeClass(id: 19, hr: 15, min: 30),
+  TimeClass(id: 20, hr: 15, min: 45),
+  TimeClass(id: 21, hr: 16, min: 00),
+  TimeClass(id: 22, hr: 16, min: 15),
+  TimeClass(id: 23, hr: 16, min: 30),
+  TimeClass(id: 24, hr: 16, min: 45),
+  TimeClass(id: 25, hr: 17, min: 00),
+  TimeClass(id: 26, hr: 17, min: 15),
+  TimeClass(id: 27, hr: 17, min: 30),
+  TimeClass(id: 28, hr: 17, min: 45),
+  TimeClass(id: 29, hr: 18, min: 00),
+  TimeClass(id: 30, hr: 18, min: 15),
+  TimeClass(id: 31, hr: 18, min: 30),
+  TimeClass(id: 32, hr: 18, min: 45),
+  TimeClass(id: 33, hr: 19, min: 00),
+  TimeClass(id: 34, hr: 19, min: 15),
+  TimeClass(id: 35, hr: 19, min: 30),
+  TimeClass(id: 36, hr: 19, min: 45),
+  TimeClass(id: 37, hr: 20, min: 00),
+  TimeClass(id: 38, hr: 20, min: 15),
+  TimeClass(id: 39, hr: 20, min: 30),
+  TimeClass(id: 40, hr: 20, min: 45),
+  TimeClass(id: 41, hr: 21, min: 00),
+  TimeClass(id: 42, hr: 21, min: 15),
+  TimeClass(id: 43, hr: 21, min: 30),
+  TimeClass(id: 44, hr: 21, min: 45),
+  TimeClass(id: 45, hr: 22, min: 00),
 ];

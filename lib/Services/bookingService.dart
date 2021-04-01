@@ -18,23 +18,6 @@ class BookingService {
       return false;
     }
   }
-  static Future getTodayBooking(date) async {
-    http.Response response = await http.post(
-      Uri.parse("http://64.225.85.5/booking/today"),
-      headers: {"Content-Type": "application/json"},
-      body: jsonEncode(({"date": date})),
-    );
-    if (response.statusCode == 200) {
-      var responseData = json.decode(response.body);
-      List<Booking> orderList = responseData
-          .map<Booking>((itemMap) => Booking.fromJson(itemMap))
-          .toList();
-      return orderList;
-    } else {
-      print(response.body);
-      return false;
-    }
-  }
 
   static Future updateBooking(payload) async {
     http.Response response = await http.put(

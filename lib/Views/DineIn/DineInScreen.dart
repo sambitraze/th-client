@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:client/Services/UserService.dart';
 import 'package:client/Services/bookingService.dart';
 import 'package:client/Views/DineIn/newDineIn.dart';
 import 'package:client/models/User.dart';
 import 'package:client/models/booking.dart';
 import 'package:flutter/material.dart';
+
+import 'TimeClass.dart';
 
 class DineInScreen extends StatefulWidget {
   @override
@@ -135,6 +139,9 @@ class _DineInScreenState extends State<DineInScreen> {
                 endIndent: 20,
                 indent: 20,
               ),
+              SizedBox(
+                height: 16,
+              ),
               Expanded(
                 child: todayBookings.length == 0
                     ? Container(
@@ -145,8 +152,38 @@ class _DineInScreenState extends State<DineInScreen> {
                     : ListView.builder(
                         itemCount: todayBookings.length,
                         itemBuilder: (context, index) {
-                          return Container(
-                            child: Text(todayBookings[index].toString()),
+                          return ListTile(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  content: Text(
+                                      "Do you want to cancel today's reservation of ${timeClassToActual(todayBookings[index].startTimeId)} to ${timeClassToActual(todayBookings[index].endTimeId)} ? "),
+                                  actions: [
+                                    MaterialButton(onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },child: Text("No"),),
+                                    MaterialButton(onPressed: () {
+                                      Navigator.of(context).pop();
+                                      setState(() {
+                                        todayBookings[index].canceled=true;
+                                      });
+                                      BookingService.updateBooking(jsonEncode(todayBookings[index].toJson()));
+                                      getTodayData();
+                                    },child: Text("Yes"),)
+                                  ],
+                                ),
+                              );
+                            },
+                            tileColor: Colors.grey[100],
+                            title: richieText(
+                              'Slot: ',
+                              "${timeClassToActual(todayBookings[index].startTimeId)} to ${timeClassToActual(todayBookings[index].endTimeId)}",
+                            ),
+                            trailing: richieText(
+                              'Table No: ',
+                              todayBookings[index].tableId,
+                            ),
                           );
                         }),
               ),
@@ -169,6 +206,9 @@ class _DineInScreenState extends State<DineInScreen> {
                 endIndent: 20,
                 indent: 20,
               ),
+              SizedBox(
+                height: 16,
+              ),
               Expanded(
                 child: pastBookings.length == 0
                     ? Container(
@@ -177,18 +217,25 @@ class _DineInScreenState extends State<DineInScreen> {
                             child: Text("No Previous Bookings found ! ")),
                       )
                     : ListView.builder(
-                    controller: _sc,
-                    itemCount: pastBookings.length + 1,
+                        controller: _sc,
+                        itemCount: pastBookings.length + 1,
                         itemBuilder: (context, index) {
                           return index == pastBookings.length
                               ? Center(
-                            child: isLoading2
-                                ? CircularProgressIndicator()
-                                : Container(),
-                          )
-                              : Container(
-                            child: Text(pastBookings[index].toString()),
-                          );
+                                  child: isLoading2
+                                      ? CircularProgressIndicator()
+                                      : Container(),
+                                )
+                              : ListTile(
+                                  tileColor: Colors.grey[100],
+                                  title: richieText(
+                                    'Slot: ',
+                                    "${timeClassToActual(pastBookings[index].startTimeId)} to ${timeClassToActual(pastBookings[index].endTimeId)}",
+                                  ),
+                                  trailing: richieText(
+                                    'Table No: ',
+                                    pastBookings[index].tableId,
+                                  ));
                         }),
               ),
             ],
@@ -197,4 +244,74 @@ class _DineInScreenState extends State<DineInScreen> {
       ),
     );
   }
+
+  timeClassToActual(String id) {
+    TimeClass current =
+        timeList.where((element) => element.id == int.parse(id)).first;
+    return ("${current.hr} : ${current.min}");
+  }
+
+  richieText(title, trail) {
+    return RichText(
+      text: TextSpan(
+        text: title,
+        style: TextStyle(
+            fontSize: 15, fontWeight: FontWeight.bold, color: Colors.orange),
+        children: <TextSpan>[
+          TextSpan(
+            text: trail,
+            style: TextStyle(fontSize: 16, color: Colors.black),
+          ),
+        ],
+      ),
+    );
+  }
 }
+
+List timeList = [
+  TimeClass(id: 1, hr: 11, min: 00),
+  TimeClass(id: 2, hr: 11, min: 15),
+  TimeClass(id: 3, hr: 11, min: 30),
+  TimeClass(id: 4, hr: 11, min: 45),
+  TimeClass(id: 5, hr: 12, min: 00),
+  TimeClass(id: 6, hr: 12, min: 15),
+  TimeClass(id: 7, hr: 12, min: 30),
+  TimeClass(id: 8, hr: 12, min: 45),
+  TimeClass(id: 9, hr: 13, min: 00),
+  TimeClass(id: 10, hr: 13, min: 15),
+  TimeClass(id: 11, hr: 13, min: 30),
+  TimeClass(id: 12, hr: 13, min: 45),
+  TimeClass(id: 13, hr: 14, min: 00),
+  TimeClass(id: 14, hr: 14, min: 15),
+  TimeClass(id: 15, hr: 14, min: 30),
+  TimeClass(id: 16, hr: 14, min: 45),
+  TimeClass(id: 17, hr: 15, min: 00),
+  TimeClass(id: 18, hr: 15, min: 15),
+  TimeClass(id: 19, hr: 15, min: 30),
+  TimeClass(id: 20, hr: 15, min: 45),
+  TimeClass(id: 21, hr: 16, min: 00),
+  TimeClass(id: 22, hr: 16, min: 15),
+  TimeClass(id: 23, hr: 16, min: 30),
+  TimeClass(id: 24, hr: 16, min: 45),
+  TimeClass(id: 25, hr: 17, min: 00),
+  TimeClass(id: 26, hr: 17, min: 15),
+  TimeClass(id: 27, hr: 17, min: 30),
+  TimeClass(id: 28, hr: 17, min: 45),
+  TimeClass(id: 29, hr: 18, min: 00),
+  TimeClass(id: 30, hr: 18, min: 15),
+  TimeClass(id: 31, hr: 18, min: 30),
+  TimeClass(id: 32, hr: 18, min: 45),
+  TimeClass(id: 33, hr: 19, min: 00),
+  TimeClass(id: 34, hr: 19, min: 15),
+  TimeClass(id: 35, hr: 19, min: 30),
+  TimeClass(id: 36, hr: 19, min: 45),
+  TimeClass(id: 37, hr: 20, min: 00),
+  TimeClass(id: 38, hr: 20, min: 15),
+  TimeClass(id: 39, hr: 20, min: 30),
+  TimeClass(id: 40, hr: 20, min: 45),
+  TimeClass(id: 41, hr: 21, min: 00),
+  TimeClass(id: 42, hr: 21, min: 15),
+  TimeClass(id: 43, hr: 21, min: 30),
+  TimeClass(id: 44, hr: 21, min: 45),
+  TimeClass(id: 45, hr: 22, min: 00),
+];

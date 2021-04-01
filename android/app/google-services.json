@@ -51,6 +51,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "975115877464-4ama4mnc6h8to04rjj5n23fo6qlb4mm6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tandoorhut.client",
+            "certificate_hash": "0399bdce8f0374d93907a3398452137abf960a5a"
+          }
+        },
+        {
           "client_id": "975115877464-61pr6k8qp6id0mumpn6clran7e8tje0c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
