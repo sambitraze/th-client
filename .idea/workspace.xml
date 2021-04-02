@@ -22,10 +22,7 @@
     <list default="true" id="6bf993de-b6cf-42be-ab8a-172f7151a02e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/google-services.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Services/bookingService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Services/bookingService.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/DineIn/DineInScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/DineIn/DineInScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/DineIn/newDineIn.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/DineIn/newDineIn.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
