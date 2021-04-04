@@ -43,7 +43,7 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   updateLocation() async {
-    const oneSec = const Duration(seconds: 300);
+    const oneSec = const Duration(seconds: 15);
     new Timer.periodic(oneSec, (Timer t) async {
       deliveryBoy = await DeliveryBoyService.getDeliveryBoyByEmail(widget.order.deliveryby.email);
       setState(() {
