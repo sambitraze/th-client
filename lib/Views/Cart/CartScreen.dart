@@ -89,7 +89,7 @@ class _CartScreenState extends State<CartScreen> {
             double.parse(element.item.price) * double.parse(element.count);
       });
       offerdeduct = itemsum * double.parse(offerCode.percentage) * 0.01;
-      itemsum > 300 ? delivery = 0 : delivery = 10;
+      // itemsum > 300 ? delivery = 0 : delivery = 10;
       gstCharge = itemsum * gstper * 0.01;
       grandtot = gstCharge + itemsum + delivery - offerdeduct;
     });
@@ -444,23 +444,31 @@ class _CartScreenState extends State<CartScreen> {
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: <Widget>[
-                                                  Container(
-                                                    child: Image.asset(
-                                                      'assets/rupee.png',
-                                                      height: 18,
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    child: Text(
-                                                      user.cart[index].item
-                                                          .price,
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                                  Row(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    children: [
+                                                      Container(
+                                                        child: Image.asset(
+                                                          'assets/rupee.png',
+                                                          height: 18,
+                                                        ),
                                                       ),
-                                                    ),
+                                                      SizedBox(
+                                                        width: 8,
+                                                      ),
+                                                      Container(
+                                                        child: Text(
+                                                          user.cart[index].item
+                                                              .price,
+                                                          style: TextStyle(
+                                                            fontSize: 18,
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                   Container(
                                                     height: 50,
@@ -765,7 +773,7 @@ class _CartScreenState extends State<CartScreen> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              '*including gst, packaging, delivery',
+                                              '*including gst, packaging, free delivery',
                                               style: TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 10),

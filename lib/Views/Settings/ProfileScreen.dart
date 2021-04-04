@@ -51,7 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: load
-            ? CircularProgressIndicator()
+            ? Center(child: CircularProgressIndicator())
             : Column(
                 children: [
                   SizedBox(height: 20),
@@ -104,11 +104,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   SizedBox(height: 25),
                   Divider(
-                    color: Colors.black,
+                    color: Colors.black.withOpacity(0.3),
                     height: 1,
+                    indent: 32,
+                    endIndent: 32,
                   ),
+                  SizedBox(height: 25),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 10),
                     alignment: Alignment.topLeft,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,12 +173,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 25),
                   Divider(
-                    color: Colors.black,
+                    color: Colors.black.withOpacity(0.3),
                     height: 1,
+                    indent: 32,
+                    endIndent: 32,
                   ),
+                  SizedBox(height: 25),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 10),
                     alignment: Alignment.topLeft,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
