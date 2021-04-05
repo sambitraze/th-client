@@ -73,7 +73,7 @@ class _CartScreenState extends State<CartScreen> {
   bool loading1 = false;
   double itemsum = 0;
   double delivery = 10;
-  double gstper = 5; //TODO: update this
+  double gstper = 0; //TODO: update this
   double gstCharge = 0.0;
   double grandtot = 0.0;
   double offerdeduct = 0.0;
