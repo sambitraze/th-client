@@ -56,7 +56,7 @@ class _ItemListScreenState extends State<ItemListScreen> {
     UserService.updateUser(user);
     Navigator.pop(context);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => CartScreen()));
+        context, MaterialPageRoute(builder: (context) => CartScreen(file: )));
   }
 
   bool chkoutbutton = true;

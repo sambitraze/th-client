@@ -19,12 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bf993de-b6cf-42be-ab8a-172f7151a02e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Cart/CartScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Cart/CartScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-    </list>
+    <list default="true" id="6bf993de-b6cf-42be-ab8a-172f7151a02e" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,7 +48,7 @@
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../th-delivery" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../zopek" />
     <property name="settings.editor.selected.configurable" value="flutter.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
@@ -107,12 +102,13 @@
     </state>
     <state x="100" y="100" width="1069" height="880" key="AVDManager/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1610940020949" />
     <state x="100" y="100" width="1069" height="880" key="AVDManager/-1920.2.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1616257623770" />
-    <state x="2660" y="295" width="432" height="489" key="FileChooserDialogImpl" timestamp="1617518346734">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state x="740" y="295" width="432" height="489" key="FileChooserDialogImpl" timestamp="1617986176757">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="740" y="295" key="FileChooserDialogImpl/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1615469652447" />
     <state x="740" y="295" key="FileChooserDialogImpl/-1920.1.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1616932251895" />
     <state x="740" y="295" key="FileChooserDialogImpl/-1920.2.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1616246809643" />
+    <state x="740" y="295" key="FileChooserDialogImpl/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1617986176757" />
     <state x="2660" y="295" width="432" height="489" key="FileChooserDialogImpl/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1617518346734" />
     <state x="2660" y="295" key="FileChooserDialogImpl/1920.0.1920.1080/0.28.1920.1052@1920.0.1920.1080" timestamp="1616440900207" />
     <state width="540" height="588" key="GridCell.Tab.0.bottom" timestamp="1617525639813">
