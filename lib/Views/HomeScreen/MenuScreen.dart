@@ -10,12 +10,12 @@ import 'package:flutter/material.dart';
 
 import '../../ui_constants.dart';
 
-class HomeScreen extends StatefulWidget {
+class MenuScreen extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _MenuScreenState createState() => _MenuScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
   bool loading = false;
   User client;
   List<Item> items = [];

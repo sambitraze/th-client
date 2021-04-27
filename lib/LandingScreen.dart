@@ -1,7 +1,8 @@
 import 'package:client/Services/PushService.dart';
 import 'package:client/Views/Cart/CartScreen.dart';
 import 'package:client/Views/DineIn/DineInScreen.dart';
-import 'package:client/Views/HomeScreen/HomeScreen.dart';
+import 'package:client/Views/HomeScreen/HomeScree.dart';
+import 'package:client/Views/HomeScreen/MenuScreen.dart';
 import 'package:client/Views/Settings/ProfileScreen.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -75,9 +76,8 @@ class _LandingScreenState extends State<LandingScreen> {
             },
             children: [
               HomeScreen(),
-              // MenuScreen(),
+              MenuScreen(),
               CartScreen(),
-              // TakeAwayScreen(),
               DineInScreen(),
               ProfileScreen()
             ],
