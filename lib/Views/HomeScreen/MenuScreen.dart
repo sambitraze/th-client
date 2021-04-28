@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import '../../ui_constants.dart';
 
 class MenuScreen extends StatefulWidget {
+  int index;
+  MenuScreen({this.index});
   @override
   _MenuScreenState createState() => _MenuScreenState();
 }
@@ -62,8 +64,9 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     getData();
+    _index = widget.index;
     _tabController =
-        TabController(length: 8, vsync: this, initialIndex: _index);
+        TabController(length: 8, vsync: this, initialIndex: widget.index);
     super.initState();
   }
 

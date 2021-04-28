@@ -76,7 +76,9 @@ class _LandingScreenState extends State<LandingScreen> {
             },
             children: [
               HomeScreen(),
-              MenuScreen(),
+              MenuScreen(
+                index: 0,
+              ),
               CartScreen(),
               DineInScreen(),
               ProfileScreen()
@@ -106,10 +108,10 @@ class _LandingScreenState extends State<LandingScreen> {
             duration: Duration(milliseconds: 500),
             tabBackgroundColor: Color.fromRGBO(252, 126, 47, 1),
             tabs: [
-              // GButton(
-              //   icon: Icons.home,
-              //   text: 'Home',
-              // ),
+              GButton(
+                icon: Icons.home,
+                text: 'Home',
+              ),
               GButton(
                 icon: Icons.fastfood,
                 text: 'Menu',
@@ -118,10 +120,6 @@ class _LandingScreenState extends State<LandingScreen> {
                 icon: Icons.shopping_cart,
                 text: 'Cart',
               ),
-              // GButton(
-              //   icon: Icons.directions_run,
-              //   text: 'Takeaway',
-              // ),
               GButton(
                 icon: Icons.phone_in_talk,
                 text: 'Dine-In',

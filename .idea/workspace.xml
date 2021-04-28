@@ -20,15 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6bf993de-b6cf-42be-ab8a-172f7151a02e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Menu/ItemListScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Menu/ItemListScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/LandingScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/LandingScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Services/PushService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Services/PushService.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Views/DineIn/newDineIn.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/DineIn/newDineIn.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Views/HomeScreen/HomeScree.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/HomeScreen/HomeScree.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Views/HomeScreen/MenuScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/HomeScreen/MenuScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Views/Settings/ProfileScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Settings/ProfileScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -113,49 +112,48 @@
     <state x="100" y="100" width="1069" height="880" key="AVDManager" timestamp="1616257623770">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="100" y="100" width="1069" height="880" key="AVDManager/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1610940020949" />
     <state x="100" y="100" width="1069" height="880" key="AVDManager/-1920.2.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1616257623770" />
-    <state x="740" y="295" width="432" height="489" key="FileChooserDialogImpl" timestamp="1617986176757">
+    <state x="740" y="295" width="432" height="489" key="FileChooserDialogImpl" timestamp="1619612019434">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="740" y="295" key="FileChooserDialogImpl/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1615469652447" />
+    <state x="740" y="295" key="FileChooserDialogImpl/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1619612019434" />
     <state x="740" y="295" key="FileChooserDialogImpl/-1920.1.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1616932251895" />
     <state x="740" y="295" key="FileChooserDialogImpl/-1920.2.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1616246809643" />
     <state x="740" y="295" key="FileChooserDialogImpl/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1617986176757" />
     <state x="2660" y="295" width="432" height="489" key="FileChooserDialogImpl/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1617518346734" />
     <state x="2660" y="295" key="FileChooserDialogImpl/1920.0.1920.1080/0.28.1920.1052@1920.0.1920.1080" timestamp="1616440900207" />
-    <state width="1877" height="295" key="GridCell.Tab.0.bottom" timestamp="1619456182724">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1535" height="295" key="GridCell.Tab.0.bottom" timestamp="1619502490701">
+      <screen x="-1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="345" key="GridCell.Tab.0.bottom/-1920.0.1920.1080/0.0.1920.1080@-1920.0.1920.1080" timestamp="1614777981099" />
-    <state width="1877" height="295" key="GridCell.Tab.0.bottom/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1619456182724" />
+    <state width="1535" height="295" key="GridCell.Tab.0.bottom/-1920.0.1920.1080/0.0.1920.1080@-1920.0.1920.1080" timestamp="1619502490701" />
+    <state width="1535" height="295" key="GridCell.Tab.0.bottom/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1619502120718" />
     <state width="1877" height="295" key="GridCell.Tab.0.bottom/-1920.1.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1619196800113" />
     <state width="1877" height="295" key="GridCell.Tab.0.bottom/-1920.2.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1616304826310" />
     <state width="540" height="588" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1617525639813" />
     <state width="540" height="595" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1617518348177" />
-    <state width="1877" height="295" key="GridCell.Tab.0.center" timestamp="1619456182724">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1535" height="295" key="GridCell.Tab.0.center" timestamp="1619502490700">
+      <screen x="-1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="345" key="GridCell.Tab.0.center/-1920.0.1920.1080/0.0.1920.1080@-1920.0.1920.1080" timestamp="1614777981098" />
-    <state width="1877" height="295" key="GridCell.Tab.0.center/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1619456182724" />
+    <state width="1535" height="295" key="GridCell.Tab.0.center/-1920.0.1920.1080/0.0.1920.1080@-1920.0.1920.1080" timestamp="1619502490700" />
+    <state width="1535" height="295" key="GridCell.Tab.0.center/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1619502120718" />
     <state width="1877" height="295" key="GridCell.Tab.0.center/-1920.1.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1619196800112" />
     <state width="1877" height="295" key="GridCell.Tab.0.center/-1920.2.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1616304826310" />
     <state width="540" height="588" key="GridCell.Tab.0.center/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1617525639813" />
     <state width="540" height="595" key="GridCell.Tab.0.center/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1617518348177" />
-    <state width="1877" height="295" key="GridCell.Tab.0.left" timestamp="1619456182724">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1535" height="295" key="GridCell.Tab.0.left" timestamp="1619502490700">
+      <screen x="-1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="345" key="GridCell.Tab.0.left/-1920.0.1920.1080/0.0.1920.1080@-1920.0.1920.1080" timestamp="1614777981097" />
-    <state width="1877" height="295" key="GridCell.Tab.0.left/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1619456182724" />
+    <state width="1535" height="295" key="GridCell.Tab.0.left/-1920.0.1920.1080/0.0.1920.1080@-1920.0.1920.1080" timestamp="1619502490700" />
+    <state width="1535" height="295" key="GridCell.Tab.0.left/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1619502120718" />
     <state width="1877" height="295" key="GridCell.Tab.0.left/-1920.1.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1619196800112" />
     <state width="1877" height="295" key="GridCell.Tab.0.left/-1920.2.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1616304826310" />
     <state width="540" height="588" key="GridCell.Tab.0.left/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1617525639813" />
     <state width="540" height="595" key="GridCell.Tab.0.left/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1617518348176" />
-    <state width="1877" height="295" key="GridCell.Tab.0.right" timestamp="1619456182724">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1535" height="295" key="GridCell.Tab.0.right" timestamp="1619502490700">
+      <screen x="-1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="345" key="GridCell.Tab.0.right/-1920.0.1920.1080/0.0.1920.1080@-1920.0.1920.1080" timestamp="1614777981099" />
-    <state width="1877" height="295" key="GridCell.Tab.0.right/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1619456182724" />
+    <state width="1535" height="295" key="GridCell.Tab.0.right/-1920.0.1920.1080/0.0.1920.1080@-1920.0.1920.1080" timestamp="1619502490700" />
+    <state width="1535" height="295" key="GridCell.Tab.0.right/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1619502120718" />
     <state width="1877" height="295" key="GridCell.Tab.0.right/-1920.1.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1619196800112" />
     <state width="1877" height="295" key="GridCell.Tab.0.right/-1920.2.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1616304826310" />
     <state width="540" height="588" key="GridCell.Tab.0.right/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1617525639813" />

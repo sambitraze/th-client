@@ -301,6 +301,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                   ),
+                  Text(
+                    'V 1.0.4+10',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize:12,
+                    ),
+                  ),
                 ],
               ),
       ),

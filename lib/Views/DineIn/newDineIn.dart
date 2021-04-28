@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:client/LandingScreen.dart';
 import 'package:client/Services/UserService.dart';
 import 'package:client/Services/bookingService.dart';
-import 'package:client/Services/tableService.dart';
 import 'package:client/models/User.dart';
 import 'package:client/models/booking.dart';
 import 'package:flutter/animation.dart';

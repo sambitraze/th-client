@@ -11,7 +11,6 @@ class PushService {
     final FirebaseMessaging _fcm = FirebaseMessaging.instance;
     await _fcm.subscribeToTopic("offers");
     String deviceToken = await _fcm.getToken();
-    print(deviceToken);
     pref.setString("deviceToken", deviceToken);
     User user = await UserService.getUserByPhone();
     user.deviceToken = deviceToken;
