@@ -3,10 +3,8 @@ import 'package:client/Services/offerSerivce.dart';
 import 'package:client/Services/topService.dart';
 import 'package:client/Views/Cart/CartScreen.dart';
 import 'package:client/Views/HomeScreen/MenuScreen.dart';
-import 'package:client/Views/HomeScreen/search/ItemSearch.dart';
 import 'package:client/Views/Settings/ManageAddress.dart';
 import 'package:client/Views/Settings/ProfileScreen.dart';
-import 'package:client/models/Item.dart';
 import 'package:client/models/User.dart';
 import 'package:client/models/cartItem.dart';
 import 'package:client/models/offers.dart';
@@ -88,11 +86,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               padding: const EdgeInsets.all(16.0),
                               child: Text(
                                 "Tandoor Hut",
-                                style: TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headline4
+                                    .copyWith(fontWeight: FontWeight.bold),
                               ),
                             ),
                             ListTile(
@@ -114,20 +111,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
                                     Text(
                                       'Home',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                      ),
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .headline6
+                                          .copyWith(fontSize: 18),
                                     ),
                                     Text(
                                       client.address,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                      ),
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .headline6
+                                          .copyWith(fontSize: 18),
                                     ),
                                   ],
                                 ),
@@ -146,10 +144,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         backgroundColor: Colors.white,
                                         child: Text(
                                           client.name.substring(0, 1),
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 22,
-                                          ),
+                                          style: Theme.of(context)
+                                              .primaryTextTheme
+                                              .headline5
+                                              .copyWith(color: Colors.black),
                                         ),
                                       ),
                                       onTap: () => Navigator.push(
@@ -175,182 +173,201 @@ class _HomeScreenState extends State<HomeScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(height: 8),
-                              Text(
-                                'LockDown Craving',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(height: 3),
-                              Text(
-                                'Most ordered in your city',
-                                style: TextStyle(
-                                  color: Colors.black45,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 120,
-                                child: ListView.builder(
-                                  itemCount: top8.length,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 16.0),
-                                      child: Stack(
-                                        alignment: Alignment.center,
-                                        children: <Widget>[
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              gradient: LinearGradient(
-                                                begin: Alignment.topCenter,
-                                                end: Alignment.bottomCenter,
-                                                colors: [
-                                                  Color.fromRGBO(
-                                                      255, 143, 54, 1),
-                                                  Color.fromRGBO(
-                                                      252, 81, 133, 1)
-                                                ],
-                                              ),
-                                            ),
-                                            child: SizedBox(
-                                              height: 108,
-                                              width: 115,
-                                            ),
-                                          ),
-                                          Text(
-                                            top8[index]
-                                                .item
-                                                .name
-                                                .replaceAll(" ", "\n"),
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          InkWell(
-                                            child: SizedBox(
-                                              height: 108,
-                                              width: 115,
-                                            ),
-                                            onTap: () async {
-                                              showDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return StatefulBuilder(
-                                                    builder:
-                                                        (context, setState) =>
-                                                            AlertDialog(
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          16)),
-                                                      title: Text(
-                                                          "Do you want to add ${top8[index].item.name} to your cart ?"),
-                                                      content: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          MaterialButton(
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          18),
-                                                            ),
-                                                            color: Colors.white,
-                                                            onPressed:
-                                                                () async {
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                            },
-                                                            child: Text(
-                                                              "NO",
-                                                              style: TextStyle(
-                                                                fontSize: 18,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 16,
-                                                          ),
-                                                          MaterialButton(
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          18),
-                                                            ),
-                                                            color:
-                                                                Colors.orange,
-                                                            onPressed:
-                                                                () async {
-                                                              User user =
-                                                                  await UserService
-                                                                      .getUserByPhone();
-                                                              user.cart.add(CartItem(
-                                                                  item: top8[
-                                                                          index]
-                                                                      .item,
-                                                                  count: "1"));
-                                                              UserService
-                                                                  .updateUser(
-                                                                      user);
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .push(MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) =>
-                                                                              CartScreen()));
-                                                            },
-                                                            child: Text(
-                                                              "Yes",
-                                                              style: TextStyle(
-                                                                fontSize: 18,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                            ),
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              );
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                              SizedBox(height: 8),
+                              // Text(
+                              //   'LockDown Craving',
+                              //   style: Theme.of(context)
+                              //       .primaryTextTheme
+                              //       .headline5
+                              //       .copyWith(
+                              //           fontWeight: FontWeight.bold,
+                              //           color: Colors.black),
+                              // ),
+                              // SizedBox(height: 3),
+                              // Text(
+                              //   'Most ordered in your city',
+                              //   style: TextStyle(
+                              //     color: Colors.black45,
+                              //     fontSize: 14,
+                              //   ),
+                              // ),
+                              // SizedBox(
+                              //   height: 120,
+                              //   child: ListView.builder(
+                              //     itemCount: top8.length,
+                              //     scrollDirection: Axis.horizontal,
+                              //     itemBuilder: (context, index) {
+                              //       print(top8[index].item.category);
+                              //       return Padding(
+                              //         padding:
+                              //             const EdgeInsets.only(right: 16.0),
+                              //         child: Stack(
+                              //           alignment: Alignment.center,
+                              //           children: <Widget>[
+                              //             Container(
+                              //               decoration: BoxDecoration(
+                              //                 borderRadius:
+                              //                     BorderRadius.circular(15),
+                              //                 image: DecorationImage(
+                              //                   image: AssetImage('assets/menu' +
+                              //                       menuName.indexWhere((e)=>e.contains(top8[index].item.category)).toString()
+                              //                        +
+                              //                       '.png'),
+                              //                   colorFilter: ColorFilter.mode(
+                              //                       Colors.black45,
+                              //                       BlendMode.darken),
+                              //                   fit: BoxFit.cover,
+                              //                 ),
+                              //               ),
+                              //               child: SizedBox(
+                              //                 height: 108,
+                              //                 width: 115,
+                              //               ),
+                              //             ),
+                              //             Text(
+                              //               top8[index]
+                              //                   .item
+                              //                   .name
+                              //                   .replaceAll(" ", "\n"),
+                              //               style: Theme.of(context)
+                              //                   .primaryTextTheme
+                              //                   .headline6
+                              //                   .copyWith(
+                              //                       fontWeight:
+                              //                           FontWeight.bold),
+                              //               textAlign: TextAlign.center,
+                              //             ),
+                              //             InkWell(
+                              //               child: SizedBox(
+                              //                 height: 108,
+                              //                 width: 115,
+                              //               ),
+                              //               onTap: () async {
+                              //                 showDialog(
+                              //                   context: context,
+                              //                   builder: (context) {
+                              //                     return StatefulBuilder(
+                              //                       builder:
+                              //                           (context, setState) =>
+                              //                               AlertDialog(
+                              //                         shape:
+                              //                             RoundedRectangleBorder(
+                              //                                 borderRadius:
+                              //                                     BorderRadius
+                              //                                         .circular(
+                              //                                             16)),
+                              //                         title: Text(
+                              //                           "Do you want to add ${top8[index].item.name} to your cart ?",
+                              //                           style: Theme.of(context)
+                              //                               .primaryTextTheme
+                              //                               .headline6
+                              //                               .copyWith(
+                              //                                   fontWeight:
+                              //                                       FontWeight
+                              //                                           .bold,
+                              //                                   color: Colors
+                              //                                       .black,
+                              //                                   fontSize: 18),
+                              //                         ),
+                              //                         content: Row(
+                              //                           mainAxisAlignment:
+                              //                               MainAxisAlignment
+                              //                                   .center,
+                              //                           children: [
+                              //                             MaterialButton(
+                              //                               shape:
+                              //                                   RoundedRectangleBorder(
+                              //                                 borderRadius:
+                              //                                     BorderRadius
+                              //                                         .circular(
+                              //                                             18),
+                              //                               ),
+                              //                               color: Colors.white,
+                              //                               onPressed:
+                              //                                   () async {
+                              //                                 Navigator.of(
+                              //                                         context)
+                              //                                     .pop();
+                              //                               },
+                              //                               child: Text(
+                              //                                 "NO",
+                              //                                 style: TextStyle(
+                              //                                   fontSize: 18,
+                              //                                   color: Colors
+                              //                                       .black,
+                              //                                 ),
+                              //                               ),
+                              //                             ),
+                              //                             SizedBox(
+                              //                               width: 16,
+                              //                             ),
+                              //                             MaterialButton(
+                              //                               shape:
+                              //                                   RoundedRectangleBorder(
+                              //                                 borderRadius:
+                              //                                     BorderRadius
+                              //                                         .circular(
+                              //                                             18),
+                              //                               ),
+                              //                               color:
+                              //                                   Colors.orange,
+                              //                               onPressed:
+                              //                                   () async {
+                              //                                 User user =
+                              //                                     await UserService
+                              //                                         .getUserByPhone();
+                              //                                 user.cart.add(CartItem(
+                              //                                     item: top8[
+                              //                                             index]
+                              //                                         .item,
+                              //                                     count: "1"));
+                              //                                 UserService
+                              //                                     .updateUser(
+                              //                                         user);
+                              //                                 Navigator.of(
+                              //                                         context)
+                              //                                     .pop();
+                              //                                 Navigator.of(
+                              //                                         context)
+                              //                                     .push(MaterialPageRoute(
+                              //                                         builder:
+                              //                                             (context) =>
+                              //                                                 CartScreen()));
+                              //                               },
+                              //                               child: Text(
+                              //                                 "Yes",
+                              //                                 style: TextStyle(
+                              //                                   fontSize: 18,
+                              //                                   color: Colors
+                              //                                       .white,
+                              //                                 ),
+                              //                               ),
+                              //                             )
+                              //                           ],
+                              //                         ),
+                              //                       ),
+                              //                     );
+                              //                   },
+                              //                 );
+                              //               },
+                              //             ),
+                              //           ],
+                              //         ),
+                              //       );
+                              //     },
+                              //   ),
+                              // ),
+                              // SizedBox(height: 8),
                               Text(
                                 'Explore Menu',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headline5
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black),
+                              ),
+                              SizedBox(
+                                height: 12,
                               ),
                               Container(
                                 height: 360,
@@ -390,10 +407,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           Text(
                                             menuName[index],
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                            ),
+                                            style: Theme.of(context)
+                                                .primaryTextTheme
+                                                .bodyText1
+                                                .copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white,
+                                                    fontSize: 20),
                                             textAlign: TextAlign.center,
                                           ),
                                           InkWell(
@@ -425,11 +445,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                   children: <Widget>[
                                     Text(
                                       'OFFERS',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                      style: Theme.of(context)
+                                          .primaryTextTheme
+                                          .headline5
+                                          .copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                    ),
+                                    SizedBox(
+                                      height: 12,
                                     ),
                                     SizedBox(
                                       height: 110,
@@ -461,10 +485,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                               Text(
                                                 'ALL\nOFFERS',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 22,
-                                                ),
+                                                style: Theme.of(context)
+                                                    .primaryTextTheme
+                                                    .headline5
+                                                    .copyWith(fontWeight: FontWeight.bold),
                                                 textAlign: TextAlign.center,
                                               ),
                                               InkWell(
@@ -479,7 +503,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           (context) =>
                                                               AlertDialog(
                                                                 title: Text(
-                                                                    "All Offer"),
+                                                                  "All Offer",
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .primaryTextTheme
+                                                                      .headline6
+                                                                      .copyWith(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          color: Colors
+                                                                              .black,
+                                                                          fontSize:
+                                                                              18),
+                                                                ),
                                                                 content:
                                                                     Container(
                                                                   height: 200,
@@ -526,8 +562,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           end: Alignment
                                                               .bottomCenter,
                                                           colors: [
-                                                            Color.fromRGBO(248,
-                                                                255, 59, 1),
+                                                            Colors.cyan,
                                                             Color.fromRGBO(
                                                                 21, 183, 185, 1)
                                                           ],
@@ -542,10 +577,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     ),
                                                     Text(
                                                       'min\n${offers[0].percentage}%\nOFF',
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 22,
-                                                      ),
+                                                      style: Theme.of(context)
+                                                          .primaryTextTheme
+                                                          .headline5
+                                                          .copyWith(fontWeight: FontWeight.bold),
                                                       textAlign:
                                                           TextAlign.center,
                                                     )
@@ -571,8 +606,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           end: Alignment
                                                               .bottomCenter,
                                                           colors: [
-                                                            Color.fromRGBO(248,
-                                                                255, 59, 1),
+                                                           Colors.cyan,
                                                             Color.fromRGBO(
                                                                 21, 183, 185, 1)
                                                           ],
@@ -587,10 +621,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     ),
                                                     Text(
                                                       'min\n${offers[1].percentage}%\nOFF',
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 22,
-                                                      ),
+                                                      style: Theme.of(context)
+                                                          .primaryTextTheme
+                                                          .headline5
+                                                          .copyWith(fontWeight: FontWeight.bold),
                                                       textAlign:
                                                           TextAlign.center,
                                                     )

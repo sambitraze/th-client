@@ -24,7 +24,6 @@ class _LandingScreenState extends State<LandingScreen> {
   List<String> notifications = [];
   List<String> time = [];
 
-  final _fcm = FirebaseMessaging.instance;
   @override
   void initState() {
     PushService.genTokenID();
@@ -111,22 +110,52 @@ class _LandingScreenState extends State<LandingScreen> {
               GButton(
                 icon: Icons.home,
                 text: 'Home',
+                textStyle: Theme.of(context)
+                    .primaryTextTheme
+                    .bodyText2
+                    .copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,),
               ),
               GButton(
                 icon: Icons.fastfood,
                 text: 'Menu',
+                textStyle: Theme.of(context)
+                    .primaryTextTheme
+                    .bodyText2
+                    .copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,),
               ),
               GButton(
                 icon: Icons.shopping_cart,
                 text: 'Cart',
+                textStyle: Theme.of(context)
+                    .primaryTextTheme
+                    .bodyText2
+                    .copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,),
               ),
               GButton(
                 icon: Icons.phone_in_talk,
                 text: 'Dine-In',
+                textStyle: Theme.of(context)
+                    .primaryTextTheme
+                    .bodyText2
+                    .copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,),
               ),
               GButton(
                 icon: Icons.person,
                 text: 'Profile',
+                textStyle: Theme.of(context)
+                    .primaryTextTheme
+                    .bodyText2
+                    .copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,),
               ),
             ],
             selectedIndex: _selectedIndex,

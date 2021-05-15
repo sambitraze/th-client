@@ -47,7 +47,18 @@ class _ItemListScreenState extends State<ItemListScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Processing'),
+        title: Text('Processing',
+          style: Theme.of(
+              context)
+              .primaryTextTheme
+              .headline6
+              .copyWith(
+              fontWeight: FontWeight
+                  .bold,
+              color: Colors
+                  .black,
+              fontSize:
+              18),),
         backgroundColor: Colors.transparent,
         contentPadding: EdgeInsets.symmetric(horizontal: 130),
         content: CircularProgressIndicator(),
@@ -76,11 +87,7 @@ class _ItemListScreenState extends State<ItemListScreen> {
                 children: [
                   Text(
                     "Choose your dish",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).primaryTextTheme.bodyText1.copyWith(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   MaterialButton(
                     color: Colors.orange,
@@ -111,7 +118,7 @@ class _ItemListScreenState extends State<ItemListScreen> {
                       child: Text(
                         'Add to cart',
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white),
+                        style:Theme.of(context).primaryTextTheme.bodyText2.copyWith(fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -148,11 +155,7 @@ class _ItemListScreenState extends State<ItemListScreen> {
                               children: <Widget>[
                                 Text(
                                   cartItems[index].item.name,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style:Theme.of(context).primaryTextTheme.headline6.copyWith(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 17),
                                 ),
                                 SizedBox(
                                   height: 6,
@@ -178,7 +181,7 @@ class _ItemListScreenState extends State<ItemListScreen> {
                                   itemCount: 5,
                                   initialRating: double.parse(
                                       cartItems[index].item.rating.toString()),
-                                  itemSize: 13.0,
+                                  itemSize: 15.0,
                                   itemPadding:
                                       EdgeInsets.symmetric(horizontal: 4.0),
                                 ),
@@ -193,11 +196,7 @@ class _ItemListScreenState extends State<ItemListScreen> {
                                   SizedBox(width: 5),
                                   Text(
                                     cartItems[index].item.price,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    style:Theme.of(context).primaryTextTheme.bodyText1.copyWith(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 17),
                                   ),
                                 ])
                               ],
@@ -223,7 +222,6 @@ class _ItemListScreenState extends State<ItemListScreen> {
                                           withSpring: true,
                                           minValue: 0,
                                           onChanged: (int val) {
-                                            print('New value : $val');
                                             setState(() {
                                               cartItems[index].count =
                                                   val.toString();
@@ -239,7 +237,6 @@ class _ItemListScreenState extends State<ItemListScreen> {
                                         ),
                                         height: 32,
                                         onPressed: () {
-                                          print('add');
                                           setState(() {
                                             chkoutbutton = true;
                                             cartItems[index].count = "1";
@@ -247,7 +244,7 @@ class _ItemListScreenState extends State<ItemListScreen> {
                                         },
                                         child: Text(
                                           'Add +',
-                                          style: TextStyle(color: Colors.white),
+                                          style:Theme.of(context).primaryTextTheme.bodyText2.copyWith(fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                 // Text(

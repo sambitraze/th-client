@@ -15,7 +15,6 @@ class DineInScreen extends StatefulWidget {
 }
 
 class _DineInScreenState extends State<DineInScreen> {
-  TabController _tabController;
   List<Booking> todayBookings = [];
   List<Booking> pastBookings = [];
   bool isLoading = false;
@@ -96,10 +95,8 @@ class _DineInScreenState extends State<DineInScreen> {
                 ),
                 title: Text(
                   "Dine In Reservation",
-                  style: TextStyle(
-                    fontSize: 28,
-                    color: Colors.black,
-                  ),
+                  style: Theme.of(context).primaryTextTheme.headline5.copyWith(
+                      color: Colors.black, fontWeight: FontWeight.bold),
                 ),
               ),
               ListTile(
@@ -109,10 +106,8 @@ class _DineInScreenState extends State<DineInScreen> {
                 ),
                 title: Text(
                   "Current Reservations",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                  ),
+                  style: Theme.of(context).primaryTextTheme.headline6.copyWith(
+                      color: Colors.black, fontWeight: FontWeight.bold),
                 ),
                 trailing: MaterialButton(
                   color: Colors.orange,
@@ -146,8 +141,17 @@ class _DineInScreenState extends State<DineInScreen> {
                 child: todayBookings.length == 0
                     ? Container(
                         padding: EdgeInsets.all(24),
-                        child:
-                            Center(child: Text("No Current Bookings found ! ")),
+                        child: Center(
+                          child: Text(
+                            "No Current Bookings found ! ",
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .subtitle1
+                                .copyWith(
+                                  color: Colors.black,
+                                ),
+                          ),
+                        ),
                       )
                     : ListView.builder(
                         itemCount: todayBookings.length,
@@ -160,17 +164,24 @@ class _DineInScreenState extends State<DineInScreen> {
                                   content: Text(
                                       "Do you want to cancel today's reservation of ${timeClassToActual(todayBookings[index].startTimeId)} to ${timeClassToActual(todayBookings[index].endTimeId)} ? "),
                                   actions: [
-                                    MaterialButton(onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },child: Text("No"),),
-                                    MaterialButton(onPressed: () {
-                                      Navigator.of(context).pop();
-                                      setState(() {
-                                        todayBookings[index].canceled=true;
-                                      });
-                                      BookingService.updateBooking(jsonEncode(todayBookings[index].toJson()));
-                                      getTodayData();
-                                    },child: Text("Yes"),)
+                                    MaterialButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text("No"),
+                                    ),
+                                    MaterialButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        setState(() {
+                                          todayBookings[index].canceled = true;
+                                        });
+                                        BookingService.updateBooking(jsonEncode(
+                                            todayBookings[index].toJson()));
+                                        getTodayData();
+                                      },
+                                      child: Text("Yes"),
+                                    )
                                   ],
                                 ),
                               );
@@ -194,10 +205,8 @@ class _DineInScreenState extends State<DineInScreen> {
                 ),
                 title: Text(
                   "Previous Reservations",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                  ),
+                  style: Theme.of(context).primaryTextTheme.headline6.copyWith(
+                      color: Colors.black, fontWeight: FontWeight.bold),
                 ),
               ),
               Divider(
@@ -214,7 +223,12 @@ class _DineInScreenState extends State<DineInScreen> {
                     ? Container(
                         padding: EdgeInsets.all(24),
                         child: Center(
-                            child: Text("No Previous Bookings found ! ")),
+                            child: Text("No Previous Bookings found ! ",style: Theme.of(context)
+                                .primaryTextTheme
+                                .subtitle1
+                                .copyWith(
+                              color: Colors.black,
+                            ),),),
                       )
                     : ListView.builder(
                         controller: _sc,

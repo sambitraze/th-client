@@ -37,7 +37,95 @@ class ItemSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Container();
+    List suggestionList = [];
+    tempItemList.clear();
+    for (int i = 0; i < names.length; i++) {
+      if (names[i].toLowerCase().contains(query.toLowerCase())) {
+        tempItemList.add(items[i]);
+        suggestionList.add(names[i]);
+      }
+    }
+
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: ListView.builder(
+        itemBuilder: (context, index) => ListTile(
+            contentPadding: EdgeInsets.symmetric(horizontal: 0),
+            onTap: () {
+              print(index);
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return StatefulBuilder(
+                    builder: (context, setState) => AlertDialog(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                      title: Text(
+                          "Do you want to add ${tempItemList[index].name} to your cart ?"),
+                      content: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          MaterialButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+                            color: Colors.white,
+                            onPressed: () async {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              "NO",
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 16,),
+                          MaterialButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+                            color: Colors.orange,
+                            onPressed: () async {
+                              User user = await UserService.getUserByPhone();
+                              user.cart.add(CartItem(
+                                  item: tempItemList[index], count: "1"));
+                              UserService.updateUser(user);
+                              Navigator.of(context).pop();
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => CartScreen()));
+                            },
+                            child: Text(
+                              "Yes",
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
+            trailing: Text(tempItemList[index].category,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold)),
+            leading: Icon(Icons.fastfood),
+            title: Text(tempItemList[index].name,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal))),
+        itemCount: suggestionList.length,
+      ),
+    );
   }
 
   @override

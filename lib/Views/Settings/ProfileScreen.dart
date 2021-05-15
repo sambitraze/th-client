@@ -82,11 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         Text(
                           user.name,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style:Theme.of(context).primaryTextTheme.headline5.copyWith(fontWeight: FontWeight.bold, color: Colors.black,fontSize: 28),
                         ),
                         SizedBox(
                           height: 5,
@@ -94,10 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Text(
                           user.email + '\n' + "+91 " + user.phone,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                          ),
+                          style:Theme.of(context).primaryTextTheme.headline6.copyWith(color: Colors.black),
                         ),
                       ],
                     ),
@@ -106,24 +99,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Divider(
                     color: Colors.black.withOpacity(0.3),
                     height: 1,
-                    indent: 32,
-                    endIndent: 32,
+                    indent: 24,
+                    endIndent: 24,
                   ),
-                  SizedBox(height: 25),
+                  SizedBox(height: 16),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
                     alignment: Alignment.topLeft,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
                           'Settings',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
+                          style:Theme.of(context).primaryTextTheme.headline5.copyWith(fontWeight: FontWeight.bold, color: Colors.black),
                         ),
+                        SizedBox(height: 12),
                         MaterialButton(
                           onPressed: () => Navigator.push(
                             context,
@@ -137,12 +127,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Icons.pages,
                                 color: Colors.black,
                               ),
+                              SizedBox(width: 8,),
                               Text(
                                 'Your Orders',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                ),
+                                style:Theme.of(context).primaryTextTheme.subtitle1.copyWith(fontWeight: FontWeight.bold, color: Colors.black),
                               ),
                             ],
                           ),
@@ -160,12 +148,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Icons.contacts,
                                 color: Colors.black,
                               ),
+                              SizedBox(width: 8,),
                               Text(
                                 'Manage Address',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                ),
+                                style:Theme.of(context).primaryTextTheme.subtitle1.copyWith(fontWeight: FontWeight.bold, color: Colors.black),
                               ),
                             ],
                           ),
@@ -173,27 +159,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 25),
+                  SizedBox(height: 16),
                   Divider(
                     color: Colors.black.withOpacity(0.3),
                     height: 1,
-                    indent: 32,
-                    endIndent: 32,
+                    indent: 24,
+                    endIndent: 24,
                   ),
-                  SizedBox(height: 25),
+                  SizedBox(height: 16),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
                     alignment: Alignment.topLeft,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
                           'About',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
+                          style:Theme.of(context).primaryTextTheme.headline5.copyWith(fontWeight: FontWeight.bold, color: Colors.black),
                         ),
+                        SizedBox(height: 12),
                         MaterialButton(
                           onPressed: () => Navigator.push(
                             context,
@@ -207,12 +191,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Icons.developer_mode,
                                 color: Colors.black,
                               ),
+                              SizedBox(width: 8,),
                               Text(
                                 'Our Developers',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                ),
+                                style:Theme.of(context).primaryTextTheme.subtitle1.copyWith(fontWeight: FontWeight.bold, color: Colors.black),
                               ),
                             ],
                           ),
@@ -234,12 +216,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Icons.message,
                                 color: Colors.black,
                               ),
+                              SizedBox(width: 8,),
                               Text(
                                 'Reach us!',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                ),
+                                style:Theme.of(context).primaryTextTheme.subtitle1.copyWith(fontWeight: FontWeight.bold, color: Colors.black),
                               ),
                             ],
                           ),
@@ -261,12 +241,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Icons.star,
                                 color: Colors.black,
                               ),
+                              SizedBox(width: 8,),
                               Text(
                                 'Rate Us!',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                ),
+                                  style:Theme.of(context).primaryTextTheme.subtitle1.copyWith(fontWeight: FontWeight.bold, color: Colors.black),
                               ),
                             ],
                           ),
@@ -288,12 +266,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Icons.exit_to_app,
                                 color: Colors.black,
                               ),
+                              SizedBox(width: 8,),
                               Text(
                                 'Logout',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                ),
+                                style:Theme.of(context).primaryTextTheme.subtitle1.copyWith(fontWeight: FontWeight.bold, color: Colors.black),
                               ),
                             ],
                           ),
@@ -302,11 +278,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   Text(
-                    'V 1.0.4+10',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize:12,
-                    ),
+                    'V 1.0.5+11',
+                    style:Theme.of(context).primaryTextTheme.caption.copyWith(fontWeight: FontWeight.bold, color: Colors.black),
                   ),
                 ],
               ),

@@ -100,10 +100,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   },
                   child: Text(
                     'Update',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
+                    style:Theme.of(context).primaryTextTheme.headline6.copyWith(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 18),
                   )),
             ),
           )
@@ -152,10 +149,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           top: UIConstants.fitToHeight(10, context),
                           bottom: UIConstants.fitToHeight(10, context)),
                       child: Text('Edit Profile',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 25,
-                              fontWeight: FontWeight.w500)),
+                        style:Theme.of(context).primaryTextTheme.headline4.copyWith(fontWeight: FontWeight.bold,color: Colors.black),),
                     ),
                     SizedBox(
                       height: UIConstants.fitToHeight(60, context),
@@ -180,8 +174,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             Text(
                               "Get current location !",
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16),
+                              style:Theme.of(context).primaryTextTheme.headline6.copyWith(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 16),
                             ),
                           ],
                         ),

@@ -167,11 +167,13 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
                     child: Text(
                       'Choose Table and Time Slot',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context)
+                        .primaryTextTheme
+                        .headline5
+                        .copyWith(
+                      color: Colors.black,
+                        fontWeight: FontWeight.bold
+                    ),
                     ),
                   ),
                 ),
@@ -185,14 +187,10 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
                       color: Colors.orange,
                       borderRadius: BorderRadius.circular(50),
                     ),
-                    labelStyle: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                    unselectedLabelStyle:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    labelStyle:Theme.of(context).primaryTextTheme.bodyText1.copyWith( fontWeight: FontWeight.bold, fontSize: 16),
+                    unselectedLabelStyle:Theme.of(context).primaryTextTheme.bodyText1.copyWith(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
                     unselectedLabelColor: Colors.black,
-                    labelColor: Colors.black,
+                    labelColor: Colors.white,
                     tabs: tabList,
                     onTap: (value) {
                       setState(() {
@@ -204,6 +202,7 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
                     },
                   ),
                 ),
+                Text("Tap on a date to start booking",style: Theme.of(context).primaryTextTheme.bodyText1.copyWith(color: Colors.black, fontSize: 14),),
                 Expanded(
                   flex: 9,
                   child: TabBarView(
@@ -232,7 +231,8 @@ class _NewDineInState extends State<NewDineIn> with TickerProviderStateMixin {
     //index
     // special regions, start time list, end time list
     return SfCalendar(
-      view: CalendarView.day,
+      view: CalendarView.workWeek,
+      headerDateFormat: 'MMM,yyy',
       onTap: (value) {
         showDialog(
           context: context,

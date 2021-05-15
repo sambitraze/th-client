@@ -53,10 +53,7 @@ class _OrderHistoryState extends State<OrderHistory> {
         ),
         title: Text(
           "Order History",
-          style: TextStyle(
-            fontSize: 32,
-            color: Colors.black,
-          ),
+          style:Theme.of(context).primaryTextTheme.headline4.copyWith(fontWeight: FontWeight.bold, color: Colors.black,fontSize: 28),
         ),
         centerTitle: true,
       ),
@@ -86,14 +83,10 @@ class _OrderHistoryState extends State<OrderHistory> {
                                     leading: Text(
                                       'Order No: ' +
                                           orders[index].orderId,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                      style:Theme.of(context).primaryTextTheme.bodyText1.copyWith(fontWeight: FontWeight.bold, color: Colors.black,fontSize: 17),
                                     ),
                                     trailing: Container(
-                                      width: 100,
+                                      width: 120,
                                       child: MaterialButton(
                                         onPressed: () => Navigator.push(
                                           context,
@@ -104,12 +97,16 @@ class _OrderHistoryState extends State<OrderHistory> {
                                             ),
                                           ),
                                         ),
-                                        child: Text(
-                                          'Details',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Colors.black,
-                                          ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Icon(Icons.menu),
+                                            SizedBox(width: 6,),
+                                            Text(
+                                              'Details',
+                                              style:Theme.of(context).primaryTextTheme.bodyText1.copyWith(fontWeight: FontWeight.bold, color: Colors.black,fontSize: 17),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),

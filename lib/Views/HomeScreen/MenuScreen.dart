@@ -8,10 +8,8 @@ import 'package:client/models/Item.dart';
 import 'package:client/models/User.dart';
 import 'package:flutter/material.dart';
 
-import '../../ui_constants.dart';
-
 class MenuScreen extends StatefulWidget {
-  int index;
+  final int index;
   MenuScreen({this.index});
   @override
   _MenuScreenState createState() => _MenuScreenState();
@@ -160,17 +158,11 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
                                     children: <Widget>[
                                       Text(
                                         'Home',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                        ),
+                                        style: Theme.of(context).primaryTextTheme.headline6.copyWith(fontSize: 18),
                                       ),
                                       Text(
                                         client.address,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                        ),
+                                        style: Theme.of(context).primaryTextTheme.headline6.copyWith(fontSize: 18),
                                       ),
                                     ],
                                   ),
@@ -199,10 +191,7 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
                                           backgroundColor: Colors.white,
                                           child: Text(
                                             client.name.substring(0, 1),
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 22,
-                                            ),
+                                            style: Theme.of(context).primaryTextTheme.headline5.copyWith(color: Colors.black),
                                           ),
                                         ),
                                         onTap: () => Navigator.push(
@@ -228,10 +217,7 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(50),
                                   ),
-                                  labelStyle: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
+                                  labelStyle:Theme.of(context).primaryTextTheme.bodyText1.copyWith(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17),
                                   unselectedLabelStyle: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
@@ -269,7 +255,7 @@ class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
                                     });
                                     _tabController.animateTo(value,
                                         curve: Curves.easeIn,
-                                        duration: Duration(milliseconds: 500));
+                                        duration: Duration(milliseconds: 800));
                                   },
                                 ),
                               ),

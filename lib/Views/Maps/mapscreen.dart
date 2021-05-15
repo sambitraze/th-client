@@ -82,7 +82,7 @@ class _MapScreenState extends State<MapScreen> {
 
   List _decodePoly(String poly) {
     var list = poly.codeUnits;
-    var lList = new List();
+    var lList = [];
     int index = 0;
     int len = poly.length;
     int c = 0;

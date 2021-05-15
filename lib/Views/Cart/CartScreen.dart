@@ -64,13 +64,9 @@ class _CartScreenState extends State<CartScreen> {
         chkcart = true;
       });
     }
-    setState(() {
-      loading = false;
-    });
   }
 
   bool processing = false;
-  bool loading1 = false;
   double itemsum = 0;
   double delivery = 10;
   double gstper = 0; //TODO: update this
@@ -125,14 +121,13 @@ class _CartScreenState extends State<CartScreen> {
   assignDelivery() async {
     setState(() {
       tempDeliveryBoys.clear();
-      loading1 = true;
     });
     tempDeliveryBoys = await DeliveryBoyService.getAllDeliveryBoy();
     setState(() {
       bubbleSort(tempDeliveryBoys);
     });
     setState(() {
-      loading1 = false;
+      loading = false;
     });
   }
 
@@ -158,11 +153,11 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: loading
-          ? Center(child: CircularProgressIndicator())
-          : Stack(
+    return loading
+        ? Center(child: CircularProgressIndicator())
+        : Scaffold(
+            backgroundColor: Colors.white,
+            body: Stack(
               children: <Widget>[
                 SizedBox(
                   width: double.infinity,
@@ -202,17 +197,17 @@ class _CartScreenState extends State<CartScreen> {
                             children: <Widget>[
                               Text(
                                 'Home',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                ),
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headline6
+                                    .copyWith(fontSize: 18),
                               ),
                               Text(
                                 user.address,
-                                style: TextStyle(
-                                  color: Colors.grey[200],
-                                  fontSize: 14,
-                                ),
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headline6
+                                    .copyWith(fontSize: 18),
                               ),
                             ],
                           ),
@@ -304,10 +299,16 @@ class _CartScreenState extends State<CartScreen> {
                                                     child: Text(
                                                       user.cart[index].item
                                                           .name,
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                        color: Colors.black,
-                                                      ),
+                                                      style: Theme.of(context)
+                                                          .primaryTextTheme
+                                                          .headline6
+                                                          .copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 18),
                                                     ),
                                                   ),
                                                   MaterialButton(
@@ -323,14 +324,17 @@ class _CartScreenState extends State<CartScreen> {
                                                               children: [
                                                                 Text(
                                                                   "Remove Item",
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        18,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  ),
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .primaryTextTheme
+                                                                      .headline6
+                                                                      .copyWith(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          color: Colors
+                                                                              .black,
+                                                                          fontSize:
+                                                                              18),
                                                                 ),
                                                                 Text(
                                                                     "\nDo you want to remove item?"),
@@ -366,7 +370,8 @@ class _CartScreenState extends State<CartScreen> {
                                                                           .circular(
                                                                               18),
                                                                 ),
-                                                                color: Colors.orange,
+                                                                color: Colors
+                                                                    .orange,
                                                                 onPressed:
                                                                     () async {
                                                                   setState(() {
@@ -445,7 +450,8 @@ class _CartScreenState extends State<CartScreen> {
                                                         .spaceBetween,
                                                 children: <Widget>[
                                                   Row(
-                                                    mainAxisSize: MainAxisSize.min,
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
                                                     children: [
                                                       Container(
                                                         child: Image.asset(
@@ -511,13 +517,14 @@ class _CartScreenState extends State<CartScreen> {
                                                                   children: [
                                                                     Text(
                                                                       "Remove Item",
-                                                                      style:
-                                                                          TextStyle(
-                                                                        fontSize:
-                                                                            18,
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                      ),
+                                                                      style: Theme.of(
+                                                                              context)
+                                                                          .primaryTextTheme
+                                                                          .headline6
+                                                                          .copyWith(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: Colors.black,
+                                                                              fontSize: 18),
                                                                     ),
                                                                     Text(
                                                                         "\nDo you want to remove item?"),
@@ -660,10 +667,14 @@ class _CartScreenState extends State<CartScreen> {
                                           children: [
                                             Text(
                                               'Total Bill',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 24,
-                                                  fontWeight: FontWeight.bold),
+                                              style: Theme.of(context)
+                                                  .primaryTextTheme
+                                                  .bodyText1
+                                                  .copyWith(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 24),
                                             ),
                                             MaterialButton(
                                               color: Colors.orange,
@@ -675,9 +686,12 @@ class _CartScreenState extends State<CartScreen> {
                                               minWidth: 100,
                                               child: Text(
                                                 'Apply Coupon',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16),
+                                                style: Theme.of(context)
+                                                    .primaryTextTheme
+                                                    .bodyText2
+                                                    .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold),
                                               ),
                                               onPressed: () {
                                                 showDialog(
@@ -687,7 +701,19 @@ class _CartScreenState extends State<CartScreen> {
                                                     builder:
                                                         (context, setState) =>
                                                             AlertDialog(
-                                                      title: Text("All Offer"),
+                                                      title: Text(
+                                                        "All Offer",
+                                                        style: Theme.of(context)
+                                                            .primaryTextTheme
+                                                            .headline6
+                                                            .copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 18),
+                                                      ),
                                                       content: Container(
                                                         height: 200,
                                                         width: 200,
@@ -735,15 +761,25 @@ class _CartScreenState extends State<CartScreen> {
                                           children: [
                                             Text(
                                               'Item Total:',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 18),
+                                              style: Theme.of(context)
+                                                  .primaryTextTheme
+                                                  .headline6
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black,
+                                                      fontSize: 18),
                                             ),
                                             Text(
                                               'Rs $itemsum',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 18),
+                                              style: Theme.of(context)
+                                                  .primaryTextTheme
+                                                  .headline6
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black,
+                                                      fontSize: 18),
                                             ),
                                           ],
                                         ),
@@ -756,15 +792,25 @@ class _CartScreenState extends State<CartScreen> {
                                           children: [
                                             Text(
                                               'Delivery & Charges:',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 18),
+                                              style: Theme.of(context)
+                                                  .primaryTextTheme
+                                                  .headline6
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black,
+                                                      fontSize: 18),
                                             ),
                                             Text(
                                               'Rs $delivery + ${gstCharge.toStringAsFixed(2)} ',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 18),
+                                              style: Theme.of(context)
+                                                  .primaryTextTheme
+                                                  .headline6
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black,
+                                                      fontSize: 18),
                                             ),
                                           ],
                                         ),
@@ -774,9 +820,14 @@ class _CartScreenState extends State<CartScreen> {
                                           children: [
                                             Text(
                                               '*including gst, packaging, free delivery',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 10),
+                                              style: Theme.of(context)
+                                                  .primaryTextTheme
+                                                  .headline6
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black,
+                                                      fontSize: 10),
                                             ),
                                             Container()
                                           ],
@@ -790,15 +841,25 @@ class _CartScreenState extends State<CartScreen> {
                                           children: [
                                             Text(
                                               'Offer : ${offerCode.offerCode}',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 18),
+                                              style: Theme.of(context)
+                                                  .primaryTextTheme
+                                                  .headline6
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black,
+                                                      fontSize: 18),
                                             ),
                                             Text(
                                               ' Rs $offerdeduct @  ${offerCode.percentage}%',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 18),
+                                              style: Theme.of(context)
+                                                  .primaryTextTheme
+                                                  .headline6
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black,
+                                                      fontSize: 18),
                                             ),
                                           ],
                                         ),
@@ -811,15 +872,25 @@ class _CartScreenState extends State<CartScreen> {
                                           children: [
                                             Text(
                                               'Grand Total',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 18),
+                                              style: Theme.of(context)
+                                                  .primaryTextTheme
+                                                  .headline6
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black,
+                                                      fontSize: 18),
                                             ),
                                             Text(
                                               ' Rs ${grandtot.toStringAsFixed(2)}',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 18),
+                                              style: Theme.of(context)
+                                                  .primaryTextTheme
+                                                  .headline6
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black,
+                                                      fontSize: 18),
                                             ),
                                           ],
                                         ),
@@ -878,7 +949,9 @@ class _CartScreenState extends State<CartScreen> {
                                                                     ),
                                                                   ),
                                                                 ),
-                                                                SizedBox(height: 10,),
+                                                                SizedBox(
+                                                                  height: 10,
+                                                                ),
                                                                 Text(
                                                                   'TakeAway',
                                                                   style: TextStyle(
@@ -887,140 +960,144 @@ class _CartScreenState extends State<CartScreen> {
                                                                       fontSize:
                                                                           16,
                                                                       fontWeight:
-                                                                          FontWeight.bold),
+                                                                          FontWeight
+                                                                              .bold),
                                                                 ),
                                                               ],
                                                             ),
-                                                            onTap: (){
+                                                            onTap: () {
                                                               if (showBill ==
                                                                   true) {
                                                                 showDialog(
                                                                   context:
-                                                                  context,
+                                                                      context,
                                                                   builder:
                                                                       (context) =>
-                                                                      AlertDialog(
-                                                                        title: Text(
-                                                                          'Select Payment',
-                                                                          style: TextStyle(
-                                                                              color: Colors
-                                                                                  .black,
-                                                                              fontSize:
-                                                                              28),
-                                                                        ),
-                                                                        shape: RoundedRectangleBorder(
-                                                                            borderRadius:
+                                                                          AlertDialog(
+                                                                    title: Text(
+                                                                      'Select Payment',
+                                                                      style: Theme.of(
+                                                                              context)
+                                                                          .primaryTextTheme
+                                                                          .headline6
+                                                                          .copyWith(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: Colors.black,
+                                                                              fontSize: 24),
+                                                                    ),
+                                                                    shape: RoundedRectangleBorder(
+                                                                        borderRadius:
                                                                             BorderRadius.circular(12)),
-                                                                        backgroundColor:
+                                                                    backgroundColor:
                                                                         Colors
                                                                             .white,
-                                                                        content:
+                                                                    content:
                                                                         Column(
-                                                                          mainAxisAlignment:
+                                                                      mainAxisAlignment:
                                                                           MainAxisAlignment
                                                                               .center,
-                                                                          mainAxisSize:
+                                                                      mainAxisSize:
                                                                           MainAxisSize
                                                                               .min,
-                                                                          children: [
-                                                                            ListTile(
-                                                                              contentPadding:
+                                                                      children: [
+                                                                        ListTile(
+                                                                          contentPadding:
                                                                               EdgeInsets.all(0),
-                                                                              leading:
+                                                                          leading:
                                                                               Image.asset(
-                                                                                "assets/upi.png",
-                                                                                height:
+                                                                            "assets/upi.png",
+                                                                            height:
                                                                                 15,
-                                                                              ),
-                                                                              title:
+                                                                          ),
+                                                                          title:
                                                                               Padding(
-                                                                                padding:
+                                                                            padding:
                                                                                 const EdgeInsets.only(left: 10.0),
-                                                                                child:
+                                                                            child:
                                                                                 Text(
-                                                                                  'UPI',
-                                                                                  style: TextStyle(fontSize: 14),
-                                                                                ),
-                                                                              ),
-                                                                              trailing:
-                                                                              IconButton(
-                                                                                icon:
-                                                                                Icon(
-                                                                                  Icons.keyboard_arrow_right,
-                                                                                  color: Colors.black,
-                                                                                ),
-                                                                                onPressed:
-                                                                                    () {
-                                                                                  Order order;
-                                                                                  setState(() {
-                                                                                    order = Order(
-                                                                                      items: user.cart,
-                                                                                      orderId: genOrderNo(),
-                                                                                      customer: user,
-                                                                                      custName: user.name,
-                                                                                      custNumber: user.phone,
-                                                                                      paymentType: "UPI",
-                                                                                      orderType: "Takeaway",
-                                                                                      amount: (itemsum-delivery).toString(),
-                                                                                      packing: "0",
-                                                                                      gst: gstCharge.toString(),
-                                                                                      gstRate: gstper.toString(),
-                                                                                    );
-                                                                                  });
-                                                                                  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                                                                                    return UPIScreen(
-                                                                                      order: order,
-                                                                                      total: grandtot.toString(),
-                                                                                    );
-                                                                                  }));
-                                                                                },
-                                                                              ),
+                                                                              'UPI',
+                                                                              style: TextStyle(fontSize: 14),
                                                                             ),
-                                                                            ListTile(
-                                                                              contentPadding:
-                                                                              EdgeInsets.all(0),
-                                                                              leading:
-                                                                              Icon(
-                                                                                Icons.drive_eta_rounded,
-                                                                                size:
-                                                                                30,
-                                                                              ),
-                                                                              title:
-                                                                              Padding(
-                                                                                padding:
-                                                                                const EdgeInsets.only(left: 12.0),
-                                                                                child:
-                                                                                Text(
-                                                                                  'COD',
-                                                                                  style: TextStyle(fontSize: 14),
-                                                                                ),
-                                                                              ),
-                                                                              trailing:
+                                                                          ),
+                                                                          trailing:
                                                                               IconButton(
-                                                                                icon:
+                                                                            icon:
                                                                                 Icon(
-                                                                                  Icons.keyboard_arrow_right,
-                                                                                  color: Colors.black,
-                                                                                ),
-                                                                                onPressed:
-                                                                                    () async {
-                                                                                  Order order;
-                                                                                  setState(() {
-                                                                                    order = Order(items: user.cart, orderId: genOrderNo(), customer: user, custName: user.name, custNumber: user.phone, paymentType: "COD", status: "placed", orderType: "Takeaway", paid: false, amount: (itemsum-delivery).toString(), packing: "0", gst: gstCharge.toString(), gstRate: gstper.toString(), txtId: "COD");
-                                                                                  });
-                                                                                  await OrderService.createOrder(jsonEncode(order.toJson()));
-                                                                                  await PushService.sendPushToSelf("Order Update !!!", "Your order no : ${order.orderId} is placed successfully");
-                                                                                  Navigator.pushAndRemoveUntil(
-                                                                                    context,
-                                                                                    MaterialPageRoute(builder: (BuildContext context) => LandingScreen()),
-                                                                                    ModalRoute.withName('/'),
-                                                                                  );
-                                                                                },
-                                                                              ),
+                                                                              Icons.keyboard_arrow_right,
+                                                                              color: Colors.black,
                                                                             ),
-                                                                          ],
+                                                                            onPressed:
+                                                                                () {
+                                                                              Order order;
+                                                                              setState(() {
+                                                                                order = Order(
+                                                                                  items: user.cart,
+                                                                                  orderId: genOrderNo(),
+                                                                                  customer: user,
+                                                                                  custName: user.name,
+                                                                                  custNumber: user.phone,
+                                                                                  paymentType: "UPI",
+                                                                                  orderType: "Takeaway",
+                                                                                  amount: (itemsum - delivery).toString(),
+                                                                                  packing: "0",
+                                                                                  gst: gstCharge.toString(),
+                                                                                  gstRate: gstper.toString(),
+                                                                                );
+                                                                              });
+                                                                              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                                                                                return UPIScreen(
+                                                                                  order: order,
+                                                                                  total: grandtot.toString(),
+                                                                                );
+                                                                              }));
+                                                                            },
+                                                                          ),
                                                                         ),
-                                                                      ),
+                                                                        ListTile(
+                                                                          contentPadding:
+                                                                              EdgeInsets.all(0),
+                                                                          leading:
+                                                                              Icon(
+                                                                            Icons.drive_eta_rounded,
+                                                                            size:
+                                                                                30,
+                                                                          ),
+                                                                          title:
+                                                                              Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.only(left: 12.0),
+                                                                            child:
+                                                                                Text(
+                                                                              'COD',
+                                                                              style: TextStyle(fontSize: 14),
+                                                                            ),
+                                                                          ),
+                                                                          trailing:
+                                                                              IconButton(
+                                                                            icon:
+                                                                                Icon(
+                                                                              Icons.keyboard_arrow_right,
+                                                                              color: Colors.black,
+                                                                            ),
+                                                                            onPressed:
+                                                                                () async {
+                                                                              Order order;
+                                                                              setState(() {
+                                                                                order = Order(items: user.cart, orderId: genOrderNo(), customer: user, custName: user.name, custNumber: user.phone, paymentType: "COD", status: "placed", orderType: "Takeaway", paid: false, amount: (itemsum - delivery).toString(), packing: "0", gst: gstCharge.toString(), gstRate: gstper.toString(), txtId: "COD");
+                                                                              });
+                                                                              await OrderService.createOrder(jsonEncode(order.toJson()));
+                                                                              await PushService.sendPushToSelf("Order Update !!!", "Your order no : ${order.orderId} is placed successfully");
+                                                                              Navigator.pushAndRemoveUntil(
+                                                                                context,
+                                                                                MaterialPageRoute(builder: (BuildContext context) => LandingScreen()),
+                                                                                ModalRoute.withName('/'),
+                                                                              );
+                                                                            },
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
                                                                 );
                                                               }
                                                             },
@@ -1064,11 +1141,14 @@ class _CartScreenState extends State<CartScreen> {
                                                                           AlertDialog(
                                                                     title: Text(
                                                                       'Select Payment',
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .black,
-                                                                          fontSize:
-                                                                              28),
+                                                                      style: Theme.of(
+                                                                              context)
+                                                                          .primaryTextTheme
+                                                                          .headline6
+                                                                          .copyWith(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: Colors.black,
+                                                                              fontSize: 24),
                                                                     ),
                                                                     shape: RoundedRectangleBorder(
                                                                         borderRadius:
@@ -1204,8 +1284,11 @@ class _CartScreenState extends State<CartScreen> {
                                       },
                                       child: Text(
                                         "Checkout",
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 24),
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .headline6
+                                            .copyWith(
+                                                fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                   )
@@ -1217,6 +1300,6 @@ class _CartScreenState extends State<CartScreen> {
                 ),
               ],
             ),
-    );
+          );
   }
 }
