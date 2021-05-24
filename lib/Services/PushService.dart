@@ -54,4 +54,22 @@ class PushService {
       return response.body;
     }
   }
+
+  static Future<bool> sendToAdmin(
+      String title, String message, String topic) async {
+    final Map<String, String> headers = {"Content-Type": "application/json"};
+    var body = jsonEncode(
+      {"title": title, "message": message, "topic": topic},
+    );
+    http.Response response = await http.post(
+        Uri.parse("http://64.225.85.5/notification/allDevice"),
+        headers: headers,
+        body: body);
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

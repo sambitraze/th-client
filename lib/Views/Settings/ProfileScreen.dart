@@ -278,7 +278,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   Text(
-                    'V 1.0.5+11',
+                    'V 1.0.7+13',
                     style:Theme.of(context).primaryTextTheme.caption.copyWith(fontWeight: FontWeight.bold, color: Colors.black),
                   ),
                 ],

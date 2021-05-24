@@ -23,23 +23,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6bf993de-b6cf-42be-ab8a-172f7151a02e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/LandingScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/LandingScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Auth/loginScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Auth/loginScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Services/PushService.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Services/PushService.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Views/Cart/CartScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Cart/CartScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/DineIn/DineInScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/DineIn/DineInScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/DineIn/newDineIn.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/DineIn/newDineIn.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/HomeScreen/HomeScree.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/HomeScreen/HomeScree.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/HomeScreen/MenuScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/HomeScreen/MenuScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/HomeScreen/search/ItemSearch.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/HomeScreen/search/ItemSearch.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Maps/mapscreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Maps/mapscreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Menu/ItemListScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Menu/ItemListScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Settings/ManageAddress.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Settings/ManageAddress.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Views/Settings/OrderHistory.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Settings/OrderHistory.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Views/Settings/ProfileScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Settings/ProfileScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Views/Settings/orderDetialScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Views/Settings/orderDetialScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +61,7 @@
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Propview-App" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../thw" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
@@ -133,13 +122,13 @@
     <state x="100" y="100" width="1069" height="880" key="AVDManager/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1620705874341" />
     <state x="100" y="100" width="1069" height="880" key="AVDManager/-1920.2.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1616257623770" />
     <state x="100" y="100" width="1069" height="880" key="AVDManager/0.0.1920.1080@0.0.1920.1080" timestamp="1619958976312" />
-    <state x="740" y="295" width="432" height="489" key="FileChooserDialogImpl" timestamp="1619958974418">
+    <state x="740" y="295" width="432" height="489" key="FileChooserDialogImpl" timestamp="1621654378615">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="740" y="295" key="FileChooserDialogImpl/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1619612019434" />
     <state x="740" y="295" key="FileChooserDialogImpl/-1920.1.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1616932251895" />
     <state x="740" y="295" key="FileChooserDialogImpl/-1920.2.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1616246809643" />
-    <state x="740" y="295" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1619958974418" />
+    <state x="740" y="295" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1621654378615" />
     <state x="740" y="295" key="FileChooserDialogImpl/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1617986176757" />
     <state x="2660" y="295" width="432" height="489" key="FileChooserDialogImpl/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1617518346734" />
     <state x="2660" y="295" key="FileChooserDialogImpl/1920.0.1920.1080/0.28.1920.1052@1920.0.1920.1080" timestamp="1616440900207" />
@@ -200,9 +189,10 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2540" y="246" key="run.anything.popup/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1617039600106" />
-    <state x="2410" y="237" key="search.everywhere.popup" timestamp="1616473208487">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state x="490" y="237" width="672" height="678" key="search.everywhere.popup" timestamp="1621846790781">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
+    <state x="490" y="237" width="672" height="678" key="search.everywhere.popup/-1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1621846790781" />
     <state x="2410" y="237" key="search.everywhere.popup/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1616473208487" />
   </component>
 </project>

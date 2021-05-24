@@ -202,7 +202,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 ),
                 Padding(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
+                      const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -244,12 +244,11 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     child: Text(
                       "Deliver to",
                       style: GoogleFonts.lato(
-                        textStyle: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black,
-                        )
-                      ),
+                          textStyle: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black,
+                      )),
                     ),
                   ),
                   subtitle: Text(
@@ -528,22 +527,64 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                 borderRadius: BorderRadius.circular(12)),
                             color: Colors.redAccent,
                             onPressed: () {
-                              if (DateTime.now()
-                                      .difference(
-                                          DateFormat("yy-MM-dd HH:mm:SSS")
-                                              .parse(order.createdAt.toString(),
-                                                  true)
-                                              .toLocal())
-                                      .inMinutes >
-                                  10) {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>PenaltyUPI(order: order,)));
-                              } else {
-                                setState(() {
-                                  order.status = "cancelled";
-                                });
-                                OrderService.updateOrder(
-                                    jsonEncode(order.toJson()));
-                              }
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                        title: Text(
+                                          "Alert",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline5,
+                                        ),
+                                        content: Text(
+                                          "Do You want to cancel your order ?",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1
+                                              .copyWith(fontSize: 16),
+                                        ),
+                                        actions: [
+                                          MaterialButton(
+                                            onPressed: () {
+                                              if (DateTime.now()
+                                                      .difference(DateFormat(
+                                                              "yy-MM-dd HH:mm:SSS")
+                                                          .parse(
+                                                              order.createdAt
+                                                                  .toString(),
+                                                              true)
+                                                          .toLocal())
+                                                      .inMinutes >
+                                                  10) {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            PenaltyUPI(
+                                                              order: order,
+                                                            )));
+                                              } else {
+                                                setState(() {
+                                                  order.status = "cancelled";
+                                                });
+                                                OrderService.updateOrder(
+                                                    jsonEncode(order.toJson()));
+                                              }
+                                            },
+                                            child: Text(
+                                              "Yes",
+                                            ),
+                                          ),
+                                          MaterialButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text(
+                                              "No",
+                                            ),
+                                          ),
+                                        ],
+                                      ));
                             },
                             child: Text(
                               'Cancel',
@@ -552,7 +593,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                 textStyle: TextStyle(
                                   fontSize: 17,
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.black,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
