@@ -57,14 +57,14 @@ class _PenaltyUPIState extends State<PenaltyUPI> {
           (int.parse(widget.order.deliveryby.assigned) + 1).toString();
     });
     await DeliveryBoyService.updateDeliveryBoy(
-       jsonEncode( widget.order.deliveryby.toJson()));
+        jsonEncode(widget.order.deliveryby.toJson()));
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (BuildContext context) => LandingScreen()),
       ModalRoute.withName('/'),
     );
     await PushService.sendPushToSelf("Order Update !!!",
-        "Your order no : ${widget.order.orderId} is placed succesfully");
+        "Your order no : ${widget.order.orderId} is placed successfully");
     // await PushService.sendPushToVendor("New Update !!!",
     //     "New Order : ${widget.order.orderId} ", widget.vendor.deviceToken);
   }
@@ -118,14 +118,20 @@ class _PenaltyUPIState extends State<PenaltyUPI> {
                                       LandingScreen()),
                               ModalRoute.withName('/'),
                             );
-                          PushService.sendPushToSelf("Payament Failed", "Your payment failed order cancellation failed.");
+                            PushService.sendPushToSelf("Payment Failed",
+                                "Your payment failed order cancellation failed.");
                           }
                           if (flutterUpiResponse.Status == "SUCCESS") {
                             setState(() {
                               widget.order.status = "cancelled";
                             });
-                          PushService.sendPushToSelf("Payament successfull", "Your payment proccessed order cancellation successfull.");
-                          Navigator.pushAndRemoveUntil(
+                            PushService.sendPushToSelf("Payment successful",
+                                "Your payment processed order cancellation successful.");
+                            PushService.sendToAdmin(
+                                "Order Update !!!",
+                                "An order no : ${widget.order.orderId}  has been added to cancelled by user",
+                                "test");
+                            Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
                                   builder: (BuildContext context) =>

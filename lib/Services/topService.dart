@@ -7,7 +7,7 @@ class TopService {
   // ignore: missing_return
   static Future<List<Top>> getTops() async {
     http.Response response = await http.get(
-      Uri.parse("http://64.225.85.5/top/"),
+      Uri.parse("https://tandoorhut.co/top/"),
       headers: {"Content-Type": "application/json"},
     );
     if (response.statusCode == 200) {

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:client/Services/PushService.dart';
 import 'package:client/Services/orderService.dart';
 import 'package:client/Views/Maps/mapscreen.dart';
 import 'package:client/Views/UPI/penanltyupi.dart';
@@ -545,7 +546,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                         ),
                                         actions: [
                                           MaterialButton(
-                                            onPressed: () {
+                                            onPressed: () async {
                                               if (DateTime.now()
                                                       .difference(DateFormat(
                                                               "yy-MM-dd HH:mm:SSS")
@@ -569,6 +570,11 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                                 });
                                                 OrderService.updateOrder(
                                                     jsonEncode(order.toJson()));
+
+                                                await PushService.sendToAdmin(
+                                                    "Order Update !!!",
+                                                    "An order no : ${order.orderId}  has been added to cancelled by user",
+                                                    "test");
                                               }
                                             },
                                             child: Text(

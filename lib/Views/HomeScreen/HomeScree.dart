@@ -1,12 +1,10 @@
 import 'package:client/Services/UserService.dart';
 import 'package:client/Services/offerSerivce.dart';
 import 'package:client/Services/topService.dart';
-import 'package:client/Views/Cart/CartScreen.dart';
 import 'package:client/Views/HomeScreen/MenuScreen.dart';
 import 'package:client/Views/Settings/ManageAddress.dart';
 import 'package:client/Views/Settings/ProfileScreen.dart';
 import 'package:client/models/User.dart';
-import 'package:client/models/cartItem.dart';
 import 'package:client/models/offers.dart';
 import 'package:client/models/top.dart';
 import 'package:flutter/material.dart';

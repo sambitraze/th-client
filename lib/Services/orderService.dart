@@ -8,7 +8,7 @@ import 'UserService.dart';
 class OrderService {
   static Future createOrder(payload) async {
     http.Response response = await http.post(
-      Uri.parse("http://64.225.85.5/order/create"),
+      Uri.parse("https://tandoorhut.co/order/create"),
       headers: {"Content-Type": "application/json"},
       body: payload,
     );
@@ -27,7 +27,7 @@ class OrderService {
 
   static Future updateOrder(payload) async {
     http.Response response = await http.put(
-      Uri.parse("http://64.225.85.5/order/update"),
+      Uri.parse("https://tandoorhut.co/order/update"),
       headers: {"Content-Type": "application/json"},
       body: payload,
     );
@@ -60,7 +60,7 @@ class OrderService {
   // }
   static Future getAllOrdersById(id) async {
     http.Response response = await http.post(
-      Uri.parse("http://64.225.85.5/order/id"),
+      Uri.parse("https://tandoorhut.co/order/id"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({"id":id})
     );

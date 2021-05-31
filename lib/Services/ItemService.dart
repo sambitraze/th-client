@@ -6,7 +6,7 @@ class ItemService {
   // ignore: missing_return
   static Future<List<Item>> getItems() async {
     http.Response response = await http.get(
-      Uri.parse("http://64.225.85.5/item/"),
+      Uri.parse("https://tandoorhut.co/item/"),
       headers: {"Content-Type": "application/json"},
     );
     if (response.statusCode == 200) {

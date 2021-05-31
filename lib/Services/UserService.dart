@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UserService {
   // ignore: missing_return
   static Future<User> createUser(payload) async {
-    http.Response response = await http.post(Uri.parse("http://64.225.85.5/user/create"),
+    http.Response response = await http.post(Uri.parse("https://tandoorhut.co/user/create"),
         headers: {"Content-Type": "application/json"}, body: payload);
     if (response.statusCode == 200) {
       var responseMap = json.decode(response.body);
@@ -22,7 +22,7 @@ class UserService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String id = prefs.getString("id");
     http.Response response = await http.get(
-      Uri.parse("http://64.225.85.5/user/$id"),
+      Uri.parse("https://tandoorhut.co/user/$id"),
       headers: {"Content-Type": "application/json"},
     );
     if (response.statusCode == 200) {
@@ -39,7 +39,7 @@ class UserService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String phone = prefs.getString("phoneNo");
     http.Response response = await http.post(
-        Uri.parse("http://64.225.85.5/user/number/"),
+        Uri.parse("https://tandoorhut.co/user/number/"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({"phone": phone}));
     if (response.statusCode == 200) {
@@ -54,7 +54,7 @@ class UserService {
   static Future<bool> userchk(phone) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     http.Response response = await http.post(
-        Uri.parse("http://64.225.85.5/user/number/"),
+        Uri.parse("https://tandoorhut.co/user/number/"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({"phone": phone}));
     if (response.statusCode == 200) {
@@ -68,7 +68,7 @@ class UserService {
   // ignore: missing_return
   static Future<bool> updateUser(User user) async {
     http.Response response = await http.put(
-      Uri.parse("http://64.225.85.5/user/update/${user.id}"),
+      Uri.parse("https://tandoorhut.co/user/update/${user.id}"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(
         user.toJson(),

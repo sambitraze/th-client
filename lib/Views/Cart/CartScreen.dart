@@ -12,7 +12,6 @@ import 'package:client/models/User.dart';
 import 'package:client/models/deliveryBoy.dart';
 import 'package:client/models/offers.dart';
 import 'package:client/models/order.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stepper_counter_swipe/stepper_counter_swipe.dart';
@@ -1035,6 +1034,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                                   items: user.cart,
                                                                                   orderId: genOrderNo(),
                                                                                   customer: user,
+                                                                                  status: "unconfirmed",
                                                                                   custName: user.name,
                                                                                   custNumber: user.phone,
                                                                                   paymentType: "UPI",
@@ -1221,6 +1221,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                                   custNumber: user.phone,
                                                                                   paymentType: "UPI",
                                                                                   orderType: "Delivery",
+                                                                                  status: "unconfirmed",
                                                                                   amount: itemsum.toString(),
                                                                                   packing: "0",
                                                                                   gst: gstCharge.toString(),
@@ -1266,7 +1267,23 @@ class _CartScreenState extends State<CartScreen> {
                                                                                 () async {
                                                                               Order order;
                                                                               setState(() {
-                                                                                order = Order(items: user.cart, orderId: genOrderNo(), customer: user, custName: user.name, custNumber: user.phone, deliveryby: tempDeliveryBoys[0], paymentType: "COD", status: "unconfirmed", orderType: "Delivery", paid: false, amount: itemsum.toString(), packing: "0", gst: gstCharge.toString(), gstRate: gstper.toString(), txtId: "COD");
+                                                                                order = Order(
+                                                                                  items: user.cart,
+                                                                                  orderId: genOrderNo(),
+                                                                                  customer: user,
+                                                                                  custName: user.name,
+                                                                                  custNumber: user.phone,
+                                                                                  deliveryby: tempDeliveryBoys[0],
+                                                                                  paymentType: "COD",
+                                                                                  status: "unconfirmed",
+                                                                                  orderType: "Delivery",
+                                                                                  paid: false,
+                                                                                  amount: itemsum.toString(),
+                                                                                  packing: "0",
+                                                                                  gst: gstCharge.toString(),
+                                                                                  gstRate: gstper.toString(),
+                                                                                  txtId: "COD",
+                                                                                );
                                                                               });
                                                                               await OrderService.createOrder(jsonEncode(order.toJson()));
 

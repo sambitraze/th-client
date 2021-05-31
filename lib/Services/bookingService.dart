@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 class BookingService {
   static Future createBooking(payload) async {
     http.Response response = await http.post(
-      Uri.parse("http://64.225.85.5/booking/create"),
+      Uri.parse("https://tandoorhut.co/booking/create"),
       headers: {"Content-Type": "application/json"},
       body: payload,
     );
@@ -21,7 +21,7 @@ class BookingService {
 
   static Future updateBooking(payload) async {
     http.Response response = await http.put(
-      Uri.parse("http://64.225.85.5/booking/update"),
+      Uri.parse("https://tandoorhut.co/booking/update"),
       headers: {"Content-Type": "application/json"},
       body: payload,
     );
@@ -37,7 +37,7 @@ class BookingService {
 
   static Future getTodayBookingByUserId(customer, date) async {
     http.Response response = await http.post(
-      Uri.parse("http://64.225.85.5/booking/user/today"),
+      Uri.parse("https://tandoorhut.co/booking/user/today"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({"customer": customer, "date": date}),
     );
@@ -55,7 +55,7 @@ class BookingService {
 
   static Future getPastBookingByUserIdCount(skip, limit, customer, date) async {
     http.Response response = await http.post(
-      Uri.parse("http://64.225.85.5/booking/user/past"),
+      Uri.parse("https://tandoorhut.co/booking/user/past"),
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(
           {"skip": skip, "limit": limit, "customer": customer, "date": date}),
