@@ -41,9 +41,6 @@ class _ItemListScreenState extends State<ItemListScreen> {
   }
 
   add2cart() async {
-    setState(() {
-      user.name = "sam";
-    });
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
