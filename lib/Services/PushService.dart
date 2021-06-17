@@ -12,6 +12,7 @@ class PushService {
     await _fcm.subscribeToTopic("offers");
     String deviceToken = await _fcm.getToken();
     pref.setString("deviceToken", deviceToken);
+    print(deviceToken);
     User user = await UserService.getUserByPhone();
     user.deviceToken = deviceToken;
     await UserService.updateUser(user);

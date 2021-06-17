@@ -9,29 +9,39 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Tandoor Hut',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        primaryTextTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme).copyWith(
-            bodyText1: GoogleFonts.poppins(color: Colors.white),
-            bodyText2: GoogleFonts.poppins(color: Colors.white),
-            headline2: GoogleFonts.lato(color: Colors.white),
-            headline3: GoogleFonts.lato(color: Colors.white),
-            headline4: GoogleFonts.lato(color: Colors.white),
-            headline5: GoogleFonts.lato(color: Colors.white),
-            headline6: GoogleFonts.lato(color: Colors.white),
-            subtitle1: GoogleFonts.poppins(color: Colors.white),
-            subtitle2: GoogleFonts.poppins(color: Colors.white),
-            button: GoogleFonts.poppins(color: Colors.white),
-            caption: GoogleFonts.poppins(color: Colors.white)
-        )
-      ),
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          primaryTextTheme:
+              GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
+                  .copyWith(
+                      bodyText1: GoogleFonts.poppins(color: Colors.white),
+                      bodyText2: GoogleFonts.poppins(color: Colors.white),
+                      headline2: GoogleFonts.lato(color: Colors.white),
+                      headline3: GoogleFonts.lato(color: Colors.white),
+                      headline4: GoogleFonts.lato(color: Colors.white),
+                      headline5: GoogleFonts.lato(color: Colors.white),
+                      headline6: GoogleFonts.lato(color: Colors.white),
+                      subtitle1: GoogleFonts.poppins(color: Colors.white),
+                      subtitle2: GoogleFonts.poppins(color: Colors.white),
+                      button: GoogleFonts.poppins(color: Colors.white),
+                      caption: GoogleFonts.poppins(color: Colors.white))),
       home: SplashScreen(),
     );
   }

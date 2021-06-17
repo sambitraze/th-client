@@ -10,6 +10,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import 'Views/Settings/OrderHistory.dart';
+
 class LandingScreen extends StatefulWidget {
   @override
   _LandingScreenState createState() => _LandingScreenState();
@@ -28,26 +30,35 @@ class _LandingScreenState extends State<LandingScreen> {
   void initState() {
     PushService.genTokenID();
     super.initState();
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification notification = message.notification;
-      AndroidNotification android = message.notification?.android;
-      if (notification != null && android != null) {
-        showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-                  title: Text(notification.title),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)),
-                  content: Text(notification.body),
-                  actions: <Widget>[
-                    MaterialButton(
-                      child: Text('Ok'),
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                  ],
-                ));
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      if (message.notification.body.toLowerCase().contains("order")) {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => OrderHistory()));
       }
     });
+    FirebaseMessaging.onMessage.listen(
+      (RemoteMessage message) {
+        RemoteNotification notification = message.notification;
+        AndroidNotification android = message.notification?.android;
+        if (notification != null && android != null) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text(notification.title),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
+              content: Text(notification.body),
+              actions: <Widget>[
+                MaterialButton(
+                  child: Text('Ok'),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ],
+            ),
+          );
+        }
+      },
+    );
   }
 
   @override
